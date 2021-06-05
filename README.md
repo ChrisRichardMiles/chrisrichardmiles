@@ -2,8 +2,6 @@
 > Helpful tools for machine learning and coding.
 
 
-This file will become your README and also the index of your documentation.
-
 ## Install
 
 `pip install chrisrichardmiles`
@@ -11,10 +9,6 @@ This file will become your README and also the index of your documentation.
 ## How to use
 
 Simply import functions youd like to use and use them.
-
-```python
-from chrisrichardmiles.core import dict_to_str
-```
 
 ```python
 dict_to_str(d={
