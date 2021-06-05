@@ -10,7 +10,7 @@
 
 Simply import functions youd like to use and use them.
 
-```python
+```
 dict_to_str(d={
     'name': 'f1',
     'foo': 3,
