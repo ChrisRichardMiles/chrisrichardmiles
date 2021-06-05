@@ -65,3 +65,7 @@ baseurl: /chrisrichardmiles/
 # =======
 theme: jekyll-theme-midnight
 # >>>>>>> 37c48dfb9e2d8229f07e2019008a14091fa454e0
+
+# This specifies what badges are turned on by default for notebook docs.
+default_badges:
+  colab: true
