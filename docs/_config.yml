@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-repository: chrisrichardmiles/chrisrichardmiles
+# <<<<<<< HEAD
+repository: ChrisRichardMiles/chrisrichardmiles
 output: web
 topnav_title: chrisrichardmiles
 site_title: chrisrichardmiles
@@ -62,6 +62,6 @@ sidebars:
 
 theme: jekyll-theme-cayman
 baseurl: /chrisrichardmiles/
-=======
+# =======
 theme: jekyll-theme-midnight
->>>>>>> 37c48dfb9e2d8229f07e2019008a14091fa454e0
+# >>>>>>> 37c48dfb9e2d8229f07e2019008a14091fa454e0
