@@ -24,9 +24,14 @@ exclude:
  
 exclude: [vendor]
 
+# This specifies what badges are turned on by default for notebook docs.
+default_badges:
+  colab: true
+
 highlighter: rouge
 markdown: kramdown
 kramdown:
+ math_engine: katex  # Added to match nbdev repo
  input: GFM
  auto_ids: true
  hard_wrap: false
@@ -57,15 +62,22 @@ defaults:
       search: true
       tooltip: true
 
-sidebars:
-- home_sidebar
+######### Copying nbdev repo ##########
+sidebars: [home_sidebar]  
+baseurl: /
+plugins:
+    - jekyll-remote-theme
+    
+remote_theme: fastai/nbdev-jekyll-theme
 
-theme: jekyll-theme-cayman
-baseurl: /chrisrichardmiles/
-# =======
-theme: jekyll-theme-midnight
+############### Old way ###############
+# sidebars:               
+# - home_sidebar
+
+# theme: jekyll-theme-cayman
+# baseurl: /chrisrichardmiles/
+# # =======
+# theme: jekyll-theme-midnight
 # >>>>>>> 37c48dfb9e2d8229f07e2019008a14091fa454e0
 
-# This specifies what badges are turned on by default for notebook docs.
-default_badges:
-  colab: true
+
