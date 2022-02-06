@@ -57,10 +57,6 @@ index = {"mkdirs_data": "00_core.ipynb",
          "plot_item_series": "04_out_of_stock_detection.ipynb",
          "plot_all_item_series": "04_out_of_stock_detection.ipynb",
          "make_oos_data": "04_out_of_stock_detection.ipynb",
-         "test_add": "scripts.ipynb",
-         "test": "scripts.ipynb",
-         "make_data_dir": "scripts.ipynb",
-         "hello_world": "scripts.ipynb",
          "main": "training_day_by_day_models.ipynb",
          "lgb_daily": "training_day_by_day_models.ipynb"}
 
@@ -68,7 +64,6 @@ modules = ["core.py",
            "m5/metric.py",
            "m5/fe.py",
            "m5/oos.py",
-           "scripts.py",
            "m5/daily_models.py"]
 
 doc_url = "https://ChrisRichardMiles.github.io/chrisrichardmiles/"

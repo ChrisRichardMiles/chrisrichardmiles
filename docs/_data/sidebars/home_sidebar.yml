@@ -24,9 +24,6 @@ entries:
     - output: web,pdf
       title: Title
       url: training_day_by_day_models.html
-    - output: web,pdf
-      title: Scripts
-      url: scripts.html
     output: web
     title: chrisrichardmiles
   output: web
