@@ -1,6 +1,11 @@
 {
   "chrisrichardmiles": {
     "Overview": "/",
-    "Core": "core.html"
+    "Core": "core.html",
+    "Brief EDA  ": "brief_eda.html",
+    "WRMSSE metric implementation": "WRMSSE_metric.html",
+    "Feature engineering": "feature_engineering.html",
+    "Title": "training_day_by_day_models.html",
+    "Scripts": "scripts.html"
   }
 }
