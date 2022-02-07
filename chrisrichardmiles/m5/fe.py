@@ -127,8 +127,6 @@ def create_price_fe(df_prices):
     # indicate if the product is on sale or clearance.
     df_prices['price_end_digits'] = ((df_prices.sell_price - np.floor(df_prices.sell_price)) * 100).astype('float16')
 
-    ######## Reduce memory ###############
-#     df_prices = reduce_mem_usage(df_prices)
     logging.info(time_taken(start_time))
     return df_prices
 
