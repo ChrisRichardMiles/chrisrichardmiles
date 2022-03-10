@@ -61,15 +61,16 @@ nb_path: "00_core.ipynb"
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
-<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span><span class="p">,</span> <span class="n">cpu_count</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">psutil</span>
 <span class="kn">from</span> <span class="nn">fastcore.script</span> <span class="kn">import</span> <span class="n">call_parse</span><span class="p">,</span> <span class="n">Param</span>
+<span class="kn">from</span> <span class="nn">fastcore.parallel</span> <span class="kn">import</span> <span class="n">parallel</span>
 </pre></div>
 
     </div>
@@ -96,7 +97,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="mkdirs_data" class="doc_header"><code>mkdirs_data</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L26" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>mkdirs_data</code>(<strong><code>data_dir_name</code></strong>:"Name of data folder"=<em><code>'data'</code></em>)</p>
+<h4 id="mkdirs_data" class="doc_header"><code>mkdirs_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L28" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>mkdirs_data</code>(<strong><code>data_dir_name</code></strong>:<code>str</code>=<em><code>'data'</code></em>)</p>
 </blockquote>
 <p>Initializes the data directory structure</p>
 
@@ -121,7 +122,31 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="cp_tree" class="doc_header"><code>cp_tree</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L34" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cp_tree</code>(<strong><code>dir1</code></strong>:"path to directory to copy", <strong><code>dir2</code></strong>:"path to endpoint")</p>
+<h4 id="cli_mkdirs_data" class="doc_header"><code>cli_mkdirs_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L35" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cli_mkdirs_data</code>(<strong><code>data_dir_name</code></strong>:"Name of data folder"=<em><code>'data'</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="cp_tree" class="doc_header"><code>cp_tree</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L39" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cp_tree</code>(<strong><code>dir1</code></strong>:"path to directory to copy", <strong><code>dir2</code></strong>:"path to endpoint")</p>
 </blockquote>
 
 </div>
@@ -141,14 +166,17 @@ nb_path: "00_core.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@call_parse</span>
-<span class="k">def</span> <span class="nf">mkdirs_data</span><span class="p">(</span><span class="n">data_dir_name</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;Name of data folder&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">mkdirs_data</span><span class="p">(</span><span class="n">data_dir_name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> 
     <span class="sd">&quot;&quot;&quot;Initializes the data directory structure&quot;&quot;&quot;</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/raw&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/interim&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/features&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/models&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
-
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/models&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+<span class="nd">@call_parse</span>
+<span class="k">def</span> <span class="nf">cli_mkdirs_data</span><span class="p">(</span><span class="n">data_dir_name</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;Name of data folder&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> 
+    <span class="n">mkdirs_data</span><span class="p">(</span><span class="n">data_dir_name</span><span class="p">)</span>
+    
 <span class="nd">@call_parse</span>
 <span class="k">def</span> <span class="nf">cp_tree</span><span class="p">(</span><span class="n">dir1</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;path to directory to copy&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span> 
             <span class="n">dir2</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;path to endpoint&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span> 
@@ -158,6 +186,62 @@ nb_path: "00_core.ipynb"
     </div>
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="download_kaggle_data" class="doc_header"><code>download_kaggle_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L45" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>download_kaggle_data</code>(<strong><code>comp_name</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>Downloads competition data using the kaggle api</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="cli_download_kaggle_data" class="doc_header"><code>cli_download_kaggle_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L53" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cli_download_kaggle_data</code>(<strong><code>comp_name</code></strong>:"name of kaggle competition"=<em><code>None</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -186,7 +270,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="make_unique" class="doc_header"><code>make_unique</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L40" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_unique</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>names</code></strong>:<code>list or set or dict</code>)</p>
+<h4 id="make_unique" class="doc_header"><code>make_unique</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L58" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_unique</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>names</code></strong>:<code>list or set or dict</code>)</p>
 </blockquote>
 <p>Returns name with (x)_ prefix if <code>name</code> already in <code>names</code>.
 This is useful when you want to make sure you don't save over
@@ -327,7 +411,7 @@ existing data with the same key <code>name</code>.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="make_unique_path" class="doc_header"><code>make_unique_path</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L52" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_unique_path</code>(<strong><code>path</code></strong>)</p>
+<h4 id="make_unique_path" class="doc_header"><code>make_unique_path</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_unique_path</code>(<strong><code>path</code></strong>)</p>
 </blockquote>
 <p>Returns path with prefix '(n)_' before the last element in
 path if it is a duplicate.</p>
@@ -418,7 +502,7 @@ tmp/(1)_tmp.csv
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="save_file" class="doc_header"><code>save_file</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L61" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>save_file</code>(<strong><code>df</code></strong>:<code>DataFrame</code>, <strong><code>path</code></strong>:<code>str</code>, <strong><code>usecols</code></strong>:<code>list</code>=<em><code>None</code></em>, <strong><code>save_index</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>save_dtypes</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>pickle</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+<h4 id="save_file" class="doc_header"><code>save_file</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L79" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>save_file</code>(<strong><code>df</code></strong>:<code>DataFrame</code>, <strong><code>path</code></strong>:<code>str</code>, <strong><code>usecols</code></strong>:<code>list</code>=<em><code>None</code></em>, <strong><code>save_index</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>save_dtypes</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>pickle</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Saves <code>df</code> to <code>path</code> with dtypes as top column if <code>save_dtypes</code>
 is set to True. Load a files in this structure with <a href="/chrisrichardmiles/core.html#load_file"><code>load_file</code></a></p>
@@ -444,7 +528,7 @@ is set to True. Load a files in this structure with <a href="/chrisrichardmiles/
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="load_file" class="doc_header"><code>load_file</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L90" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_file</code>(<strong><code>path</code></strong>:<code>str</code>, <strong><code>load_dtypes</code></strong>=<em><code>True</code></em>, <strong><code>usecols</code></strong>:<code>list</code>=<em><code>None</code></em>)</p>
+<h4 id="load_file" class="doc_header"><code>load_file</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L108" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_file</code>(<strong><code>path</code></strong>:<code>str</code>, <strong><code>load_dtypes</code></strong>=<em><code>True</code></em>, <strong><code>usecols</code></strong>:<code>list</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Loads a file into a DataFrame from <code>path</code> with dtypes
 taken from the top column if <code>load_dtypes</code> is set to True.
@@ -578,8 +662,7 @@ dtype: object</pre>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea ">
-<div>
+<div class="output_html rendered_html output_subarea "><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -623,8 +706,7 @@ dtype: object</pre>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -639,8 +721,7 @@ dtype: object</pre>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea ">
-<div>
+<div class="output_html rendered_html output_subarea "><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -678,8 +759,7 @@ dtype: object</pre>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -724,8 +804,7 @@ dtype: object</pre>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea ">
-<div>
+<div class="output_html rendered_html output_subarea "><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -763,8 +842,7 @@ dtype: object</pre>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -795,8 +873,7 @@ dtype: object</pre>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -834,8 +911,7 @@ dtype: object</pre>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -903,6 +979,8 @@ LICENSE
 MANIFEST.in
 Makefile
 README.md
+chrisrichardmiles
+chrisrichardmiles.egg-info
 data
 docker-compose.yml
 docs
@@ -933,7 +1011,7 @@ small_data
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_file_cols_dict" class="doc_header"><code>get_file_cols_dict</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L106" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_file_cols_dict</code>(<strong><code>path</code></strong>:<code>str</code>=<em><code>'.'</code></em>, <strong><code>path_json</code></strong>:<code>str</code>=<em><code>''</code></em>, <strong><code>ignore_cols</code></strong>:<code>list</code>=<em><code>['index']</code></em>)</p>
+<h4 id="get_file_cols_dict" class="doc_header"><code>get_file_cols_dict</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L124" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_file_cols_dict</code>(<strong><code>path</code></strong>:<code>str</code>=<em><code>'.'</code></em>, <strong><code>path_json</code></strong>:<code>str</code>=<em><code>''</code></em>, <strong><code>ignore_cols</code></strong>:<code>list</code>=<em><code>['index']</code></em>)</p>
 </blockquote>
 <p>Explores <code>path</code> and returns a dictionary of file names and their columns
 for each file in <code>path</code>. Only file names that end with
@@ -964,7 +1042,7 @@ value.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="fe_dict" class="doc_header"><code>fe_dict</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L130" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>fe_dict</code>(<strong><code>path</code></strong>:"path to directory with files"=<em><code>'data/features'</code></em>, <strong><code>path_json</code></strong>:"path to json for saving dict"=<em><code>'fe_dict.json'</code></em>)</p>
+<h4 id="fe_dict" class="doc_header"><code>fe_dict</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L148" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>fe_dict</code>(<strong><code>path</code></strong>:"path to directory with files"=<em><code>'data/features'</code></em>, <strong><code>path_json</code></strong>:"path to json for saving dict"=<em><code>'fe_dict.json'</code></em>)</p>
 </blockquote>
 
 </div>
@@ -1141,7 +1219,7 @@ value.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="load_features" class="doc_header"><code>load_features</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L136" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_features</code>(<strong><code>path_features</code></strong>:<code>Union</code>[<code>list</code>, <code>str</code>], <strong><code>dict_features</code></strong>:<code>Union</code>[<code>dict</code>, <code>str</code>]=<em><code>None</code></em>, <strong><code>shift_index</code></strong>:<code>int</code>=<em><code>0</code></em>, <strong><code>reindex_with</code></strong>:<code>list like</code>=<em><code>None</code></em>, <strong><code>shift_prefix</code></strong>:<code>Union</code>[<code>str</code>, <code>bool</code>]=<em><code>'shift'</code></em>, <strong><code>load_dtypes</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>features</code></strong>:<code>list</code>=<em><code>None</code></em>, <strong><code>pickle</code></strong>:<code>bool</code>=<em><code>True</code></em>)</p>
+<h4 id="load_features" class="doc_header"><code>load_features</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L154" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_features</code>(<strong><code>path_features</code></strong>:<code>Union</code>[<code>list</code>, <code>str</code>], <strong><code>dict_features</code></strong>:<code>Union</code>[<code>dict</code>, <code>str</code>]=<em><code>None</code></em>, <strong><code>shift_index</code></strong>:<code>int</code>=<em><code>0</code></em>, <strong><code>reindex_with</code></strong>:<code>list like</code>=<em><code>None</code></em>, <strong><code>shift_prefix</code></strong>:<code>Union</code>[<code>str</code>, <code>bool</code>]=<em><code>'shift'</code></em>, <strong><code>load_dtypes</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>features</code></strong>:<code>list</code>=<em><code>None</code></em>, <strong><code>pickle</code></strong>:<code>bool</code>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Loads the features selected in <code>dict_features</code> into a dataframe.
 <code>dict_features</code> Must be a module that is located in the working
@@ -1212,8 +1290,7 @@ directory.</p>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1318,8 +1395,7 @@ directory.</p>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -1351,8 +1427,7 @@ directory.</p>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea ">
-<div>
+<div class="output_html rendered_html output_subarea "><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1402,8 +1477,7 @@ directory.</p>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -1453,8 +1527,7 @@ dtype: object</pre>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1576,8 +1649,7 @@ dtype: object</pre>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -1614,8 +1686,7 @@ dtype: object</pre>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1686,8 +1757,7 @@ dtype: object</pre>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -1819,8 +1889,7 @@ dtype: object</pre>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1925,8 +1994,7 @@ dtype: object</pre>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -1977,7 +2045,7 @@ dtype: object</pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pool_func" class="doc_header"><code>pool_func</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L226" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pool_func</code>(<strong><code>function</code></strong>, <strong><code>input_list</code></strong>:<code>list</code>, <strong><code>verbose</code></strong>=<em><code>False</code></em>, <strong><code>n_cpu</code></strong>=<em><code>99</code></em>)</p>
+<h4 id="pool_func" class="doc_header"><code>pool_func</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L244" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pool_func</code>(<strong><code>function</code></strong>, <strong><code>input_list</code></strong>:<code>list</code>, <strong><code>verbose</code></strong>=<em><code>False</code></em>, <strong><code>n_cpu</code></strong>=<em><code>99</code></em>)</p>
 </blockquote>
 <p>Uses the Pool function from the package 'multiprocessing'
 to run <code>function</code> over the list <code>input_list</code>.  The <code>function</code>
@@ -2064,7 +2132,7 @@ Time taken: 0.0 minutes
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="reduce_mem_usage" class="doc_header"><code>reduce_mem_usage</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L253" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>reduce_mem_usage</code>(<strong><code>df</code></strong>, <strong><code>verbose</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="reduce_mem_usage" class="doc_header"><code>reduce_mem_usage</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L271" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>reduce_mem_usage</code>(<strong><code>df</code></strong>, <strong><code>verbose</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Converts numeric columns to smallest datatype that preserves information</p>
 
@@ -2096,7 +2164,7 @@ Time taken: 0.0 minutes
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="merge_by_concat" class="doc_header"><code>merge_by_concat</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L284" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>merge_by_concat</code>(<strong><code>df1</code></strong>, <strong><code>df2</code></strong>, <strong><code>merge_on</code></strong>)</p>
+<h4 id="merge_by_concat" class="doc_header"><code>merge_by_concat</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L302" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>merge_by_concat</code>(<strong><code>df1</code></strong>, <strong><code>df2</code></strong>, <strong><code>merge_on</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -2127,10 +2195,10 @@ Time taken: 0.0 minutes
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_memory_usage" class="doc_header"><code>get_memory_usage</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L293" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_memory_usage</code>()</p>
+<h4 id="get_memory_usage" class="doc_header"><code>get_memory_usage</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L311" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_memory_usage</code>()</p>
 </blockquote>
 <p>Returns RAM usage in gigabytes</p>
-<h2 id="Explanation-of-code">Explanation of code<a class="anchor-link" href="#Explanation-of-code"> </a></h2><h1 id="getpid:-gets-the-process-id-number.">getpid: gets the process id number.<a class="anchor-link" href="#getpid:-gets-the-process-id-number."> </a></h1><h1 id="psutil.process-gets-that-process-with-a-certain-pid.">psutil.process gets that process with a certain pid.<a class="anchor-link" href="#psutil.process-gets-that-process-with-a-certain-pid."> </a></h1><h1 id=".memory_info()-describes-notebook-memory-usage.">.memory_info() describes notebook memory usage.<a class="anchor-link" href="#.memory_info()-describes-notebook-memory-usage."> </a></h1><h1 id="[0]-gets-the-rss-resident-state-size-of-(process-I-think)-in-bytes.">[0] gets the rss resident state size of (process I think) in bytes.<a class="anchor-link" href="#[0]-gets-the-rss-resident-state-size-of-(process-I-think)-in-bytes."> </a></h1><h1 id="/2.**30-converts-output-from-bytes-to-gigabytes">/2.**30 converts output from bytes to gigabytes<a class="anchor-link" href="#/2.**30-converts-output-from-bytes-to-gigabytes"> </a></h1>
+<h2 id="Explanation-of-code">Explanation of code<a class="anchor-link" href="#Explanation-of-code"> </a></h2><h1 id="getpid:-gets-the-process-id-number.">getpid: gets the process id number.<a class="anchor-link" href="#getpid:-gets-the-process-id-number."> </a></h1><h1 id="psutil.process-gets-that-process-with-a-certain-pid.">psutil.process gets that process with a certain pid.<a class="anchor-link" href="#psutil.process-gets-that-process-with-a-certain-pid."> </a></h1><h1 id=".memory_info()-describes-notebook-memory-usage.">.memory_info() describes notebook memory usage.<a class="anchor-link" href="#.memory_info()-describes-notebook-memory-usage."> </a></h1><h1 id="%5B0%5D-gets-the-rss-resident-state-size-of-(process-I-think)-in-bytes.">[0] gets the rss resident state size of (process I think) in bytes.<a class="anchor-link" href="#%5B0%5D-gets-the-rss-resident-state-size-of-(process-I-think)-in-bytes."> </a></h1><h1 id="/2.**30-converts-output-from-bytes-to-gigabytes">/2.**30 converts output from bytes to gigabytes<a class="anchor-link" href="#/2.**30-converts-output-from-bytes-to-gigabytes"> </a></h1>
 </div>
 
 </div>
@@ -2152,7 +2220,7 @@ Time taken: 0.0 minutes
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="sizeof_fmt" class="doc_header"><code>sizeof_fmt</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L306" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sizeof_fmt</code>(<strong><code>num</code></strong>, <strong><code>suffix</code></strong>=<em><code>'B'</code></em>)</p>
+<h4 id="sizeof_fmt" class="doc_header"><code>sizeof_fmt</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L324" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sizeof_fmt</code>(<strong><code>num</code></strong>, <strong><code>suffix</code></strong>=<em><code>'B'</code></em>)</p>
 </blockquote>
 <p>Reformats <code>num</code>, which is num bytes</p>
 
@@ -2195,7 +2263,7 @@ Time taken: 0.0 minutes
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.13</pre>
+<pre>0.14</pre>
 </div>
 
 </div>
@@ -2217,7 +2285,7 @@ Time taken: 0.0 minutes
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="time_taken" class="doc_header"><code>time_taken</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L315" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>time_taken</code>(<strong><code>start_time</code></strong>:<code>float</code>=<em><code>0</code></em>, <strong><code>time_elapsed</code></strong>:<code>float</code>=<em><code>None</code></em>)</p>
+<h4 id="time_taken" class="doc_header"><code>time_taken</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L333" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>time_taken</code>(<strong><code>start_time</code></strong>:<code>float</code>=<em><code>0</code></em>, <strong><code>time_elapsed</code></strong>:<code>float</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Returns a string with the time elapsed from <code>start_time</code>
 in a nice format. If <code>time_elapsed</code> is provided, we ignore

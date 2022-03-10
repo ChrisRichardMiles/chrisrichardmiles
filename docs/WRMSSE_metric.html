@@ -223,7 +223,7 @@ column or columns.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_agg" class="doc_header"><code>get_agg</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_agg</code>(<strong><code>df_stv</code></strong>)</p>
+<h4 id="get_agg" class="doc_header"><code>get_agg</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_agg</code>(<strong><code>df_stv</code></strong>)</p>
 </blockquote>
 <p>Gets a sparse aggregaion matrix and index to align weights and scales.</p>
 
@@ -332,7 +332,7 @@ Name: level, dtype: int64</pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_df_weights" class="doc_header"><code>get_df_weights</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L50" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_df_weights</code>(<strong><code>df_stv</code></strong>, <strong><code>df_cal</code></strong>, <strong><code>df_prices</code></strong>, <strong><code>agg_index</code></strong>, <strong><code>agg_matrix_csr</code></strong>, <strong><code>start_test</code></strong>=<em><code>1914</code></em>)</p>
+<h4 id="get_df_weights" class="doc_header"><code>get_df_weights</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L50" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_df_weights</code>(<strong><code>df_stv</code></strong>, <strong><code>df_cal</code></strong>, <strong><code>df_prices</code></strong>, <strong><code>agg_index</code></strong>, <strong><code>agg_matrix_csr</code></strong>, <strong><code>start_test</code></strong>=<em><code>1914</code></em>)</p>
 </blockquote>
 <p>Returns the weight, scale, and scaled weight of all series,
 in a dataframe aligned with the agg_index, created in get_agg()</p>
@@ -416,8 +416,7 @@ adding scale and scaled_weight columns.</p>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea ">
-<div>
+<div class="output_html rendered_html output_subarea "><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -523,8 +522,7 @@ adding scale and scaled_weight columns.</p>
   </tbody>
 </table>
 <p>252 rows × 3 columns</p>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -539,8 +537,7 @@ adding scale and scaled_weight columns.</p>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -616,8 +613,7 @@ adding scale and scaled_weight columns.</p>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -675,8 +671,7 @@ Scores for all series
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea ">
-<div>
+<div class="output_html rendered_html output_subarea "><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -756,8 +751,7 @@ Scores for all series
   </tbody>
 </table>
 <p>252 rows × 1 columns</p>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -802,8 +796,7 @@ Scores for all series
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -921,8 +914,7 @@ Scores for all series
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -953,7 +945,7 @@ a single column as a unique identifier. I will also want to reverse this process
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="combine_cols" class="doc_header"><code>combine_cols</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L126" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>combine_cols</code>(<strong><code>df</code></strong>, <strong><code>cols</code></strong>:<code>list</code>, <strong><code>sep</code></strong>=<em><code>'__'</code></em>, <strong><code>name</code></strong>=<em><code>'id'</code></em>, <strong><code>reverse</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="combine_cols" class="doc_header"><code>combine_cols</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L126" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>combine_cols</code>(<strong><code>df</code></strong>, <strong><code>cols</code></strong>:<code>list</code>, <strong><code>sep</code></strong>=<em><code>'__'</code></em>, <strong><code>name</code></strong>=<em><code>'id'</code></em>, <strong><code>reverse</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Returns a copy of <code>df</code> with <code>cols</code> combined into a single coloumn <code>name</code>,
 separated by <code>sep</code>, or with the <code>name</code> column expanded into <code>cols</code> if <code>reverse</code> is True.</p>
@@ -1011,8 +1003,7 @@ separated by <code>sep</code>, or with the <code>name</code> column expanded int
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea ">
-<div>
+<div class="output_html rendered_html output_subarea "><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1052,8 +1043,7 @@ separated by <code>sep</code>, or with the <code>name</code> column expanded int
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -1068,8 +1058,7 @@ separated by <code>sep</code>, or with the <code>name</code> column expanded int
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea ">
-<div>
+<div class="output_html rendered_html output_subarea "><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1117,8 +1106,7 @@ separated by <code>sep</code>, or with the <code>name</code> column expanded int
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -1146,7 +1134,7 @@ separated by <code>sep</code>, or with the <code>name</code> column expanded int
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="append_df_unique_id" class="doc_header"><code>append_df_unique_id</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L140" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>append_df_unique_id</code>(<strong><code>df</code></strong>, <strong><code>df_new</code></strong>, <strong><code>id_col</code></strong>=<em><code>'id'</code></em>)</p>
+<h4 id="append_df_unique_id" class="doc_header"><code>append_df_unique_id</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L140" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>append_df_unique_id</code>(<strong><code>df</code></strong>, <strong><code>df_new</code></strong>, <strong><code>id_col</code></strong>=<em><code>'id'</code></em>)</p>
 </blockquote>
 <p>Returns a copy of df with df<em>new appended to it with '(n)</em>'
 prepended to the id_col if the new column value is already in
@@ -1204,8 +1192,7 @@ are not copies of a unique identifier.</p>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea ">
-<div>
+<div class="output_html rendered_html output_subarea "><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1290,8 +1277,7 @@ are not copies of a unique identifier.</p>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -1391,8 +1377,7 @@ are not copies of a unique identifier.</p>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea ">
-<div>
+<div class="output_html rendered_html output_subarea "><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1557,16 +1542,14 @@ are not copies of a unique identifier.</p>
   </tbody>
 </table>
 <p>5 rows × 29 columns</p>
-</div>
-</div>
+</div></div>
 
 </div>
 
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea ">
-<div>
+<div class="output_html rendered_html output_subarea "><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1731,8 +1714,7 @@ are not copies of a unique identifier.</p>
   </tbody>
 </table>
 <p>5 rows × 29 columns</p>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -1794,8 +1776,7 @@ are not copies of a unique identifier.</p>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2104,8 +2085,7 @@ are not copies of a unique identifier.</p>
   </tbody>
 </table>
 <p>140 rows × 29 columns</p>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -2149,7 +2129,7 @@ are not copies of a unique identifier.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="WRMSSE" class="doc_header"><code>class</code> <code>WRMSSE</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L164" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WRMSSE</code>(<strong><code>PATH_DATA_RAW</code></strong>:<code>str</code>=<em><code>'data/raw'</code></em>, <strong><code>start_test</code></strong>:<code>int</code>=<em><code>1914</code></em>, <strong><code>horizon</code></strong>:<code>int</code>=<em><code>28</code></em>, <strong><code>df_stv_trunc</code></strong>:<code>DataFrame</code>=<em><code>None</code></em>)</p>
+<h2 id="WRMSSE" class="doc_header"><code>class</code> <code>WRMSSE</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L164" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WRMSSE</code>(<strong><code>PATH_DATA_RAW</code></strong>:<code>str</code>=<em><code>'data/raw'</code></em>, <strong><code>start_test</code></strong>:<code>int</code>=<em><code>1914</code></em>, <strong><code>horizon</code></strong>:<code>int</code>=<em><code>28</code></em>, <strong><code>df_stv_trunc</code></strong>:<code>DataFrame</code>=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -2234,8 +2214,7 @@ are not copies of a unique identifier.</p>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2347,8 +2326,7 @@ are not copies of a unique identifier.</p>
   </tbody>
 </table>
 <p>70 rows × 4 columns</p>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -2456,8 +2434,7 @@ are not copies of a unique identifier.</p>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2547,8 +2524,7 @@ are not copies of a unique identifier.</p>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -2579,8 +2555,7 @@ are not copies of a unique identifier.</p>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2889,8 +2864,7 @@ are not copies of a unique identifier.</p>
   </tbody>
 </table>
 <p>140 rows × 29 columns</p>
-</div>
-</div>
+</div></div>
 
 </div>
 

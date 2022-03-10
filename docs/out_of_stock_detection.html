@@ -175,7 +175,7 @@ nb_path: "projects/m5/04_out_of_stock_detection.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_series_df" class="doc_header"><code>get_series_df</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L21" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_series_df</code>(<strong><code>train_df</code></strong>, <strong><code>rollup_matrix_csr</code></strong>, <strong><code>rollup_index</code></strong>, <strong><code>df_cal</code></strong>=<em><code>None</code></em>, <strong><code>fill_xmas</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="get_series_df" class="doc_header"><code>get_series_df</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L21" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_series_df</code>(<strong><code>train_df</code></strong>, <strong><code>rollup_matrix_csr</code></strong>, <strong><code>rollup_index</code></strong>, <strong><code>df_cal</code></strong>=<em><code>None</code></em>, <strong><code>fill_xmas</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Returns a dataframe with series for all 12 levels of aggregation. We also
 replace leading zeros with np.nan and if fill_xmas, replace christmas sales with average
@@ -202,7 +202,7 @@ of the day before and day after christmas</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_stats_df" class="doc_header"><code>get_stats_df</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L40" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_stats_df</code>(<strong><code>series_df</code></strong>)</p>
+<h4 id="get_stats_df" class="doc_header"><code>get_stats_df</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L40" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_stats_df</code>(<strong><code>series_df</code></strong>)</p>
 </blockquote>
 <p>Returns a dataframe that shows basic stats for all
 series in sereis_df.</p>
@@ -279,8 +279,7 @@ series in sereis_df.</p>
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -620,8 +619,7 @@ series in sereis_df.</p>
   </tbody>
 </table>
 <p>252 rows × 140 columns</p>
-</div>
-</div>
+</div></div>
 
 </div>
 
@@ -777,7 +775,7 @@ level 12 series.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_item_series" class="doc_header"><code>plot_item_series</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_item_series</code>(<strong><code>item</code></strong>, <strong><code>series_df</code></strong>, <strong><code>state</code></strong>=<em><code>None</code></em>, <strong><code>fillna</code></strong>=<em><code>False</code></em>, <strong><code>start</code></strong>=<em><code>0</code></em>, <strong><code>end</code></strong>=<em><code>1941</code></em>)</p>
+<h4 id="plot_item_series" class="doc_header"><code>plot_item_series</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_item_series</code>(<strong><code>item</code></strong>, <strong><code>series_df</code></strong>, <strong><code>state</code></strong>=<em><code>None</code></em>, <strong><code>fillna</code></strong>=<em><code>False</code></em>, <strong><code>start</code></strong>=<em><code>0</code></em>, <strong><code>end</code></strong>=<em><code>1941</code></em>)</p>
 </blockquote>
 <p>Plots the level 10-12 series containing the item</p>
 
@@ -802,7 +800,7 @@ level 12 series.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_all_item_series" class="doc_header"><code>plot_all_item_series</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L75" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_all_item_series</code>(<strong><code>item</code></strong>, <strong><code>series_df</code></strong>, <strong><code>fillna</code></strong>=<em><code>False</code></em>, <strong><code>start</code></strong>=<em><code>0</code></em>, <strong><code>end</code></strong>=<em><code>1941</code></em>)</p>
+<h4 id="plot_all_item_series" class="doc_header"><code>plot_all_item_series</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L75" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_all_item_series</code>(<strong><code>item</code></strong>, <strong><code>series_df</code></strong>, <strong><code>fillna</code></strong>=<em><code>False</code></em>, <strong><code>start</code></strong>=<em><code>0</code></em>, <strong><code>end</code></strong>=<em><code>1941</code></em>)</p>
 </blockquote>
 
 </div>
@@ -1061,7 +1059,7 @@ We will fill nan values with -20 so they stand out</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="make_oos_data" class="doc_header"><code>make_oos_data</code><a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L81" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_oos_data</code>(<strong><code>PATH_DATA_RAW</code></strong>:"Path to raw data"=<em><code>'data/raw'</code></em>, <strong><code>PATH_DATA_INTERIM</code></strong>:"Path to interim data"=<em><code>'data/interim'</code></em>)</p>
+<h4 id="make_oos_data" class="doc_header"><code>make_oos_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L81" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_oos_data</code>(<strong><code>PATH_DATA_RAW</code></strong>:"Path to raw data"=<em><code>'data/raw'</code></em>, <strong><code>PATH_DATA_INTERIM</code></strong>:"Path to interim data"=<em><code>'data/interim'</code></em>)</p>
 </blockquote>
 <p>Creates 2 csv files and stores them in the <code>PATH_DATA_INTERIM</code>.</p>
 <p>The first file is of all time series in the aggregation levels
@@ -1142,8 +1140,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1452,8 +1449,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
   </tbody>
 </table>
 <p>70 rows × 146 columns</p>
-</div>
-</div>
+</div></div>
 
 </div>
 

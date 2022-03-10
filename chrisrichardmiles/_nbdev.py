@@ -3,7 +3,10 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"mkdirs_data": "00_core.ipynb",
+         "cli_mkdirs_data": "00_core.ipynb",
          "cp_tree": "00_core.ipynb",
+         "download_kaggle_data": "00_core.ipynb",
+         "cli_download_kaggle_data": "00_core.ipynb",
          "make_unique": "00_core.ipynb",
          "make_unique_path": "00_core.ipynb",
          "save_file": "00_core.ipynb",
@@ -57,8 +60,11 @@ index = {"mkdirs_data": "00_core.ipynb",
          "plot_item_series": "04_out_of_stock_detection.ipynb",
          "plot_all_item_series": "04_out_of_stock_detection.ipynb",
          "make_oos_data": "04_out_of_stock_detection.ipynb",
-         "main": "training_day_by_day_models.ipynb",
-         "lgb_daily": "training_day_by_day_models.ipynb"}
+         "load_cfg": "training_day_by_day_models.ipynb",
+         "prep_data": "training_day_by_day_models.ipynb",
+         "neptune": "training_day_by_day_models.ipynb",
+         "lgb_daily": "training_day_by_day_models.ipynb",
+         "cli_lgb_daily": "training_day_by_day_models.ipynb"}
 
 modules = ["core.py",
            "m5/metric.py",
@@ -66,8 +72,8 @@ modules = ["core.py",
            "m5/oos.py",
            "m5/daily_models.py"]
 
-doc_url = "https://ChrisRichardMiles.github.io/chrisrichardmiles/"
+doc_url = "https://chrisrichardmiles.github.io/chrisrichardmiles/"
 
-git_url = "https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/"
+git_url = "https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/"
 
 def custom_doc_links(name): return None
