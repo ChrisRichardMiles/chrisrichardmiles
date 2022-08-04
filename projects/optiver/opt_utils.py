@@ -783,7 +783,3 @@ def p8(DATA_RAW, stock_id, train_or_test):
     df_agg['time_id'] = df_agg.time_id.apply(lambda x: f"{stock_id}-{x}")
     df_agg.rename({'time_id': 'row_id'}, axis=1, inplace=True)
     return df_agg.set_index('row_id')
-
-# %%
-
-# %% [code] {"jupyter": {"outputs_hidden": false}}
