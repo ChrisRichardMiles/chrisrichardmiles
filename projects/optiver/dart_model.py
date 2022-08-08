@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# In[1]:
-
-
+# %%
 import os
 import time
 import json
@@ -17,8 +14,6 @@ from lightgbm.callback import record_evaluation, CallbackEnv, EarlyStopException
 from lightgbm.basic import _log_info
 from opt_utils import *
 
-os.system('pip install neptune-client')
-os.system('pip install neptune-lightgbm')
 import neptune.new as neptune
 from neptune.new.integrations.lightgbm import create_booster_summary
 from kaggle_secrets import UserSecretsClient
@@ -67,14 +62,13 @@ def early_stopping_dart(dart_dict: dict, stopping_rounds: int=None, model_file: 
     return _callback
 
 
-# In[2]:
-
+# %%
 
 cfg = {
-    "script_name": 'opt_train_dart_op_146',
-    "path_features": '../input/generate-train-features-script-p13/p13_train.pkl', # Used in train mode
-    "path_models": '',
-    "path_data_raw": '../input/optiver-realized-volatility-prediction/',
+    "script_name": 'dart_model',
+    "path_features": 'p13_train.pkl', # Used in train mode
+    "path_models": 'dart_model',
+    "path_data_raw": 'input/',
     "neptune_project": 'chrisrichardmiles/optiver',
     "neptune_description": 'p13 encoding top columns with shake .3 using dart with custom early stopping',
     "encode_time_cols": ['real_vol_ratio_5_10', 'real_vol_mean_decay_0.9_-1', 'order_norm_momentum', 'real_vol_mean_decay_0.85_-1', 'real_vol_mean_decay_0.99_1', 'real_vol_mean_decay_0.95_1', 'abs_price_wap_diff_mean_decay_flip', 'abs_price_wap_diff_mean_decay', 'order_norm_sum', 'real_vol_mean_decay_0.85_-1_2', 'spread_mean_decay_flip_95', 'real_vol_mean_decay_0.99_-1', 'real_vol_mean_decay_0.75_-1', 'spread_mean', 'order_count_sum', 'bid_price_diff_count_unique', 'spread_momentum', 'size_mean', 'real_vol_mean_decay_0.95_-1', 'order_norm_mean_decay', 'spread_2_mean_decay_95', 'order_size_mean', 'spread_mean_decay_95', 
@@ -87,7 +81,7 @@ cfg = {
     "shake": False, 
     "shake_std": .3, 
     "prefix": '',
-    "rerun": True,
+    "rerun": False,
     "neptune_run_name": '',
     "lgb_params": {
         # https://lightgbm.readthedocs.io/en/latest/index.html
@@ -95,9 +89,9 @@ cfg = {
         "objective": "rmse",
         "learning_rate": .05,
         "num_leaves": 255,
-        "min_data_in_leaf": 255,
-        "feature_fraction": 0.8,
-        "bagging_fraction": .5, # Select bagging_fraction of rows every bagging_freq of iterations.
+        "min_data_in_leaf": 2 ** 10,
+        "feature_fraction": 0.25,
+        "bagging_fraction": .85, # Select bagging_fraction of rows every bagging_freq of iterations.
         "bagging_freq": 1,      # This speeds up training and underfits. Need both set to do anything.
         "n_estimators": 10_000,
         "early_stopping_rounds": 400,
@@ -106,11 +100,11 @@ cfg = {
         "verbose": -1, 
     },
 }
-with open('cfg.json', 'w') as f: 
+with open('dart_model/cfg.json', 'w') as f: 
     json.dump(cfg, f)
 
 
-# In[3]:
+# %%
 
 
 def main(): 
@@ -179,7 +173,7 @@ def main():
                           feval = feval_rmspe,
                           callbacks=[record_evaluation(dict_eval_log), 
                                      early_stopping_dart(dart_dict)],
-                          verbose_eval = 1)
+                          verbose_eval = 250)
 
         model = lgb.Booster(model_file=model_file)
         y_pred = model.predict(x_val)
@@ -215,42 +209,42 @@ def main():
     print(f'Our out of folds RMSPE is {rmspe_score}')
     print(f'Our cv fold scores are {scores}')
     np.save('oof_predictions', oof_predictions)
+    
+    
+    if os.environ.get('NEPTUNE_API_TOKEN', ''): 
+        run = neptune.init(
+                name=cfg['neptune_run_name'],    
+                description=cfg['neptune_description'],
+                tags=[cfg['path_features'], cfg['prefix']],
+                source_files=['dart_model/cfg.json'],
+        )
+        run['feat_id'] = feat_file
+        run['cfg'] = cfg
+        run['RMSPE'] = rmspe_score
+        run['RMSPE_oof_scores'] = scores
+        run['RMSPE_cv_std'] = np.std(scores)
 
-    run = neptune.init(
-            project=cfg['neptune_project'],
-            api_token=NEPTUNE_API_TOKEN,
-            name=cfg['neptune_run_name'],    
-            description=cfg['neptune_description'],
-            tags=[cfg['path_features'], cfg['prefix']],
-            source_files=['cfg.json'],
-    )
-    run['feat_id'] = feat_file
-    run['cfg'] = cfg
-    run['RMSPE'] = rmspe_score
-    run['RMSPE_oof_scores'] = scores
-    run['RMSPE_cv_std'] = np.std(scores)
+        run['best_iterations'] = best_iterations
+        best_iterations_mean = int(np.mean(best_iterations))
+        run['best_iterations_mean'] = best_iterations_mean
+        run['training_best_scores'] = training_best_scores
+        run['valid_best_scores'] = valid_best_scores
+        run['best_score_diffs'] = best_score_diffs
+        run['best_score_diffs_mean'] = round(np.mean(best_score_diffs), 3)
+        run['dumb_features'] = list(reduce(lambda a, b: set(a).intersection(set(b)), dumb_features))
+        run['top_features'] = list(reduce(lambda a, b: set(a).intersection(set(b)), top_features))
 
-    run['best_iterations'] = best_iterations
-    best_iterations_mean = int(np.mean(best_iterations))
-    run['best_iterations_mean'] = best_iterations_mean
-    run['training_best_scores'] = training_best_scores
-    run['valid_best_scores'] = valid_best_scores
-    run['best_score_diffs'] = best_score_diffs
-    run['best_score_diffs_mean'] = round(np.mean(best_score_diffs), 3)
-    run['dumb_features'] = list(reduce(lambda a, b: set(a).intersection(set(b)), dumb_features))
-    run['top_features'] = list(reduce(lambda a, b: set(a).intersection(set(b)), top_features))
-
-    # Logs for each folds model
-    for fold in range(5):
-        run[f'lgbm_summaries/fold_{fold}'] = booster_summaries[fold]
-        run[f'lgbm_summaries/dumb_features_{fold}'] = list(dumb_features[fold])
-        run[f'lgbm_summaries/top_features_{fold}'] = list(top_features[fold])
-        dict_eval_log = dict_eval_logs[fold]
-        for valid_set, odict in dict_eval_log.items():
-            for metric, log in odict.items():
-                for val in log:
-                    run[f'eval_logs/{fold}_{valid_set}_{metric}'].log(val)
-    run.stop()
+        # Logs for each folds model
+        for fold in range(5):
+            run[f'lgbm_summaries/fold_{fold}'] = booster_summaries[fold]
+            run[f'lgbm_summaries/dumb_features_{fold}'] = list(dumb_features[fold])
+            run[f'lgbm_summaries/top_features_{fold}'] = list(top_features[fold])
+            dict_eval_log = dict_eval_logs[fold]
+            for valid_set, odict in dict_eval_log.items():
+                for metric, log in odict.items():
+                    for val in log:
+                        run[f'eval_logs/{fold}_{valid_set}_{metric}'].log(val)
+        run.stop()
 
     if cfg['rerun']: 
         print(f'retraining model with all data for {best_iterations} iterations')
@@ -275,19 +269,9 @@ def main():
             model = lgb.train(params = params, 
                               train_set = train_dataset)
             model.save_model(os.path.join(cfg['path_models'], f'{cfg["prefix"]}rerun_lgb_{fold}.txt'))
-    
+
+
+# %%
 if __name__ == '__main__': 
     main()
-
-
-# In[4]:
-
-
-m = lgb.Booster(model_file='./lgb_fold_0.txt')
-
-
-# In[ ]:
-
-
-
 

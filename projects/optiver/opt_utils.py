@@ -37,9 +37,11 @@ def make_features(DATA_RAW, train_or_test, preprocessor_func, testing_func=False
         df_agg = pd.concat(pool_func(func, df_fe.stock_id.unique()))
     return df_fe.join(df_agg).reset_index()
 
-def make_train(cfg): 
+def make_train(cfg):
+    start_time = time.time()
     train = make_features(cfg['path_data_raw'], 'train', cfg['preprocessor_func'], cfg['testing_func'])
     train.to_pickle(f'{cfg["preprocessor_func"].__name__}_train.pkl')
+    print('time_taken:', round((time.time() - start_time) / 60, 2), 'minutes')
     
 def make_submission(cfg): 
     test = make_features(cfg['path_data_raw'], 'test', cfg['preprocessor_func'])
@@ -159,7 +161,8 @@ def pool_func(function, input_list: list, verbose=False, n_cpu=99):
     """Uses the Pool function from the package 'multiprocessing'
     to run `function` over the list `input_list`.  The `function`
     should only take """
-
+    
+    n_cpu = int(os.environ.get('MAX_THREADS', 99))
     n_cpu = min(n_cpu, cpu_count())
     if verbose:
         print('#############################################')
