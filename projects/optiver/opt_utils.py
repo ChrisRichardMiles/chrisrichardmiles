@@ -13,7 +13,7 @@ from sklearn.model_selection import GroupKFold
 import lightgbm as lgb
 
 # os.system('pip install ../input/pytorchtabnet/pytorch_tabnet-3.1.1-py3-none-any.whl')
-from pytorch_tabnet.tab_model import TabNetRegressor
+# from pytorch_tabnet.tab_model import TabNetRegressor
 
 ################## Making features and submissions ###################
 def read_train_or_test(DATA_RAW, train_or_test): 
@@ -84,24 +84,24 @@ def evaluate(test, path_models='', prefix='', drop_cols=[], rerun=False, use_all
         test_predictions += model.predict(x_test) / 5
     return test_predictions
 
-def evaluate_tabnet_models(x_test, path_models='', prefix='', drop_cols=[], rerun=False, use_all=False): 
-    test_predictions = np.zeros(x_test.shape[0]) # Create test array to store predictions
-    model = TabNetRegressor()
-    if use_all: 
-        n_models = 0
-        for file in os.listdir(path_models): 
-            if 'tab' in file and file.startswith(prefix): 
-                model.load_model(os.path.join(path_models, file))
-                test_predictions += model.predict(x_test).flatten()
-                n_models += 1
-        return test_predictions / n_models
-    if rerun: 
-        model.load_model(os.path.join(path_models, f'{prefix}rerun_tab_{best_iter}.zip'))
-        return model.predict(x_test) .flatten()
-    for fold in range(5):
-        model.load_model(os.path.join(path_models, f'{prefix}tab_fold_{fold}.zip'))
-        test_predictions += model.predict(x_test).flatten() / 5
-    return test_predictions
+# def evaluate_tabnet_models(x_test, path_models='', prefix='', drop_cols=[], rerun=False, use_all=False): 
+#     test_predictions = np.zeros(x_test.shape[0]) # Create test array to store predictions
+#     model = TabNetRegressor()
+#     if use_all: 
+#         n_models = 0
+#         for file in os.listdir(path_models): 
+#             if 'tab' in file and file.startswith(prefix): 
+#                 model.load_model(os.path.join(path_models, file))
+#                 test_predictions += model.predict(x_test).flatten()
+#                 n_models += 1
+#         return test_predictions / n_models
+#     if rerun: 
+#         model.load_model(os.path.join(path_models, f'{prefix}rerun_tab_{best_iter}.zip'))
+#         return model.predict(x_test) .flatten()
+#     for fold in range(5):
+#         model.load_model(os.path.join(path_models, f'{prefix}tab_fold_{fold}.zip'))
+#         test_predictions += model.predict(x_test).flatten() / 5
+#     return test_predictions
 
 
 

@@ -16,9 +16,6 @@ from opt_utils import *
 
 import neptune.new as neptune
 from neptune.new.integrations.lightgbm import create_booster_summary
-from kaggle_secrets import UserSecretsClient
-user_secrets = UserSecretsClient()
-NEPTUNE_API_TOKEN = user_secrets.get_secret("NEPTUNE_API_TOKEN")
 
 # Callback for dart earlystopping
 def early_stopping_dart(dart_dict: dict, stopping_rounds: int=None, model_file: str=None) -> Callable:
@@ -164,7 +161,6 @@ def main():
         dart_dict = {'stopping_rounds': cfg['lgb_params']['early_stopping_rounds'],
                      'model_file': model_file}
         dict_eval_log = {}
-        
 
         model = lgb.train(params = cfg['lgb_params'], 
                           train_set = train_dataset, 
@@ -208,11 +204,15 @@ def main():
     rmspe_score = round(rmspe(y, oof_predictions), 4)
     print(f'Our out of folds RMSPE is {rmspe_score}')
     print(f'Our cv fold scores are {scores}')
-    np.save('oof_predictions', oof_predictions)
+    oof_path = os.path.join(cfg['path_models'], 'oof_predictions')
+    np.save(oof_path, oof_predictions)
     
-    
-    if os.environ.get('NEPTUNE_API_TOKEN', ''): 
+    project = os.environ.get('NEPTUNE_PROJECT', '')
+    api_token = os.environ.get('NEPTUNE_API_TOKEN', '')
+    if project and api_token: 
         run = neptune.init(
+                project=project, 
+                api_token=api_token, 
                 name=cfg['neptune_run_name'],    
                 description=cfg['neptune_description'],
                 tags=[cfg['path_features'], cfg['prefix']],
@@ -273,5 +273,7 @@ def main():
 
 # %%
 if __name__ == '__main__': 
+    start_time = time.time()
     main()
+    print('time_taken:', round((time.time() - start_time) / 60, 2), 'minutes')
 
