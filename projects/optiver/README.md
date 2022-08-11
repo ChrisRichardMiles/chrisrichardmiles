@@ -1,4 +1,6 @@
 
+::: {.cell 0=‘h’ 1=‘i’ 2=‘d’ 3=‘e’ execution_count=1}
+
 ``` python
 import pandas as pd
 import os
@@ -7,6 +9,8 @@ sample_submission = pd.read_csv('input/sample_submission.csv')
 book_test = pd.read_parquet('input/book_test.parquet/stock_id=0')
 trade_test = pd.read_parquet('input/trade_test.parquet/stock_id=0')
 ```
+
+:::
 
 # Optiver Realized Volatility Prediction: 91st place solution
 
@@ -84,7 +88,7 @@ There will be around 100 stock ids in the test set and around 150,000
 rows to predict. With `row_id` reffering to “stock_id”-“time_id”, the
 submission file looks like:
 
-::: {.cell 0=‘h’ 1=‘i’ 2=‘d’ 3=‘e’ execution_count=14}
+::: {.cell 0=‘h’ 1=‘i’ 2=‘d’ 3=‘e’ execution_count=15}
 
 ``` python
 print(sample_submission.to_markdown())
