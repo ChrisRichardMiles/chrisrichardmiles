@@ -30,8 +30,8 @@ Volatility is important because it is used in calculating the value of a
 stock option. We can trade more profitably if we are better at
 determining value.
 
-$$ 
-\textrm{option_value} = \textrm{intrinsic_value} + \textrm{time_value} 
+$$
+\textrm{option value} = \textrm{intrinsic value} + \textrm{time value} 
 $$
 
 Intrinsic value is just the difference between the current price of the
@@ -85,10 +85,14 @@ rows to predict. With `row_id` reffering to “stock_id”-“time_id”, the
 submission file looks like:
 
 ``` python
-sample_submission.to_markdown()
+# sample_submission.to_markdown()
 ```
 
-    '|    | row_id   |     target |\n|---:|:---------|-----------:|\n|  0 | 0-4      | 0.00304802 |\n|  1 | 0-32     | 0.00304802 |\n|  2 | 0-34     | 0.00304802 |'
+   \| row_id \| target \|\|—:\|:———\|———–:\|\| 0 \| 0-4 \| 0.00304802
+\|\| 1 \| 0-32 \| 0.00304802 \|\| 2 \| 0-34 \| 0.00304802 \|
+
+‘\| \| row_id \| target \|\|—:\|:———\|———–:\|\| 0 \| 0-4 \| 0.00304802
+\|\| 1 \| 0-32 \| 0.00304802 \|\| 2 \| 0-34 \| 0.00304802 \|’
 
 ## What does the input data look like at the time of prediction?
 
