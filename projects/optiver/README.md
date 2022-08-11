@@ -85,50 +85,10 @@ rows to predict. With `row_id` reffering to “stock_id”-“time_id”, the
 submission file looks like:
 
 ``` python
-display(sample_submission)
+sample_submission.to_markdown()
 ```
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>row_id</th>
-      <th>target</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0-4</td>
-      <td>0.003048</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0-32</td>
-      <td>0.003048</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0-34</td>
-      <td>0.003048</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+    '|    | row_id   |     target |\n|---:|:---------|-----------:|\n|  0 | 0-4      | 0.00304802 |\n|  1 | 0-32     | 0.00304802 |\n|  2 | 0-34     | 0.00304802 |'
 
 ## What does the input data look like at the time of prediction?
 
@@ -151,82 +111,10 @@ bid_size[1/2] - The number of shares on the most/second most competitive buy lev
 ask_size[1/2] - The number of shares on the most/second most competitive sell level. -->
 
 ``` python
-book_test
+book_test.to_markdown()
 ```
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>time_id</th>
-      <th>seconds_in_bucket</th>
-      <th>bid_price1</th>
-      <th>ask_price1</th>
-      <th>bid_price2</th>
-      <th>ask_price2</th>
-      <th>bid_size1</th>
-      <th>ask_size1</th>
-      <th>bid_size2</th>
-      <th>ask_size2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>4</td>
-      <td>0</td>
-      <td>1.000049</td>
-      <td>1.000590</td>
-      <td>0.999656</td>
-      <td>1.000639</td>
-      <td>91</td>
-      <td>100</td>
-      <td>100</td>
-      <td>24</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>4</td>
-      <td>1</td>
-      <td>1.000049</td>
-      <td>1.000590</td>
-      <td>0.999656</td>
-      <td>1.000639</td>
-      <td>91</td>
-      <td>100</td>
-      <td>100</td>
-      <td>20</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>4</td>
-      <td>5</td>
-      <td>1.000049</td>
-      <td>1.000639</td>
-      <td>0.999656</td>
-      <td>1.000885</td>
-      <td>290</td>
-      <td>20</td>
-      <td>101</td>
-      <td>15</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+    '|    |   time_id |   seconds_in_bucket |   bid_price1 |   ask_price1 |   bid_price2 |   ask_price2 |   bid_size1 |   ask_size1 |   bid_size2 |   ask_size2 |\n|---:|----------:|--------------------:|-------------:|-------------:|-------------:|-------------:|------------:|------------:|------------:|------------:|\n|  0 |         4 |                   0 |      1.00005 |      1.00059 |     0.999656 |      1.00064 |          91 |         100 |         100 |          24 |\n|  1 |         4 |                   1 |      1.00005 |      1.00059 |     0.999656 |      1.00064 |          91 |         100 |         100 |          20 |\n|  2 |         4 |                   5 |      1.00005 |      1.00064 |     0.999656 |      1.00089 |         290 |          20 |         101 |          15 |'
 
 ### trade_test.parquet
 
@@ -238,62 +126,10 @@ one may expect this file to be more sparse than the order book.
 Here are the first few rows of the trade data for stock_id 0:
 
 ``` python
-trade_test
+trade_test.to_markdown()
 ```
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>time_id</th>
-      <th>seconds_in_bucket</th>
-      <th>price</th>
-      <th>size</th>
-      <th>order_count</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>4</td>
-      <td>7</td>
-      <td>1.000344</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>4</td>
-      <td>24</td>
-      <td>1.000049</td>
-      <td>100</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>4</td>
-      <td>27</td>
-      <td>1.000059</td>
-      <td>100</td>
-      <td>3</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+    '|    |   time_id |   seconds_in_bucket |   price |   size |   order_count |\n|---:|----------:|--------------------:|--------:|-------:|--------------:|\n|  0 |         4 |                   7 | 1.00034 |      1 |             1 |\n|  1 |         4 |                  24 | 1.00005 |    100 |             7 |\n|  2 |         4 |                  27 | 1.00006 |    100 |             3 |'
 
 ### test.csv
 
@@ -303,54 +139,10 @@ your notebook upon submission with just the first few rows available for
 download.
 
 ``` python
-test
+test.to_markdown()
 ```
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>stock_id</th>
-      <th>time_id</th>
-      <th>row_id</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>4</td>
-      <td>0-4</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0</td>
-      <td>32</td>
-      <td>0-32</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0</td>
-      <td>34</td>
-      <td>0-34</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+    '|    |   stock_id |   time_id | row_id   |\n|---:|-----------:|----------:|:---------|\n|  0 |          0 |         4 | 0-4      |\n|  1 |          0 |        32 | 0-32     |\n|  2 |          0 |        34 | 0-34     |'
 
 #### Important notes about the data:
 
