@@ -70,6 +70,7 @@ compute log returns.
 $$ WAP = \frac{BidPrice_{1}*AskSize_{1} + AskPrice_{1}*BidSize_{1}}{BidSize_{1} + AskSize_{1}} $$
 
 where an order book looks like this:
+
 ![order_book_1](https://www.optiver.com/wp-content/uploads/2021/05/OrderBook3.png)
 
 ## How will our predictions be scored?
