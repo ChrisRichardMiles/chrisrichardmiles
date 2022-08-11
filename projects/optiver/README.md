@@ -84,15 +84,23 @@ There will be around 100 stock ids in the test set and around 150,000
 rows to predict. With `row_id` reffering to “stock_id”-“time_id”, the
 submission file looks like:
 
+::: {.cell 0=‘h’ 1=‘i’ 2=‘d’ 3=‘e’ execution_count=14}
+
 ``` python
 print(sample_submission.to_markdown())
 ```
+
+<div class="cell-output cell-output-stdout">
 
     |    | row_id   |     target |
     |---:|:---------|-----------:|
     |  0 | 0-4      | 0.00304802 |
     |  1 | 0-32     | 0.00304802 |
     |  2 | 0-34     | 0.00304802 |
+
+</div>
+
+:::
 
 |     | row_id |     target |
 |----:|:-------|-----------:|
