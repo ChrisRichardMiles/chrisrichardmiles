@@ -1,16 +1,11 @@
 
-::: {.cell 0=‘h’ 1=‘i’ 2=‘d’ 3=‘e’ execution_count=1}
-
 ``` python
 import pandas as pd
-import os
 test = pd.read_csv('input/test.csv')
 sample_submission = pd.read_csv('input/sample_submission.csv')
 book_test = pd.read_parquet('input/book_test.parquet/stock_id=0')
 trade_test = pd.read_parquet('input/trade_test.parquet/stock_id=0')
 ```
-
-:::
 
 # Optiver Realized Volatility Prediction: 91st place solution
 
@@ -88,32 +83,15 @@ There will be around 100 stock ids in the test set and around 150,000
 rows to predict. With `row_id` reffering to “stock_id”-“time_id”, the
 submission file looks like:
 
-::: {.cell 0=‘h’ 1=‘i’ 2=‘d’ 3=‘e’ execution_count=15}
-
 ``` python
-print(sample_submission.to_markdown())
+# print(sample_submission.to_markdown())
 ```
-
-<div class="cell-output cell-output-stdout">
-
-    |    | row_id   |     target |
-    |---:|:---------|-----------:|
-    |  0 | 0-4      | 0.00304802 |
-    |  1 | 0-32     | 0.00304802 |
-    |  2 | 0-34     | 0.00304802 |
-
-</div>
-
-:::
 
 |     | row_id |     target |
 |----:|:-------|-----------:|
 |   0 | 0-4    | 0.00304802 |
 |   1 | 0-32   | 0.00304802 |
 |   2 | 0-34   | 0.00304802 |
-
-‘\| \| row_id \| target \|\|—:\|:———\|———–:\|\| 0 \| 0-4 \| 0.00304802
-\|\| 1 \| 0-32 \| 0.00304802 \|\| 2 \| 0-34 \| 0.00304802 \|’
 
 ## What does the input data look like at the time of prediction?
 
@@ -136,10 +114,14 @@ bid_size[1/2] - The number of shares on the most/second most competitive buy lev
 ask_size[1/2] - The number of shares on the most/second most competitive sell level. -->
 
 ``` python
-book_test.to_markdown()
+# print(book_test.to_markdown())
 ```
 
-    '|    |   time_id |   seconds_in_bucket |   bid_price1 |   ask_price1 |   bid_price2 |   ask_price2 |   bid_size1 |   ask_size1 |   bid_size2 |   ask_size2 |\n|---:|----------:|--------------------:|-------------:|-------------:|-------------:|-------------:|------------:|------------:|------------:|------------:|\n|  0 |         4 |                   0 |      1.00005 |      1.00059 |     0.999656 |      1.00064 |          91 |         100 |         100 |          24 |\n|  1 |         4 |                   1 |      1.00005 |      1.00059 |     0.999656 |      1.00064 |          91 |         100 |         100 |          20 |\n|  2 |         4 |                   5 |      1.00005 |      1.00064 |     0.999656 |      1.00089 |         290 |          20 |         101 |          15 |'
+|     | time_id | seconds_in_bucket | bid_price1 | ask_price1 | bid_price2 | ask_price2 | bid_size1 | ask_size1 | bid_size2 | ask_size2 |
+|----:|--------:|------------------:|-----------:|-----------:|-----------:|-----------:|----------:|----------:|----------:|----------:|
+|   0 |       4 |                 0 |    1.00005 |    1.00059 |   0.999656 |    1.00064 |        91 |       100 |       100 |        24 |
+|   1 |       4 |                 1 |    1.00005 |    1.00059 |   0.999656 |    1.00064 |        91 |       100 |       100 |        20 |
+|   2 |       4 |                 5 |    1.00005 |    1.00064 |   0.999656 |    1.00089 |       290 |        20 |       101 |        15 |
 
 ### trade_test.parquet
 
@@ -151,10 +133,14 @@ one may expect this file to be more sparse than the order book.
 Here are the first few rows of the trade data for stock_id 0:
 
 ``` python
-trade_test.to_markdown()
+# print(trade_test.to_markdown())
 ```
 
-    '|    |   time_id |   seconds_in_bucket |   price |   size |   order_count |\n|---:|----------:|--------------------:|--------:|-------:|--------------:|\n|  0 |         4 |                   7 | 1.00034 |      1 |             1 |\n|  1 |         4 |                  24 | 1.00005 |    100 |             7 |\n|  2 |         4 |                  27 | 1.00006 |    100 |             3 |'
+|     | time_id | seconds_in_bucket |   price | size | order_count |
+|----:|--------:|------------------:|--------:|-----:|------------:|
+|   0 |       4 |                 7 | 1.00034 |    1 |           1 |
+|   1 |       4 |                24 | 1.00005 |  100 |           7 |
+|   2 |       4 |                27 | 1.00006 |  100 |           3 |
 
 ### test.csv
 
@@ -164,10 +150,14 @@ your notebook upon submission with just the first few rows available for
 download.
 
 ``` python
-test.to_markdown()
+# print(test.to_markdown())
 ```
 
-    '|    |   stock_id |   time_id | row_id   |\n|---:|-----------:|----------:|:---------|\n|  0 |          0 |         4 | 0-4      |\n|  1 |          0 |        32 | 0-32     |\n|  2 |          0 |        34 | 0-34     |'
+|     | stock_id | time_id | row_id |
+|----:|---------:|--------:|:-------|
+|   0 |        0 |       4 | 0-4    |
+|   1 |        0 |      32 | 0-32   |
+|   2 |        0 |      34 | 0-34   |
 
 #### Important notes about the data:
 
