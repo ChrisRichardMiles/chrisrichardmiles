@@ -22,12 +22,17 @@ trade_test = pd.read_parquet('input/trade_test.parquet/stock_id=0')
 ## What does the host of this competition want?
 
 Predictions of the volatility of stock prices over the next 10 minute
-window, given trading data and book data. \## Why volatility? Volatility
-is important because it is used in calculating the value of a stock
-option. We can trade more profitably if we are better at determining
-value.
+window, given trading data and book data.
 
-$$ \textrm{option_value} = \textrm{intrinsic_value} + \textrm{time_value} $$
+## Why volatility?
+
+Volatility is important because it is used in calculating the value of a
+stock option. We can trade more profitably if we are better at
+determining value.
+
+$$ 
+\textrm{option_value} = \textrm{intrinsic_value} + \textrm{time_value} 
+$$
 
 Intrinsic value is just the difference between the current price of the
 stock and strike price of the option, so it is known at the time of
@@ -80,7 +85,7 @@ rows to predict. With `row_id` reffering to “stock_id”-“time_id”, the
 submission file looks like:
 
 ``` python
-sample_submission
+display(sample_submission)
 ```
 
 <div>

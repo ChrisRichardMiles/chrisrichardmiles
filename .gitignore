@@ -14,6 +14,7 @@ tags
 book_train.parquet
 trade_train.parquet
 train.csv
+*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
