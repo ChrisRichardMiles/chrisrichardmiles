@@ -1,5 +1,6 @@
 
 ``` python
+#all_no_test
 import pandas as pd
 test = pd.read_csv('input/test.csv')
 sample_submission = pd.read_csv('input/sample_submission.csv')
@@ -17,6 +18,7 @@ trade_test = pd.read_parquet('input/trade_test.parquet/stock_id=0')
     [https://www.kaggle.com/competitions/optiver-realized-volatility-prediction/overview/evaluation](https://www.kaggle.com/competitions/optiver-realized-volatility-prediction/data)
 -   My submission:
     <https://www.kaggle.com/code/chrisrichardmiles/opt-inf-ensemble-final-1>
+-   [Jump to solution](#My-solution)
 
 ## What does the host of this competition want?
 
@@ -203,7 +205,7 @@ The rest of the pipeline is also public: \* Feature generation:
 <https://www.kaggle.com/code/chrisrichardmiles/opt-fe> \* Module
 opt_utils.py: <https://www.kaggle.com/code/chrisrichardmiles/opt-utils>
 
-### Simple model reproduction
+### Simple model reproduction locally from scratch
 
 -   Requirements: 16 GB of RAM and minconda installed
 
