@@ -1,11 +1,12 @@
 
 ``` python
 #all_no_test
-import pandas as pd
-test = pd.read_csv('input/test.csv')
-sample_submission = pd.read_csv('input/sample_submission.csv')
-book_test = pd.read_parquet('input/book_test.parquet/stock_id=0')
-trade_test = pd.read_parquet('input/trade_test.parquet/stock_id=0')
+#|hide
+# import pandas as pd
+# test = pd.read_csv('input/test.csv')
+# sample_submission = pd.read_csv('input/sample_submission.csv')
+# book_test = pd.read_parquet('input/book_test.parquet/stock_id=0')
+# trade_test = pd.read_parquet('input/trade_test.parquet/stock_id=0')
 ```
 
 # Optiver Realized Volatility Prediction: 91st place solution
@@ -199,11 +200,14 @@ training scripts are public. They can be found in the input section of
 that notebook, also linked here:
 <https://www.kaggle.com/code/chrisrichardmiles/opt-inf-ensemble-final-1/data?scriptVersionId=75800583>
 
-The rest of the pipeline is also public: \* Feature generation:
-<https://www.kaggle.com/chrisrichardmiles/generate-train-features-script-p13>
-\* Module opt_fe.py:
-<https://www.kaggle.com/code/chrisrichardmiles/opt-fe> \* Module
-opt_utils.py: <https://www.kaggle.com/code/chrisrichardmiles/opt-utils>
+The rest of the pipeline is also public:
+
+-   Feature generation:
+    <https://www.kaggle.com/chrisrichardmiles/generate-train-features-script-p13>
+-   Module opt_fe.py:
+    <https://www.kaggle.com/code/chrisrichardmiles/opt-fe>
+-   Module opt_utils.py:
+    <https://www.kaggle.com/code/chrisrichardmiles/opt-utils>
 
 ### Simple model reproduction locally from scratch
 
@@ -272,6 +276,8 @@ This will create train features as a pickle file called p13_train.pkl
 and then train the lightgbm-dart model, with the output stored in the
 folder `dart_model`
 
+### Solution
+
 I used gradient boosted tree based models and neural networks. For
 gradient boosting, I used the
 [Lightgbm](https://lightgbm.readthedocs.io/en/v3.3.2/) implementation,
@@ -292,7 +298,7 @@ mean). The weights are determined using the
 function from scipy. All models have the same input features, generated
 by the `p13` function in fe.py.
 
-### Overview of features
+![optiver_model_diagram_cropped.png](index_files/figure-gfm/optiver_model_diagram_cropped.png)
 
 ### Models
 
@@ -370,6 +376,10 @@ params as dart \* lgb_l2: same as dart_l2, except `boosting_type`=`gbdt`
                 'last_epoch': -1,
                 'verbose': False
             }
+
+### Features
+
+![optiver_feature_importance_gain.png](index_files/figure-gfm/optiver_feature_importance_gain.png)
 
 #### K-fold cross validation brief explanation:
 
