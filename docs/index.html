@@ -37,7 +37,7 @@ nb_path: "projects/m5/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>pip install crm_m5</code></p>
+<p><code>pip install chrisrichardmiles</code></p>
 
 </div>
 </div>
@@ -50,18 +50,22 @@ nb_path: "projects/m5/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Create data folders
-<pre><code>crm_m5_init</code></pre>
+<h3 id="1.-Create-data-folders,-download-data,-and-unzip-files">1. Create data folders, download data, and unzip files<a class="anchor-link" href="#1.-Create-data-folders,-download-data,-and-unzip-files"> </a></h3><ul>
+<li>If you have your kaggle api info in root/.kaggle/kaggle.json then run: 
+<pre><code>crm_download_kaggle_data --comp_name m5-forecasting-accuracy</code></pre>
 </li>
-<li>Put the raw data into the data/raw folder. Either manully download the data from <a href="https://www.kaggle.com/c/m5-forecasting-accuracy/data">kaggle</a>, or run 
-<pre><code>cd data/raw
-kaggle competitions download -c m5-forecasting-accuracy
-unzip * 
-rm sales_train_validation.csv</code></pre>
-sales_train_validation.csv is the same as sales_train_evaluation.csv without the last 28 days of data.</li>
-</ol>
-
+<li>Otherwise, you must run: 
+<pre><code>crm_mkdirs_data
+cd data/raw</code></pre>
+<ul>
+<li>Now manully download the data zipfile from <a href="https://www.kaggle.com/c/m5-forecasting-accuracy/data">kaggle</a> and upload it into the data/raw folder.
+<pre><code>unzip * 
+cd ../..</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2.">2.<a class="anchor-link" href="#2."> </a></h3>
 </div>
 </div>
 </div>
