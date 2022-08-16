@@ -175,7 +175,7 @@ nb_path: "projects/m5/04_out_of_stock_detection.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_series_df" class="doc_header"><code>get_series_df</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L21" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_series_df</code>(<strong><code>train_df</code></strong>, <strong><code>rollup_matrix_csr</code></strong>, <strong><code>rollup_index</code></strong>, <strong><code>df_cal</code></strong>=<em><code>None</code></em>, <strong><code>fill_xmas</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="get_series_df" class="doc_header"><code>get_series_df</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_series_df</code>(<strong><code>train_df</code></strong>, <strong><code>rollup_matrix_csr</code></strong>, <strong><code>rollup_index</code></strong>, <strong><code>df_cal</code></strong>=<em><code>None</code></em>, <strong><code>fill_xmas</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Returns a dataframe with series for all 12 levels of aggregation. We also
 replace leading zeros with np.nan and if fill_xmas, replace christmas sales with average
@@ -202,7 +202,7 @@ of the day before and day after christmas</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_stats_df" class="doc_header"><code>get_stats_df</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L40" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_stats_df</code>(<strong><code>series_df</code></strong>)</p>
+<h4 id="get_stats_df" class="doc_header"><code>get_stats_df</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L41" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_stats_df</code>(<strong><code>series_df</code></strong>)</p>
 </blockquote>
 <p>Returns a dataframe that shows basic stats for all
 series in sereis_df.</p>
@@ -775,7 +775,7 @@ level 12 series.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_item_series" class="doc_header"><code>plot_item_series</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_item_series</code>(<strong><code>item</code></strong>, <strong><code>series_df</code></strong>, <strong><code>state</code></strong>=<em><code>None</code></em>, <strong><code>fillna</code></strong>=<em><code>False</code></em>, <strong><code>start</code></strong>=<em><code>0</code></em>, <strong><code>end</code></strong>=<em><code>1941</code></em>)</p>
+<h4 id="plot_item_series" class="doc_header"><code>plot_item_series</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L52" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_item_series</code>(<strong><code>item</code></strong>, <strong><code>series_df</code></strong>, <strong><code>state</code></strong>=<em><code>None</code></em>, <strong><code>fillna</code></strong>=<em><code>False</code></em>, <strong><code>start</code></strong>=<em><code>0</code></em>, <strong><code>end</code></strong>=<em><code>1941</code></em>)</p>
 </blockquote>
 <p>Plots the level 10-12 series containing the item</p>
 
@@ -800,7 +800,7 @@ level 12 series.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_all_item_series" class="doc_header"><code>plot_all_item_series</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L75" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_all_item_series</code>(<strong><code>item</code></strong>, <strong><code>series_df</code></strong>, <strong><code>fillna</code></strong>=<em><code>False</code></em>, <strong><code>start</code></strong>=<em><code>0</code></em>, <strong><code>end</code></strong>=<em><code>1941</code></em>)</p>
+<h4 id="plot_all_item_series" class="doc_header"><code>plot_all_item_series</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L76" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_all_item_series</code>(<strong><code>item</code></strong>, <strong><code>series_df</code></strong>, <strong><code>fillna</code></strong>=<em><code>False</code></em>, <strong><code>start</code></strong>=<em><code>0</code></em>, <strong><code>end</code></strong>=<em><code>1941</code></em>)</p>
 </blockquote>
 
 </div>
@@ -931,12 +931,6 @@ We will fill nan values with -20 so they stand out</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Walkthrough">Walkthrough<a class="anchor-link" href="#Walkthrough"> </a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Main-functions">Main functions<a class="anchor-link" href="#Main-functions"> </a></h3>
 </div>
 </div>
@@ -944,100 +938,91 @@ We will fill nan values with -20 so they stand out</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">fix_oos</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">series_df</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Processes item and returns series that has np.nan</span>
-<span class="sd">    where we think out of stock zeros occur&quot;&quot;&quot;</span>
-    <span class="n">item_series</span> <span class="o">=</span> <span class="n">series_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">item_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">item_series</span><span class="p">)</span> 
-    <span class="n">x</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">while</span> <span class="n">x</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">item_series</span><span class="p">,</span> <span class="n">new_mean</span><span class="p">,</span> <span class="n">streak_length</span><span class="p">,</span> <span class="n">item_streaks</span><span class="p">,</span> <span class="n">limit_99</span> <span class="o">=</span> <span class="n">nan_zeros</span><span class="p">(</span><span class="n">item_series</span><span class="p">,</span> <span class="n">item_mean</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">new_mean</span> <span class="o">&gt;</span> <span class="n">item_mean</span>
-        <span class="n">item_mean</span> <span class="o">=</span> <span class="n">new_mean</span>
-        
-    <span class="k">return</span> <span class="n">item_series</span><span class="p">,</span> <span class="n">new_mean</span><span class="p">,</span> <span class="n">streak_length</span><span class="p">,</span> <span class="n">item_streaks</span><span class="p">,</span> <span class="n">limit_99</span>
+<div class="output_wrapper">
+<div class="output">
 
-<span class="k">def</span> <span class="nf">nan_zeros</span><span class="p">(</span><span class="n">item_series</span><span class="p">,</span> <span class="n">item_mean</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns item_series with streaks replaced by nans, </span>
-<span class="sd">    the new average of item series, and max_streak_length, </span>
-<span class="sd">    which is the highest streak</span>
-<span class="sd">    count that was not replaced with nans.&quot;&quot;&quot;</span>
-    <span class="c1"># With the mean, we can find the probability </span>
-    <span class="c1"># of a zero sales, given the item follows </span>
-    <span class="c1"># the poisson distribution </span>
-    <span class="n">prob_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">item_mean</span><span class="p">)</span>
-    
-    <span class="c1"># Adding this to make sure we catch long streaks that </span>
-    <span class="c1"># artificially decrease our starting mean, leading to </span>
-    <span class="c1"># an artificially large </span>
-    <span class="n">lowest_prob_allowed</span> <span class="o">=</span> <span class="mf">.000_001</span>
-    <span class="n">lowest_streak_allowed</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">while</span> <span class="n">prob_0</span> <span class="o">**</span> <span class="n">lowest_streak_allowed</span> <span class="o">&gt;</span> <span class="n">lowest_prob_allowed</span><span class="p">:</span> 
-        <span class="n">lowest_streak_allowed</span> <span class="o">+=</span> <span class="mi">1</span>
+<div class="output_area">
 
-    <span class="c1"># Given the probability of a zero, we can find </span>
-    <span class="c1"># the expected value of the total number of </span>
-    <span class="c1"># zeros. </span>
-    <span class="n">expected_zeros</span> <span class="o">=</span> <span class="n">prob_0</span> <span class="o">*</span> <span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">item_series</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
-    <span class="c1"># Given the number of total zeros should </span>
-    <span class="c1"># follow the binomial distribution, approximated</span>
-    <span class="c1"># by the normal distribution, we can assume </span>
-    <span class="c1"># that total zeros are below mean + 3 standard </span>
-    <span class="c1"># deviations 99.85 percent of the time.</span>
-    <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">item_series</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">prob_0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">prob_0</span><span class="p">))</span>
-    <span class="n">limit_99</span> <span class="o">=</span> <span class="n">expected_zeros</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">std</span>
-    <span class="n">item_streaks</span> <span class="o">=</span> <span class="n">mark_streaks</span><span class="p">(</span><span class="n">item_series</span><span class="p">)</span>
-    <span class="n">max_streak_length</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">total_zeros</span> <span class="o">=</span> <span class="p">(</span><span class="n">item_streaks</span> <span class="o">==</span> <span class="n">max_streak_length</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">total_zeros</span> <span class="o">&lt;</span> <span class="n">limit_99</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">max_streak_length</span> <span class="o">&lt;</span> <span class="n">lowest_streak_allowed</span><span class="p">):</span> 
-        <span class="n">max_streak_length</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">total_zeros</span> <span class="o">=</span> <span class="p">(</span><span class="n">item_streaks</span> <span class="o">==</span> <span class="n">max_streak_length</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="fix_oos" class="doc_header"><code>fix_oos</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L82" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>fix_oos</code>(<strong><code>item</code></strong>, <strong><code>series_df</code></strong>)</p>
+</blockquote>
+<p>Processes item and returns series that has np.nan
+where we think out of stock zeros occur</p>
 
-    <span class="c1"># Now remove the zeros in streaks greater </span>
-    <span class="c1"># than max_streak_length</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">max_streak_length</span><span class="p">,</span> <span class="n">lowest_streak_allowed</span><span class="p">)</span>
-    <span class="n">item_series</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">item_streaks</span> <span class="o">&gt;</span> <span class="n">m</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">item_series</span><span class="p">)</span>
-    <span class="n">new_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">item_series</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">item_series</span><span class="p">,</span> <span class="n">new_mean</span><span class="p">,</span> <span class="n">max_streak_length</span><span class="p">,</span> <span class="n">item_streaks</span><span class="p">,</span> <span class="n">limit_99</span>
+</div>
 
-<span class="c1">###### Mark zeros with length of consecutive zeros ######</span>
-<span class="c1"># New version thanks to @nadare tip in sibmikes notebook, </span>
-<span class="c1"># where I learned about np.frompyfunc, and how it can </span>
-<span class="c1"># make python functions run really fast. </span>
-<span class="k">def</span> <span class="nf">mark_streaks</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns an array of the same length as ts, </span>
-<span class="sd">    except positive values are replaced by zero, </span>
-<span class="sd">    and zeros are replaced by the lenth of the zero </span>
-<span class="sd">    streak to which they belong.</span>
-<span class="sd">    </span>
-<span class="sd">    ########## Example ############</span>
-<span class="sd">    ### in ###</span>
-<span class="sd">    series = np.array([np.nan,3,0,0,0,2,0,0,1,0])</span>
-<span class="sd">    mark_streaks(series)</span>
-<span class="sd">    </span>
-<span class="sd">    ### out ###</span>
-<span class="sd">    array([nan,  0.,  3.,  3.,  3.,  0.,  2.,  2.,  0.,  1.])</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">ts_nan_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
-    <span class="n">zeros</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">ts</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
-    <span class="n">accum_add_prod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frompyfunc</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">accum_add_prod</span><span class="o">.</span><span class="n">accumulate</span><span class="p">(</span><span class="n">zeros</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">a</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;bfill&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-    <span class="n">item_streaks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ts_nan_mask</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">item_streaks</span>
-</pre></div>
+</div>
 
-    </div>
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="nan_zeros" class="doc_header"><code>nan_zeros</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L95" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>nan_zeros</code>(<strong><code>item_series</code></strong>, <strong><code>item_mean</code></strong>)</p>
+</blockquote>
+<p>Returns item_series with streaks replaced by nans,
+the new average of item series, and max_streak_length,
+which is the highest streak
+count that was not replaced with nans.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="mark_streaks" class="doc_header"><code>mark_streaks</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L144" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>mark_streaks</code>(<strong><code>ts</code></strong>)</p>
+</blockquote>
+<p>Returns an array of the same length as ts,
+except positive values are replaced by zero,
+and zeros are replaced by the lenth of the zero
+streak to which they belong.</p>
+<h6 id="%23%23%23%23-Example">#### Example<a class="anchor-link" href="#%23%23%23%23-Example"> </a></h6><h3 id="in">in<a class="anchor-link" href="#in"> </a></h3><p>series = np.array([np.nan,3,0,0,0,2,0,0,1,0])
+mark_streaks(series)</p>
+<h3 id="out">out<a class="anchor-link" href="#out"> </a></h3><p>array([nan,  0.,  3.,  3.,  3.,  0.,  2.,  2.,  0.,  1.])</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -1059,7 +1044,7 @@ We will fill nan values with -20 so they stand out</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="make_oos_data" class="doc_header"><code>make_oos_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L81" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_oos_data</code>(<strong><code>PATH_DATA_RAW</code></strong>:"Path to raw data"=<em><code>'data/raw'</code></em>, <strong><code>PATH_DATA_INTERIM</code></strong>:"Path to interim data"=<em><code>'data/interim'</code></em>)</p>
+<h4 id="make_oos_data" class="doc_header"><code>make_oos_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/oos.py#L169" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_oos_data</code>(<strong><code>PATH_DATA_RAW</code></strong>:"Path to raw data"=<em><code>'data/raw'</code></em>, <strong><code>PATH_DATA_INTERIM</code></strong>:"Path to interim data"=<em><code>'data/interim'</code></em>)</p>
 </blockquote>
 <p>Creates 2 csv files and stores them in the <code>PATH_DATA_INTERIM</code>.</p>
 <p>The first file is of all time series in the aggregation levels
