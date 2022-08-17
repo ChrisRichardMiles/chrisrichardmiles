@@ -1,7 +1,7 @@
 {
  "start_test": 1942,
  "start_train": 140,
- "days_to_predict": [0, 27],
+ "days_to_predict": 'all',
  "fobj": "mse",
  "fobj_weight_col": "total_scaled_weight",
  "weight_hess": 1, 
@@ -10,9 +10,9 @@
  "weight_col": null,
  "lgb_params": {
   "boosting_type": "gbdt",
-  "subsample": 0.5,
   "objective": null,
   "metric": null,
+  "subsample": 0.5,
   "subsample_freq": 1,
   "learning_rate": 0.03,
   "num_leaves": 255,
