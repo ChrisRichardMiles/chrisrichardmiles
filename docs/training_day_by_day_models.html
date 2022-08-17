@@ -103,6 +103,73 @@ nb_path: "projects/m5/05_training_day_by_day_models.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hide</span>
+<span class="n">cfg</span> <span class="o">=</span> <span class="n">load_cfg</span><span class="p">(</span><span class="s1">'final_cfg.json'</span><span class="p">)</span>
+<span class="n">cfg</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;start_test&#39;: 1942,
+ &#39;start_train&#39;: 140,
+ &#39;days_to_predict&#39;: &#39;all&#39;,
+ &#39;fobj&#39;: None,
+ &#39;fobj_weight_col&#39;: &#39;total_scaled_weight&#39;,
+ &#39;weight_hess&#39;: 1,
+ &#39;feval&#39;: &#39;mse&#39;,
+ &#39;feval_weight_col&#39;: &#39;scale&#39;,
+ &#39;weight_col&#39;: None,
+ &#39;lgb_params&#39;: {&#39;boosting_type&#39;: &#39;gbdt&#39;,
+  &#39;objective&#39;: &#39;regression&#39;,
+  &#39;metric&#39;: None,
+  &#39;subsample&#39;: 0.5,
+  &#39;subsample_freq&#39;: 1,
+  &#39;learning_rate&#39;: 0.03,
+  &#39;num_leaves&#39;: 255,
+  &#39;min_data_in_leaf&#39;: 255,
+  &#39;feature_fraction&#39;: 0.8,
+  &#39;n_estimators&#39;: 5000,
+  &#39;early_stopping_rounds&#39;: 50,
+  &#39;device_type&#39;: &#39;cpu&#39;,
+  &#39;seed&#39;: 42,
+  &#39;verbose&#39;: -1},
+ &#39;target&#39;: &#39;sales&#39;,
+ &#39;p_horizon&#39;: 28,
+ &#39;num_series&#39;: 30490,
+ &#39;features_json&#39;: &#39;final_features.json&#39;,
+ &#39;path_data_raw&#39;: &#39;../../../data/raw&#39;,
+ &#39;path_features&#39;: &#39;../../../data/features&#39;,
+ &#39;path_models&#39;: &#39;../../../data/models&#39;,
+ &#39;use_neptune&#39;: 0,
+ &#39;neptune_project&#39;: None,
+ &#39;neptune_api_token&#39;: None}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -147,7 +214,7 @@ nb_path: "projects/m5/05_training_day_by_day_models.ipynb"
   &#39;num_leaves&#39;: 255,
   &#39;min_data_in_leaf&#39;: 255,
   &#39;feature_fraction&#39;: 0.8,
-  &#39;n_estimators&#39;: 5000,
+  &#39;n_estimators&#39;: 1,
   &#39;early_stopping_rounds&#39;: 50,
   &#39;device_type&#39;: &#39;cpu&#39;,
   &#39;seed&#39;: 42,
@@ -322,7 +389,6 @@ nb_path: "projects/m5/05_training_day_by_day_models.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="prep_data" class="doc_header"><code>prep_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/daily_models.py#L211" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>prep_data</code>(<strong><code>cfg</code></strong>)</p>
 </blockquote>
-<p>Used to prepare the data and an evaluator object for training.</p>
 
 </div>
 
@@ -353,7 +419,7 @@ nb_path: "projects/m5/05_training_day_by_day_models.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="neptune" class="doc_header"><code>neptune</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/daily_models.py#L233" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>neptune</code>(<strong><code>cfg</code></strong>)</p>
+<h4 id="neptune" class="doc_header"><code>neptune</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/daily_models.py#L232" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>neptune</code>(<strong><code>cfg</code></strong>)</p>
 </blockquote>
 <p>Not implemented</p>
 
@@ -403,7 +469,7 @@ nb_path: "projects/m5/05_training_day_by_day_models.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="lgb_daily" class="doc_header"><code>lgb_daily</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/daily_models.py#L239" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lgb_daily</code>(<strong><code>path_cfg</code></strong>:<code>str</code>=<em><code>'cfg.json'</code></em>)</p>
+<h4 id="lgb_daily" class="doc_header"><code>lgb_daily</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/daily_models.py#L238" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lgb_daily</code>(<strong><code>path_cfg</code></strong>:<code>str</code>=<em><code>'cfg.json'</code></em>)</p>
 </blockquote>
 <p>Train 1 model for each day of prediction accoring to <code>path_cfg</code>.</p>
 
@@ -429,7 +495,7 @@ nb_path: "projects/m5/05_training_day_by_day_models.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="cli_lgb_daily" class="doc_header"><code>cli_lgb_daily</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/daily_models.py#L350" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cli_lgb_daily</code>(<strong><code>path_cfg</code></strong>:"path to the configuration json"=<em><code>'cfg.json'</code></em>)</p>
+<h4 id="cli_lgb_daily" class="doc_header"><code>cli_lgb_daily</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/daily_models.py#L349" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cli_lgb_daily</code>(<strong><code>path_cfg</code></strong>:"path to the configuration json"=<em><code>'cfg.json'</code></em>)</p>
 </blockquote>
 
 </div>
