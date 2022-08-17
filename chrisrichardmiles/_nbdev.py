@@ -63,11 +63,13 @@ index = {"mkdirs_data": "00_core.ipynb",
          "nan_zeros": "04_out_of_stock_detection.ipynb",
          "mark_streaks": "04_out_of_stock_detection.ipynb",
          "make_oos_data": "04_out_of_stock_detection.ipynb",
-         "load_cfg": "training_day_by_day_models.ipynb",
-         "prep_data": "training_day_by_day_models.ipynb",
-         "neptune": "training_day_by_day_models.ipynb",
-         "lgb_daily": "training_day_by_day_models.ipynb",
-         "cli_lgb_daily": "training_day_by_day_models.ipynb"}
+         "load_cfg": "05_training_day_by_day_models.ipynb",
+         "prep_data": "05_training_day_by_day_models.ipynb",
+         "neptune": "05_training_day_by_day_models.ipynb",
+         "lgb_daily": "05_training_day_by_day_models.ipynb",
+         "cli_lgb_daily": "05_training_day_by_day_models.ipynb",
+         "FINAL_CFG": "05_training_day_by_day_models.ipynb",
+         "DICT_FEATURES": "05_training_day_by_day_models.ipynb"}
 
 modules = ["core.py",
            "m5/metric.py",
