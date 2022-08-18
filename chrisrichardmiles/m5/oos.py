@@ -199,7 +199,9 @@ def make_oos_data(PATH_DATA_RAW: Param('Path to raw data', str)='data/raw',
     new_df = pd.DataFrame(new_series, columns=series_df.columns, index=series_df[mask].index)
 
     new_df.to_csv(os.path.join(PATH_DATA_INTERIM, 'oos_series_df_level_10_11_12.csv'))
-    df_stv.iloc[:, 6:] = new_df.loc[12].values
+    new_df = new_df.loc[12]
+    new_df.index = new_df.index + '_evaluation'
+    df_stv.iloc[:, 6:] = new_df.reindex(df_stv.id).values
     df_stv.to_csv(os.path.join(PATH_DATA_INTERIM, 'oos_sales_train_evaluation.csv'), index=False)
 
     # Adding this so that the rest of the pipeline doesn't need to change filenames
