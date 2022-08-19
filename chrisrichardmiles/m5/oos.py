@@ -204,8 +204,5 @@ def make_oos_data(PATH_DATA_RAW: Param('Path to raw data', str)='data/raw',
     df_stv.iloc[:, 6:] = new_df.reindex(df_stv.id).values
     df_stv.to_csv(os.path.join(PATH_DATA_INTERIM, 'oos_sales_train_evaluation.csv'), index=False)
 
-    # Adding this so that the rest of the pipeline doesn't need to change filenames
-    df_stv.to_csv(os.path.join(PATH_DATA_RAW, 'sales_train_evaluation.csv'), index=False)
-
     logging.info(72 * '#')
     logging.info(time_taken(start_time))

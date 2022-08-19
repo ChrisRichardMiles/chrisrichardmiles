@@ -361,6 +361,9 @@ def fe_base_features(path_data_raw: Param('path to raw data folder', str)='data/
 
     if not path_to_train_file:
         path_to_train_file = os.path.join(path_data_raw, 'sales_train_evaluation.csv')
+    oos_path = os.path.join(os.path.split(path_data_raw)[0], 'interim/oos_sales_train_evaluation.csv')
+    if os.path.exists(oos_path):
+        path_to_train_file = oos_path
 
     # Raw data
     df_stv = pd.read_csv(path_to_train_file)
@@ -573,6 +576,9 @@ def fe_lags(path_data_raw: Param('path to raw data folder', str)='data/raw',
 
     if not path_to_train_file:
         path_to_train_file = os.path.join(path_data_raw, 'sales_train_evaluation.csv')
+    oos_path = os.path.join(os.path.split(path_data_raw)[0], 'interim/oos_sales_train_evaluation.csv')
+    if os.path.exists(oos_path):
+        path_to_train_file = oos_path
 
     grid_df, rec = make_grid_df(path_to_train_file)
     original_cols = grid_df.columns
@@ -735,6 +741,9 @@ def fe_rw_stats(path_data_raw: Param('path to raw data folder', str)='data/raw',
 
     if not path_to_train_file:
         path_to_train_file = os.path.join(path_data_raw, 'sales_train_evaluation.csv')
+    oos_path = os.path.join(os.path.split(path_data_raw)[0], 'interim/oos_sales_train_evaluation.csv')
+    if os.path.exists(oos_path):
+        path_to_train_file = oos_path
 
     grid_df, rec = make_grid_df(path_to_train_file)
     original_cols = grid_df.columns
@@ -847,6 +856,9 @@ def fe_dow_means(path_data_raw: Param('path to raw data folder', str)='data/raw'
 
     if not path_to_train_file:
         path_to_train_file = os.path.join(path_data_raw, 'sales_train_evaluation.csv')
+    oos_path = os.path.join(os.path.split(path_data_raw)[0], 'interim/oos_sales_train_evaluation.csv')
+    if os.path.exists(oos_path):
+        path_to_train_file = oos_path
     grid_df, rec = make_grid_df(path_to_train_file)
     original_cols = grid_df.columns
 
@@ -1004,6 +1016,9 @@ def fe_ipca_lags(path_data_raw: Param('path to raw data folder', str)='data/raw'
 
     if not path_to_train_file:
         path_to_train_file = os.path.join(path_data_raw, 'sales_train_evaluation.csv')
+    oos_path = os.path.join(os.path.split(path_data_raw)[0], 'interim/oos_sales_train_evaluation.csv')
+    if os.path.exists(oos_path):
+        path_to_train_file = oos_path
 
     grid_df, rec = make_grid_df(path_to_train_file, 1)
 
