@@ -2,9 +2,12 @@
   "chrisrichardmiles": {
     "Overview": "/",
     "Core": "core.html",
-    "Brief EDA  ": "brief_eda.html",
-    "WRMSSE metric implementation": "WRMSSE_metric.html",
-    "Feature engineering": "feature_engineering.html",
-    "Title": "training_day_by_day_models.html"
+    "M5 Solution": {
+        "Brief EDA  ": "brief_eda.html",
+        "WRMSSE Metric Implementation": "WRMSSE_metric.html",
+        "Feature Engineering": "feature_engineering.html",
+        "Model Training": "training_day_by_day_models.html"
+      }
+    "Optiver Solution": "index_optiver.html"
   }
 }
