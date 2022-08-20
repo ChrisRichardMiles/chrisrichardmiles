@@ -11,10 +11,11 @@ documentation for details about the solution.
 
 ## Create submission from scratch from the command line
 
-Requirements: 20 GB of RAM and pip installed 
+Requirements: 20 GB of RAM and pip installed
 
 ### 1. Install package
-with pip `pip install chrisrichardmiles`
+
+`pip install chrisrichardmiles`
 
 ### 2. Create data folders, download data, and unzip files
 
@@ -25,14 +26,12 @@ with pip `pip install chrisrichardmiles`
 #### Otherwise, you must run:
 
     crm_mkdirs_data
+
+and manully download the data zipfile from
+[kaggle](https://www.kaggle.com/c/m5-forecasting-accuracy/data) and
+upload it into the data/raw folder.
+
     cd data/raw
-
--   Now manully download the data zipfile from
-    [kaggle](https://www.kaggle.com/c/m5-forecasting-accuracy/data) and
-    upload it into the data/raw folder.
-
-<!-- -->
-
     unzip * 
     cd ../..
 
