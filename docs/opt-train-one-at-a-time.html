@@ -47,55 +47,55 @@ nb_path: "projects/optiver/notebooks/opt-train-one-at-a-time.ipynb"
 <span class="kn">from</span> <span class="nn">lightgbm.callback</span> <span class="kn">import</span> <span class="n">record_evaluation</span>
 <span class="kn">from</span> <span class="nn">opt_utils</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;pip install neptune-client&#39;</span><span class="p">)</span>
-<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;pip install neptune-lightgbm&#39;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">'pip install neptune-client'</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">'pip install neptune-lightgbm'</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">neptune.new</span> <span class="k">as</span> <span class="nn">neptune</span>
 <span class="kn">from</span> <span class="nn">neptune.new.integrations.lightgbm</span> <span class="kn">import</span> <span class="n">create_booster_summary</span>
 <span class="kn">from</span> <span class="nn">kaggle_secrets</span> <span class="kn">import</span> <span class="n">UserSecretsClient</span>
 <span class="n">user_secrets</span> <span class="o">=</span> <span class="n">UserSecretsClient</span><span class="p">()</span>
-<span class="n">NEPTUNE_API_TOKEN</span> <span class="o">=</span> <span class="n">user_secrets</span><span class="o">.</span><span class="n">get_secret</span><span class="p">(</span><span class="s2">&quot;NEPTUNE_API_TOKEN&quot;</span><span class="p">)</span>
+<span class="n">NEPTUNE_API_TOKEN</span> <span class="o">=</span> <span class="n">user_secrets</span><span class="o">.</span><span class="n">get_secret</span><span class="p">(</span><span class="s2">"NEPTUNE_API_TOKEN"</span><span class="p">)</span>
 
 <span class="n">cfg</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;script_name&quot;</span><span class="p">:</span> <span class="s1">&#39;opt_train_v2_nep_op_85_enc&#39;</span><span class="p">,</span>
-    <span class="s2">&quot;path_features&quot;</span><span class="p">:</span> <span class="s1">&#39;../input/generate-train-features-script-p10/p10_train.pkl&#39;</span><span class="p">,</span> <span class="c1"># Used in train mode</span>
-    <span class="s2">&quot;path_models&quot;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="s2">&quot;path_data_raw&quot;</span><span class="p">:</span> <span class="s1">&#39;../input/optiver-realized-volatility-prediction/&#39;</span><span class="p">,</span>
-    <span class="s2">&quot;neptune_project&quot;</span><span class="p">:</span> <span class="s1">&#39;chrisrichardmiles/optiver&#39;</span><span class="p">,</span>
-    <span class="s2">&quot;neptune_description&quot;</span><span class="p">:</span> <span class="s1">&#39;p10 features second run with enc. Notice but and will have to rerun with feature generation and training&#39;</span><span class="p">,</span>
-    <span class="s2">&quot;encode_time_cols&quot;</span><span class="p">:</span>  <span class="p">[</span>
-        <span class="s1">&#39;real_vol_mean_decay_0.99_-1&#39;</span><span class="p">,</span> <span class="s1">&#39;real_vol_mean_decay_0.95_-1&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;real_vol_mean_decay_0.9_-1&#39;</span><span class="p">,</span> <span class="s1">&#39;real_vol_mean_decay_0.85_-1&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;ask_price1_real_vol&#39;</span><span class="p">,</span> <span class="s1">&#39;bid_price1_real_vol&#39;</span><span class="p">,</span> <span class="s1">&#39;spread_mean&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;size_momentum&#39;</span><span class="p">,</span> <span class="s1">&#39;size_real_vol&#39;</span><span class="p">,</span> <span class="s1">&#39;abs_log_return_max_sub_min&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;sum_bid_ask_real_vol&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_mean_decay&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_last-first&#39;</span>
+    <span class="s2">"script_name"</span><span class="p">:</span> <span class="s1">'opt_train_v2_nep_op_85_enc'</span><span class="p">,</span>
+    <span class="s2">"path_features"</span><span class="p">:</span> <span class="s1">'../input/generate-train-features-script-p10/p10_train.pkl'</span><span class="p">,</span> <span class="c1"># Used in train mode</span>
+    <span class="s2">"path_models"</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+    <span class="s2">"path_data_raw"</span><span class="p">:</span> <span class="s1">'../input/optiver-realized-volatility-prediction/'</span><span class="p">,</span>
+    <span class="s2">"neptune_project"</span><span class="p">:</span> <span class="s1">'chrisrichardmiles/optiver'</span><span class="p">,</span>
+    <span class="s2">"neptune_description"</span><span class="p">:</span> <span class="s1">'p10 features second run with enc. Notice but and will have to rerun with feature generation and training'</span><span class="p">,</span>
+    <span class="s2">"encode_time_cols"</span><span class="p">:</span>  <span class="p">[</span>
+        <span class="s1">'real_vol_mean_decay_0.99_-1'</span><span class="p">,</span> <span class="s1">'real_vol_mean_decay_0.95_-1'</span><span class="p">,</span> 
+        <span class="s1">'real_vol_mean_decay_0.9_-1'</span><span class="p">,</span> <span class="s1">'real_vol_mean_decay_0.85_-1'</span><span class="p">,</span> 
+        <span class="s1">'ask_price1_real_vol'</span><span class="p">,</span> <span class="s1">'bid_price1_real_vol'</span><span class="p">,</span> <span class="s1">'spread_mean'</span><span class="p">,</span> 
+        <span class="s1">'size_momentum'</span><span class="p">,</span> <span class="s1">'size_real_vol'</span><span class="p">,</span> <span class="s1">'abs_log_return_max_sub_min'</span><span class="p">,</span> 
+        <span class="s1">'sum_bid_ask_real_vol'</span><span class="p">,</span> <span class="s1">'log_return_mean_decay'</span><span class="p">,</span> <span class="s1">'wap_last-first'</span>
                         <span class="p">],</span>
-    <span class="s2">&quot;encode_stock_cols&quot;</span><span class="p">:</span> <span class="p">[],</span>
-    <span class="s2">&quot;encode_funcs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">],</span> 
-    <span class="s2">&quot;shake&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> 
-    <span class="s2">&quot;shake_std&quot;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> 
-    <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="s2">&quot;rerun&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s2">&quot;drop_cols&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;row_id&#39;</span><span class="p">,</span> <span class="s1">&#39;stock_id&#39;</span><span class="p">,</span> <span class="s1">&#39;time_id&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;abs_log_return_std_450&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_last_150&#39;</span><span class="p">,</span> <span class="s1">&#39;seconds_in_bucket_count_unique_350&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_mean_decay_150&#39;</span><span class="p">,</span> <span class="s1">&#39;price_wap_diff_mean_decay_flip_450&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_max_sub_min_150&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_mean_decay_150&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_mean_350&#39;</span><span class="p">,</span> <span class="s1">&#39;abs_log_return_mean_decay_350&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_mean_decay_0&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_max_sub_min_450&#39;</span><span class="p">,</span> <span class="s1">&#39;size_amin_350&#39;</span><span class="p">,</span> <span class="s1">&#39;abs_log_return_mean_decay_flip_350&#39;</span><span class="p">,</span> <span class="s1">&#39;abs_log_return_sum_350&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_sum_450&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_std_450&#39;</span><span class="p">,</span> <span class="s1">&#39;abs_log_return_std_150&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_count_150&#39;</span><span class="p">,</span> <span class="s1">&#39;abs_log_return_mean_decay_flip_450&#39;</span><span class="p">,</span> <span class="s1">&#39;size_sum_150&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_mean_decay_350&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_sum_0&#39;</span><span class="p">,</span> <span class="s1">&#39;size_sum_350&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_sum_350&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_max_sub_min_450&#39;</span><span class="p">,</span> <span class="s1">&#39;seconds_in_bucket_count_unique_150&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_max_sub_min_450&#39;</span><span class="p">,</span> <span class="s1">&#39;price_wap_diff_amax_0&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_last_350&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_mean_decay_flip_150&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_momentum_350&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_mean_150&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_amin_350&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_std_350&#39;</span><span class="p">,</span> <span class="s1">&#39;size_amax_350&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_realized_volatility_150&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_mean_450&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_std_150&#39;</span><span class="p">,</span> <span class="s1">&#39;order_count_amax_150&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_mean_decay_350&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_count_0&#39;</span><span class="p">,</span> <span class="s1">&#39;abs_log_return_sum_150&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_amin_450&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_sum_350&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_amax_450&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_realized_volatility_350&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_max_sub_min_350&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_first_350&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_first_450&#39;</span><span class="p">,</span> <span class="s1">&#39;sum_ask_sub_sum_bid_scaled_mean_decay_450&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_count_450&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_last_450&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_std_450&#39;</span><span class="p">,</span> <span class="s1">&#39;size_amax_450&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_mean_decay_350&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_mean_decay_350&#39;</span><span class="p">,</span> <span class="s1">&#39;real_vol_mean_decay_0.45_-1&#39;</span><span class="p">,</span> <span class="s1">&#39;real_vol_mean_decay_0.85_1&#39;</span><span class="p">,</span> <span class="s1">&#39;sum_ask_sub_sum_bid_vol_log_return_150&#39;</span><span class="p">,</span> <span class="s1">&#39;sum_ask_sub_sum_bid_scaled_mean_350&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_std_350&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_realized_volatility_450&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_mean_decay_450&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_mean_decay_0&#39;</span><span class="p">,</span> <span class="s1">&#39;price_wap_diff_momentum_150&#39;</span><span class="p">,</span> <span class="s1">&#39;size_amin_150&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_mean_decay_0&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_mean_decay_flip_450&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_sum_150&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_std_350&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_std_0&#39;</span><span class="p">,</span> <span class="s1">&#39;size_amin_0&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_count_350&#39;</span><span class="p">,</span> <span class="s1">&#39;abs_log_return_mean_decay_150&#39;</span><span class="p">,</span> <span class="s1">&#39;real_vol_mean_decay_0.65_1&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_mean_decay_150&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_mean_decay_flip_450&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_sum_150&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_amax_0&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_amax_350&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_sum_0&#39;</span><span class="p">,</span> <span class="s1">&#39;ask_size1_vol_log_return_450&#39;</span><span class="p">,</span> <span class="s1">&#39;sum_ask_sub_sum_bid_vol_log_return_350&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_std_450&#39;</span><span class="p">,</span> <span class="s1">&#39;price_vol_log_return_450&#39;</span><span class="p">,</span> <span class="s1">&#39;seconds_in_bucket_count_unique_0&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_mean_decay_flip_350&#39;</span><span class="p">,</span> <span class="s1">&#39;price_wap_diff_momentum_350&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_momentum_450&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_mean_0&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_max_sub_min_0&#39;</span><span class="p">,</span> <span class="s1">&#39;real_vol_mean_decay_0.55_-1&#39;</span><span class="p">,</span> <span class="s1">&#39;sum_ask_sub_sum_bid_scaled_mean_450&#39;</span><span class="p">,</span> <span class="s1">&#39;real_vol_mean_decay_0.9_1&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_mean_decay_flip_450&#39;</span><span class="p">,</span> <span class="s1">&#39;sum_ask_sub_sum_bid_scaled_mean_decay_0&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_amin_0&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_max_sub_min_150&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_mean_decay_flip_350&#39;</span><span class="p">,</span> <span class="s1">&#39;sum_ask_vol_log_return_350&#39;</span><span class="p">,</span> <span class="s1">&#39;abs_log_return_mean_decay_450&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_amax_150&#39;</span><span class="p">,</span> <span class="s1">&#39;log_return_realized_volatility_0&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_mean_decay_flip_450&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_std_150&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_mean_decay_450&#39;</span><span class="p">,</span> <span class="s1">&#39;price_wap_diff_mean_decay_0&#39;</span><span class="p">,</span> <span class="s1">&#39;sum_ask_sub_sum_bid_scaled_mean_decay_150&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_mean_decay_450&#39;</span><span class="p">,</span> <span class="s1">&#39;price_wap_diff_mean_decay_350&#39;</span><span class="p">,</span> <span class="s1">&#39;wap_amin_150&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_max_sub_min_0&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pos_return_sum_450&#39;</span><span class="p">,</span> <span class="s1">&#39;is_neg_return_max_sub_min_350&#39;</span><span class="p">,</span> <span class="s1">&#39;sum_ask_sub_sum_bid_scaled_mean_decay_350&#39;</span><span class="p">,</span> <span class="s1">&#39;dummy1&#39;</span><span class="p">,</span> <span class="s1">&#39;seconds_in_bucket_count_unique_450&#39;</span><span class="p">,</span> <span class="s1">&#39;abs_log_return_mean_decay_0&#39;</span><span class="p">,</span> <span class="s1">&#39;price_wap_diff_mean_decay_150&#39;</span><span class="p">,</span> <span class="s1">&#39;abs_log_return_sum_450&#39;</span><span class="p">,</span> <span class="s1">&#39;size_sum_450&#39;</span><span class="p">,</span> 
-                         <span class="s1">&#39;is_neg_return_std_150&#39;</span><span class="p">],</span> 
-    <span class="s2">&quot;neptune_run_name&quot;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="s2">&quot;lgb_params&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"encode_stock_cols"</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">"encode_funcs"</span><span class="p">:</span> <span class="p">[</span><span class="s1">'mean'</span><span class="p">,</span> <span class="s1">'std'</span><span class="p">,</span> <span class="s1">'max'</span><span class="p">,</span> <span class="s1">'min'</span><span class="p">],</span> 
+    <span class="s2">"shake"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> 
+    <span class="s2">"shake_std"</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> 
+    <span class="s2">"prefix"</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+    <span class="s2">"rerun"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"drop_cols"</span><span class="p">:</span> <span class="p">[</span><span class="s1">'row_id'</span><span class="p">,</span> <span class="s1">'stock_id'</span><span class="p">,</span> <span class="s1">'time_id'</span><span class="p">,</span> <span class="s1">'target'</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'abs_log_return_std_450'</span><span class="p">,</span> <span class="s1">'wap_last_150'</span><span class="p">,</span> <span class="s1">'seconds_in_bucket_count_unique_350'</span><span class="p">,</span> <span class="s1">'wap_mean_decay_150'</span><span class="p">,</span> <span class="s1">'price_wap_diff_mean_decay_flip_450'</span><span class="p">,</span> <span class="s1">'is_pos_return_max_sub_min_150'</span><span class="p">,</span> <span class="s1">'is_pos_return_mean_decay_150'</span><span class="p">,</span> <span class="s1">'wap_mean_350'</span><span class="p">,</span> <span class="s1">'abs_log_return_mean_decay_350'</span><span class="p">,</span> <span class="s1">'is_neg_return_mean_decay_0'</span><span class="p">,</span> <span class="s1">'log_return_max_sub_min_450'</span><span class="p">,</span> <span class="s1">'size_amin_350'</span><span class="p">,</span> <span class="s1">'abs_log_return_mean_decay_flip_350'</span><span class="p">,</span> <span class="s1">'abs_log_return_sum_350'</span><span class="p">,</span> <span class="s1">'is_neg_return_sum_450'</span><span class="p">,</span> <span class="s1">'is_neg_return_std_450'</span><span class="p">,</span> <span class="s1">'abs_log_return_std_150'</span><span class="p">,</span> <span class="s1">'log_return_count_150'</span><span class="p">,</span> <span class="s1">'abs_log_return_mean_decay_flip_450'</span><span class="p">,</span> <span class="s1">'size_sum_150'</span><span class="p">,</span> <span class="s1">'wap_mean_decay_350'</span><span class="p">,</span> <span class="s1">'is_pos_return_sum_0'</span><span class="p">,</span> <span class="s1">'size_sum_350'</span><span class="p">,</span> <span class="s1">'is_pos_return_sum_350'</span><span class="p">,</span> <span class="s1">'is_neg_return_max_sub_min_450'</span><span class="p">,</span> <span class="s1">'seconds_in_bucket_count_unique_150'</span><span class="p">,</span> <span class="s1">'is_pos_return_max_sub_min_450'</span><span class="p">,</span> <span class="s1">'price_wap_diff_amax_0'</span><span class="p">,</span> <span class="s1">'wap_last_350'</span><span class="p">,</span> <span class="s1">'wap_mean_decay_flip_150'</span><span class="p">,</span> <span class="s1">'wap_momentum_350'</span><span class="p">,</span> <span class="s1">'wap_mean_150'</span><span class="p">,</span> <span class="s1">'wap_amin_350'</span><span class="p">,</span> <span class="s1">'is_pos_return_std_350'</span><span class="p">,</span> <span class="s1">'size_amax_350'</span><span class="p">,</span> <span class="s1">'log_return_realized_volatility_150'</span><span class="p">,</span> <span class="s1">'wap_mean_450'</span><span class="p">,</span> <span class="s1">'log_return_std_150'</span><span class="p">,</span> <span class="s1">'order_count_amax_150'</span><span class="p">,</span> <span class="s1">'log_return_mean_decay_350'</span><span class="p">,</span> <span class="s1">'log_return_count_0'</span><span class="p">,</span> <span class="s1">'abs_log_return_sum_150'</span><span class="p">,</span> <span class="s1">'wap_amin_450'</span><span class="p">,</span> <span class="s1">'is_neg_return_sum_350'</span><span class="p">,</span> <span class="s1">'wap_amax_450'</span><span class="p">,</span> <span class="s1">'log_return_realized_volatility_350'</span><span class="p">,</span> <span class="s1">'is_pos_return_max_sub_min_350'</span><span class="p">,</span> <span class="s1">'wap_first_350'</span><span class="p">,</span> <span class="s1">'wap_first_450'</span><span class="p">,</span> <span class="s1">'sum_ask_sub_sum_bid_scaled_mean_decay_450'</span><span class="p">,</span> <span class="s1">'log_return_count_450'</span><span class="p">,</span> <span class="s1">'wap_last_450'</span><span class="p">,</span> <span class="s1">'log_return_std_450'</span><span class="p">,</span> <span class="s1">'size_amax_450'</span><span class="p">,</span> <span class="s1">'is_pos_return_mean_decay_350'</span><span class="p">,</span> <span class="s1">'is_neg_return_mean_decay_350'</span><span class="p">,</span> <span class="s1">'real_vol_mean_decay_0.45_-1'</span><span class="p">,</span> <span class="s1">'real_vol_mean_decay_0.85_1'</span><span class="p">,</span> <span class="s1">'sum_ask_sub_sum_bid_vol_log_return_150'</span><span class="p">,</span> <span class="s1">'sum_ask_sub_sum_bid_scaled_mean_350'</span><span class="p">,</span> <span class="s1">'log_return_std_350'</span><span class="p">,</span> <span class="s1">'log_return_realized_volatility_450'</span><span class="p">,</span> <span class="s1">'wap_mean_decay_450'</span><span class="p">,</span> <span class="s1">'is_pos_return_mean_decay_0'</span><span class="p">,</span> <span class="s1">'price_wap_diff_momentum_150'</span><span class="p">,</span> <span class="s1">'size_amin_150'</span><span class="p">,</span> <span class="s1">'wap_mean_decay_0'</span><span class="p">,</span> <span class="s1">'is_neg_return_mean_decay_flip_450'</span><span class="p">,</span> <span class="s1">'is_pos_return_sum_150'</span><span class="p">,</span> <span class="s1">'is_neg_return_std_350'</span><span class="p">,</span> <span class="s1">'log_return_std_0'</span><span class="p">,</span> <span class="s1">'size_amin_0'</span><span class="p">,</span> <span class="s1">'log_return_count_350'</span><span class="p">,</span> <span class="s1">'abs_log_return_mean_decay_150'</span><span class="p">,</span> <span class="s1">'real_vol_mean_decay_0.65_1'</span><span class="p">,</span> <span class="s1">'is_neg_return_mean_decay_150'</span><span class="p">,</span> <span class="s1">'wap_mean_decay_flip_450'</span><span class="p">,</span> <span class="s1">'is_neg_return_sum_150'</span><span class="p">,</span> <span class="s1">'wap_amax_0'</span><span class="p">,</span> <span class="s1">'wap_amax_350'</span><span class="p">,</span> <span class="s1">'is_neg_return_sum_0'</span><span class="p">,</span> <span class="s1">'ask_size1_vol_log_return_450'</span><span class="p">,</span> <span class="s1">'sum_ask_sub_sum_bid_vol_log_return_350'</span><span class="p">,</span> <span class="s1">'is_pos_return_std_450'</span><span class="p">,</span> <span class="s1">'price_vol_log_return_450'</span><span class="p">,</span> <span class="s1">'seconds_in_bucket_count_unique_0'</span><span class="p">,</span> <span class="s1">'wap_mean_decay_flip_350'</span><span class="p">,</span> <span class="s1">'price_wap_diff_momentum_350'</span><span class="p">,</span> <span class="s1">'wap_momentum_450'</span><span class="p">,</span> <span class="s1">'wap_mean_0'</span><span class="p">,</span> <span class="s1">'is_pos_return_max_sub_min_0'</span><span class="p">,</span> <span class="s1">'real_vol_mean_decay_0.55_-1'</span><span class="p">,</span> <span class="s1">'sum_ask_sub_sum_bid_scaled_mean_450'</span><span class="p">,</span> <span class="s1">'real_vol_mean_decay_0.9_1'</span><span class="p">,</span> <span class="s1">'log_return_mean_decay_flip_450'</span><span class="p">,</span> <span class="s1">'sum_ask_sub_sum_bid_scaled_mean_decay_0'</span><span class="p">,</span> <span class="s1">'wap_amin_0'</span><span class="p">,</span> <span class="s1">'is_neg_return_max_sub_min_150'</span><span class="p">,</span> <span class="s1">'log_return_mean_decay_flip_350'</span><span class="p">,</span> <span class="s1">'sum_ask_vol_log_return_350'</span><span class="p">,</span> <span class="s1">'abs_log_return_mean_decay_450'</span><span class="p">,</span> <span class="s1">'wap_amax_150'</span><span class="p">,</span> <span class="s1">'log_return_realized_volatility_0'</span><span class="p">,</span> <span class="s1">'is_pos_return_mean_decay_flip_450'</span><span class="p">,</span> <span class="s1">'is_pos_return_std_150'</span><span class="p">,</span> <span class="s1">'is_pos_return_mean_decay_450'</span><span class="p">,</span> <span class="s1">'price_wap_diff_mean_decay_0'</span><span class="p">,</span> <span class="s1">'sum_ask_sub_sum_bid_scaled_mean_decay_150'</span><span class="p">,</span> <span class="s1">'is_neg_return_mean_decay_450'</span><span class="p">,</span> <span class="s1">'price_wap_diff_mean_decay_350'</span><span class="p">,</span> <span class="s1">'wap_amin_150'</span><span class="p">,</span> <span class="s1">'is_neg_return_max_sub_min_0'</span><span class="p">,</span> <span class="s1">'is_pos_return_sum_450'</span><span class="p">,</span> <span class="s1">'is_neg_return_max_sub_min_350'</span><span class="p">,</span> <span class="s1">'sum_ask_sub_sum_bid_scaled_mean_decay_350'</span><span class="p">,</span> <span class="s1">'dummy1'</span><span class="p">,</span> <span class="s1">'seconds_in_bucket_count_unique_450'</span><span class="p">,</span> <span class="s1">'abs_log_return_mean_decay_0'</span><span class="p">,</span> <span class="s1">'price_wap_diff_mean_decay_150'</span><span class="p">,</span> <span class="s1">'abs_log_return_sum_450'</span><span class="p">,</span> <span class="s1">'size_sum_450'</span><span class="p">,</span> 
+                         <span class="s1">'is_neg_return_std_150'</span><span class="p">],</span> 
+    <span class="s2">"neptune_run_name"</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+    <span class="s2">"lgb_params"</span><span class="p">:</span> <span class="p">{</span>
         <span class="c1"># https://lightgbm.readthedocs.io/en/latest/index.html</span>
-        <span class="s2">&quot;boosting_type&quot;</span><span class="p">:</span> <span class="s2">&quot;gbdt&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;objective&quot;</span><span class="p">:</span> <span class="s2">&quot;rmse&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>
-        <span class="s2">&quot;num_leaves&quot;</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span>
-        <span class="s2">&quot;min_data_in_leaf&quot;</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span>
-        <span class="s2">&quot;feature_fraction&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
-        <span class="s2">&quot;bagging_fraction&quot;</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="c1"># Select bagging_fraction of rows every bagging_freq of iterations.</span>
-        <span class="s2">&quot;bagging_freq&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># This speeds up training and underfits. Need both set to do anything.</span>
-        <span class="s2">&quot;n_estimators&quot;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>
-        <span class="s2">&quot;early_stopping_rounds&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
-        <span class="s2">&quot;n_jobs&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-        <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
-        <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> 
+        <span class="s2">"boosting_type"</span><span class="p">:</span> <span class="s2">"gbdt"</span><span class="p">,</span>
+        <span class="s2">"objective"</span><span class="p">:</span> <span class="s2">"rmse"</span><span class="p">,</span>
+        <span class="s2">"learning_rate"</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>
+        <span class="s2">"num_leaves"</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span>
+        <span class="s2">"min_data_in_leaf"</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span>
+        <span class="s2">"feature_fraction"</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+        <span class="s2">"bagging_fraction"</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="c1"># Select bagging_fraction of rows every bagging_freq of iterations.</span>
+        <span class="s2">"bagging_freq"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1"># This speeds up training and underfits. Need both set to do anything.</span>
+        <span class="s2">"n_estimators"</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>
+        <span class="s2">"early_stopping_rounds"</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="s2">"n_jobs"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"seed"</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+        <span class="s2">"verbose"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> 
     <span class="p">},</span>
 <span class="p">}</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;cfg.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> 
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'cfg.json'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> 
     <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
 </pre></div>
 
@@ -114,8 +114,8 @@ nb_path: "projects/optiver/notebooks/opt-train-one-at-a-time.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">rdf</span><span class="p">(</span><span class="n">train</span><span class="p">):</span> 
-    <span class="n">train</span><span class="p">[</span><span class="s1">&#39;spe&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;pred&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;spe&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">/</span> <span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">train</span><span class="p">[</span><span class="s1">'spe'</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">train</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span> <span class="o">-</span> <span class="n">train</span><span class="p">[</span><span class="s1">'pred'</span><span class="p">])</span> <span class="o">/</span> <span class="n">train</span><span class="p">[</span><span class="s1">'target'</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">train</span><span class="p">[</span><span class="s1">'spe'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">/</span> <span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -132,7 +132,7 @@ nb_path: "projects/optiver/notebooks/opt-train-one-at-a-time.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../input/nepop76/cfg.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'../input/nepop76/cfg.json'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> 
     <span class="n">cfg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 </pre></div>
 
@@ -167,12 +167,12 @@ nb_path: "projects/optiver/notebooks/opt-train-one-at-a-time.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s1">&#39;../input/nepop76/enc_p8_train.pkl&#39;</span><span class="p">)</span>
-<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">all_train</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;stock_id_&#39;</span><span class="p">)]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s1">'../input/nepop76/enc_p8_train.pkl'</span><span class="p">)</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">all_train</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'stock_id_'</span><span class="p">)]</span>
 <span class="n">all_train</span> <span class="o">=</span> <span class="n">all_train</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span>
 <span class="c1"># all_train.columns.tolist()</span>
-<span class="n">all_preds</span> <span class="o">=</span> <span class="n">all_train</span><span class="p">[[</span><span class="s1">&#39;stock_id&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">]]</span>
-<span class="n">all_preds</span><span class="p">[</span><span class="s1">&#39;pred&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">all_preds</span> <span class="o">=</span> <span class="n">all_train</span><span class="p">[[</span><span class="s1">'stock_id'</span><span class="p">,</span> <span class="s1">'target'</span><span class="p">]]</span>
+<span class="n">all_preds</span><span class="p">[</span><span class="s1">'pred'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 </pre></div>
 
     </div>
@@ -208,8 +208,8 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">old_preds</span> <span class="o">=</span> <span class="n">all_train</span><span class="p">[[</span><span class="s1">&#39;stock_id&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">]]</span>
-<span class="n">old_preds</span><span class="p">[</span><span class="s1">&#39;pred&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;../input/nepop76/oof_predictions.npy&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">old_preds</span> <span class="o">=</span> <span class="n">all_train</span><span class="p">[[</span><span class="s1">'stock_id'</span><span class="p">,</span> <span class="s1">'target'</span><span class="p">]]</span>
+<span class="n">old_preds</span><span class="p">[</span><span class="s1">'pred'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">'../input/nepop76/oof_predictions.npy'</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -245,7 +245,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;old&#39;</span><span class="p">,</span> <span class="s1">&#39;new&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'old'</span><span class="p">,</span> <span class="s1">'new'</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -263,18 +263,18 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">stock_id</span><span class="p">):</span> 
-<span class="c1">#     train = pd.read_pickle(cfg[&#39;path_features&#39;])</span>
-<span class="c1">#     train = encode_cols(train, cfg[&quot;encode_time_cols&quot;], funcs=cfg[&#39;encode_funcs&#39;], on=&#39;time_id&#39;)</span>
+<span class="c1">#     train = pd.read_pickle(cfg['path_features'])</span>
+<span class="c1">#     train = encode_cols(train, cfg["encode_time_cols"], funcs=cfg['encode_funcs'], on='time_id')</span>
     
     <span class="c1"># Saving encoded stock columns</span>
-<span class="c1">#     feat_file = &#39;enc_&#39; + os.path.split(cfg[&#39;path_features&#39;])[1]</span>
-<span class="c1">#     tmp = encode_cols(train, cfg[&quot;encode_stock_cols&quot;], funcs=cfg[&#39;encode_funcs&#39;], on=&#39;stock_id&#39;)</span>
-<span class="c1">#     tmp.to_pickle(os.path.join(cfg[&#39;path_models&#39;], feat_file))</span>
+<span class="c1">#     feat_file = 'enc_' + os.path.split(cfg['path_features'])[1]</span>
+<span class="c1">#     tmp = encode_cols(train, cfg["encode_stock_cols"], funcs=cfg['encode_funcs'], on='stock_id')</span>
+<span class="c1">#     tmp.to_pickle(os.path.join(cfg['path_models'], feat_file))</span>
      
     <span class="n">train</span> <span class="o">=</span> <span class="n">all_train</span><span class="p">[</span><span class="n">all_train</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">==</span> <span class="n">stock_id</span><span class="p">]</span>
-    <span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;drop_cols&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">train</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">!=</span> <span class="s1">&#39;stock_id&#39;</span> <span class="ow">and</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;encode_stock_cols&#39;</span><span class="p">]]</span>
+    <span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">'drop_cols'</span><span class="p">]</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">train</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">!=</span> <span class="s1">'stock_id'</span> <span class="ow">and</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">'encode_stock_cols'</span><span class="p">]]</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">drop_cols</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span>
     
     <span class="n">oof_predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># Create out of folds array</span>
     <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Keep track of scores for each fold and all oof at the end</span>
@@ -291,20 +291,20 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
         <span class="n">trn_ind</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">fold</span> <span class="o">!=</span> <span class="n">fold</span>
         <span class="n">val_ind</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">fold</span> <span class="o">==</span> <span class="n">fold</span>
         
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Training fold </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">x_train</span><span class="p">,</span> <span class="n">x_val</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">trn_ind</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;fold&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">x</span><span class="p">[</span><span class="n">val_ind</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;fold&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Training fold </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+        <span class="n">x_train</span><span class="p">,</span> <span class="n">x_val</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">trn_ind</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'fold'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">x</span><span class="p">[</span><span class="n">val_ind</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'fold'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">trn_ind</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">val_ind</span><span class="p">]</span>
         
         <span class="n">x_train</span> <span class="o">=</span> <span class="n">encode_cols</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> 
-                              <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;encode_stock_cols&#39;</span><span class="p">],</span> 
-                              <span class="n">funcs</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;encode_funcs&#39;</span><span class="p">],</span> 
-                              <span class="n">shake</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;shake&#39;</span><span class="p">],</span> 
-                              <span class="n">shake_std</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;shake_std&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;stock_id&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                              <span class="n">cfg</span><span class="p">[</span><span class="s1">'encode_stock_cols'</span><span class="p">],</span> 
+                              <span class="n">funcs</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">'encode_funcs'</span><span class="p">],</span> 
+                              <span class="n">shake</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">'shake'</span><span class="p">],</span> 
+                              <span class="n">shake_std</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">'shake_std'</span><span class="p">])</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'stock_id'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">n_train_cols</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         
         <span class="n">x_val</span> <span class="o">=</span> <span class="n">encode_cols</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> 
-                            <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;encode_stock_cols&#39;</span><span class="p">],</span> 
-                            <span class="n">funcs</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;encode_funcs&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;stock_id&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                            <span class="n">cfg</span><span class="p">[</span><span class="s1">'encode_stock_cols'</span><span class="p">],</span> 
+                            <span class="n">funcs</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">'encode_funcs'</span><span class="p">])</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'stock_id'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         
         <span class="n">train_weights</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span> <span class="c1"># Root mean squared percentage error weights</span>
         <span class="n">val_weights</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y_val</span><span class="p">)</span>
@@ -312,15 +312,15 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
         <span class="n">val_dataset</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">val_weights</span><span class="p">,</span> <span class="n">reference</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">)</span>
         
         <span class="n">dict_eval_log</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">params</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;lgb_params&#39;</span><span class="p">],</span> 
+        <span class="n">model</span> <span class="o">=</span> <span class="n">lgb</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">params</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">'lgb_params'</span><span class="p">],</span> 
                           <span class="n">train_set</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="p">,</span> 
                           <span class="n">valid_sets</span> <span class="o">=</span> <span class="p">[</span><span class="n">val_dataset</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">],</span> 
-                          <span class="n">valid_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">],</span> 
+                          <span class="n">valid_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'valid'</span><span class="p">,</span> <span class="s1">'train'</span><span class="p">],</span> 
                           <span class="n">feval</span> <span class="o">=</span> <span class="n">feval_rmspe</span><span class="p">,</span>
                           <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">record_evaluation</span><span class="p">(</span><span class="n">dict_eval_log</span><span class="p">)],</span>
                           <span class="n">verbose_eval</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span>
         
-<span class="c1">#         model.save_model(os.path.join(cfg[&#39;path_models&#39;], f&#39;{cfg[&quot;prefix&quot;]}lgb_fold_{fold}.txt&#39;))</span>
+<span class="c1">#         model.save_model(os.path.join(cfg['path_models'], f'{cfg["prefix"]}lgb_fold_{fold}.txt'))</span>
         <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_val</span><span class="p">)</span>
         <span class="n">oof_predictions</span><span class="p">[</span><span class="n">val_ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred</span>
         <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">rmspe</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
@@ -337,8 +337,8 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span class="c1">#             y_true=y_val, </span>
 <span class="c1">#             y_pred=y_pred, </span>
 <span class="c1">#         )</span>
-<span class="c1">#         train_score = model.best_score[&#39;train&#39;][&#39;RMSPE&#39;]</span>
-<span class="c1">#         valid_score = model.best_score[&#39;valid&#39;][&#39;RMSPE&#39;]</span>
+<span class="c1">#         train_score = model.best_score['train']['RMSPE']</span>
+<span class="c1">#         valid_score = model.best_score['valid']['RMSPE']</span>
 <span class="c1">#         best_iterations.append(model.best_iteration)</span>
 <span class="c1">#         training_best_scores.append(round(train_score, 3))</span>
 <span class="c1">#         valid_best_scores.append(round(valid_score, 3))</span>
@@ -353,64 +353,64 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
     <span class="n">old</span> <span class="o">=</span> <span class="n">rdf</span><span class="p">(</span><span class="n">old_preds</span><span class="p">[</span><span class="n">old_preds</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">==</span> <span class="n">stock_id</span><span class="p">])</span>
     <span class="n">sc</span> <span class="o">=</span> <span class="p">[</span><span class="n">old</span><span class="p">,</span> <span class="n">rmspe_score</span><span class="p">]</span>
     <span class="n">sdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">stock_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">sc</span>
-    <span class="n">all_preds</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_preds</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">==</span> <span class="n">stock_id</span><span class="p">,</span> <span class="s1">&#39;pred&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">oof_predictions</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Our out of folds RMSPE is </span><span class="si">{</span><span class="n">rmspe_score</span><span class="si">}</span><span class="s1">, compared to </span><span class="si">{</span><span class="n">old</span><span class="si">}</span><span class="s1">, giving gain </span><span class="si">{</span><span class="n">rmspe_score</span> <span class="o">-</span> <span class="n">old</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Our cv fold scores are </span><span class="si">{</span><span class="n">scores</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="c1">#     np.save(&#39;oof_predictions&#39;, oof_predictions)</span>
+    <span class="n">all_preds</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_preds</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">==</span> <span class="n">stock_id</span><span class="p">,</span> <span class="s1">'pred'</span><span class="p">]</span> <span class="o">=</span> <span class="n">oof_predictions</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Our out of folds RMSPE is </span><span class="si">{</span><span class="n">rmspe_score</span><span class="si">}</span><span class="s1">, compared to </span><span class="si">{</span><span class="n">old</span><span class="si">}</span><span class="s1">, giving gain </span><span class="si">{</span><span class="n">rmspe_score</span> <span class="o">-</span> <span class="n">old</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Our cv fold scores are </span><span class="si">{</span><span class="n">scores</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="c1">#     np.save('oof_predictions', oof_predictions)</span>
     
 <span class="c1">#     run = neptune.init(</span>
-<span class="c1">#             project=cfg[&#39;neptune_project&#39;],</span>
+<span class="c1">#             project=cfg['neptune_project'],</span>
 <span class="c1">#             api_token=NEPTUNE_API_TOKEN,</span>
-<span class="c1">#             name=cfg[&#39;neptune_run_name&#39;],    </span>
-<span class="c1">#             description=cfg[&#39;neptune_description&#39;],</span>
-<span class="c1">#             tags=[cfg[&#39;path_features&#39;], cfg[&#39;prefix&#39;]],</span>
-<span class="c1">#             source_files=[&#39;cfg.json&#39;],</span>
+<span class="c1">#             name=cfg['neptune_run_name'],    </span>
+<span class="c1">#             description=cfg['neptune_description'],</span>
+<span class="c1">#             tags=[cfg['path_features'], cfg['prefix']],</span>
+<span class="c1">#             source_files=['cfg.json'],</span>
 <span class="c1">#     )</span>
 <span class="c1">#     run = stocks[stock_id]</span>
-<span class="c1"># #     run[&#39;feat_id&#39;] = feat_file</span>
-<span class="c1">#     run[&#39;old_score&#39;] = </span>
-<span class="c1">#     run[&#39;cfg&#39;] = cfg</span>
-<span class="c1">#     run[&#39;RMSPE&#39;] = rmspe_score</span>
-<span class="c1">#     run[&#39;RMSPE_oof_scores&#39;] = scores</span>
-<span class="c1">#     run[&#39;RMSPE_cv_std&#39;] = np.std(scores)</span>
+<span class="c1"># #     run['feat_id'] = feat_file</span>
+<span class="c1">#     run['old_score'] = </span>
+<span class="c1">#     run['cfg'] = cfg</span>
+<span class="c1">#     run['RMSPE'] = rmspe_score</span>
+<span class="c1">#     run['RMSPE_oof_scores'] = scores</span>
+<span class="c1">#     run['RMSPE_cv_std'] = np.std(scores)</span>
     
-<span class="c1">#     run[&#39;best_iterations&#39;] = best_iterations</span>
+<span class="c1">#     run['best_iterations'] = best_iterations</span>
 <span class="c1">#     best_iterations_mean = int(np.mean(best_iterations))</span>
-<span class="c1">#     run[&#39;best_iterations_mean&#39;] = best_iterations_mean</span>
-<span class="c1">#     run[&#39;training_best_scores&#39;] = training_best_scores</span>
-<span class="c1">#     run[&#39;valid_best_scores&#39;] = valid_best_scores</span>
-<span class="c1">#     run[&#39;best_score_diffs&#39;] = best_score_diffs</span>
-<span class="c1">#     run[&#39;best_score_diffs_mean&#39;] = round(np.mean(best_score_diffs), 3)</span>
-<span class="c1">#     run[&#39;dumb_features&#39;] = list(reduce(lambda a, b: set(a).intersection(set(b)), dumb_features))</span>
-<span class="c1">#     run[&#39;top_features&#39;] = list(reduce(lambda a, b: set(a).intersection(set(b)), top_features))</span>
+<span class="c1">#     run['best_iterations_mean'] = best_iterations_mean</span>
+<span class="c1">#     run['training_best_scores'] = training_best_scores</span>
+<span class="c1">#     run['valid_best_scores'] = valid_best_scores</span>
+<span class="c1">#     run['best_score_diffs'] = best_score_diffs</span>
+<span class="c1">#     run['best_score_diffs_mean'] = round(np.mean(best_score_diffs), 3)</span>
+<span class="c1">#     run['dumb_features'] = list(reduce(lambda a, b: set(a).intersection(set(b)), dumb_features))</span>
+<span class="c1">#     run['top_features'] = list(reduce(lambda a, b: set(a).intersection(set(b)), top_features))</span>
     
-<span class="c1">#     run[f&#39;fold_{fold}&#39;] = booster_summaries[fold]</span>
-<span class="c1">#     run[f&#39;dumb_features_{fold}&#39;] = list(dumb_features[fold])</span>
-<span class="c1">#     run[f&#39;top_features_{fold}&#39;] = list(top_features[fold])</span>
+<span class="c1">#     run[f'fold_{fold}'] = booster_summaries[fold]</span>
+<span class="c1">#     run[f'dumb_features_{fold}'] = list(dumb_features[fold])</span>
+<span class="c1">#     run[f'top_features_{fold}'] = list(top_features[fold])</span>
     
     <span class="c1"># Logs for each folds model</span>
 <span class="c1">#     for fold in range(5):</span>
-<span class="c1">#         run[f&#39;lgbm_summaries/fold_{fold}&#39;] = booster_summaries[fold]</span>
-<span class="c1">#         run[f&#39;lgbm_summaries/dumb_features_{fold}&#39;] = list(dumb_features[fold])</span>
-<span class="c1">#         run[f&#39;lgbm_summaries/top_features_{fold}&#39;] = list(top_features[fold])</span>
+<span class="c1">#         run[f'lgbm_summaries/fold_{fold}'] = booster_summaries[fold]</span>
+<span class="c1">#         run[f'lgbm_summaries/dumb_features_{fold}'] = list(dumb_features[fold])</span>
+<span class="c1">#         run[f'lgbm_summaries/top_features_{fold}'] = list(top_features[fold])</span>
 <span class="c1">#         dict_eval_log = dict_eval_logs[fold]</span>
 <span class="c1">#         for valid_set, odict in dict_eval_log.items():</span>
 <span class="c1">#             for metric, log in odict.items():</span>
 <span class="c1">#                 for val in log:</span>
-<span class="c1">#                     run[f&#39;eval_logs/{fold}_{valid_set}_{metric}&#39;].log(val)</span>
+<span class="c1">#                     run[f'eval_logs/{fold}_{valid_set}_{metric}'].log(val)</span>
 <span class="c1">#     run.stop()</span>
     
-<span class="c1">#     if cfg[&#39;rerun&#39;]: </span>
-<span class="c1">#         print(f&#39;retraining model with all data for {best_iterations} iterations&#39;)</span>
-<span class="c1">#         params = cfg[&#39;lgb_params&#39;].copy()</span>
-<span class="c1">#         params[&#39;early_stopping_rounds&#39;] = 0 # No valid set to stop with</span>
+<span class="c1">#     if cfg['rerun']: </span>
+<span class="c1">#         print(f'retraining model with all data for {best_iterations} iterations')</span>
+<span class="c1">#         params = cfg['lgb_params'].copy()</span>
+<span class="c1">#         params['early_stopping_rounds'] = 0 # No valid set to stop with</span>
         
-<span class="c1">#         x_train = x.drop([&#39;fold&#39;], axis=1)</span>
+<span class="c1">#         x_train = x.drop(['fold'], axis=1)</span>
 <span class="c1">#         x_train = encode_cols(x_train, </span>
-<span class="c1">#                               cfg[&#39;encode_stock_cols&#39;], </span>
-<span class="c1">#                               funcs=cfg[&#39;encode_funcs&#39;], </span>
-<span class="c1">#                               shake=cfg[&#39;shake&#39;], </span>
-<span class="c1">#                               shake_std=cfg[&#39;shake_std&#39;]).drop(&#39;stock_id&#39;, axis=1)</span>
+<span class="c1">#                               cfg['encode_stock_cols'], </span>
+<span class="c1">#                               funcs=cfg['encode_funcs'], </span>
+<span class="c1">#                               shake=cfg['shake'], </span>
+<span class="c1">#                               shake_std=cfg['shake_std']).drop('stock_id', axis=1)</span>
 <span class="c1">#         y_train = y</span>
         
 <span class="c1">#         assert(n_train_cols == x_train.shape[1])</span>
@@ -419,12 +419,12 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span class="c1">#         train_dataset = lgb.Dataset(x_train, y_train, weight=train_weights)</span>
         
 <span class="c1">#         for fold, best_iter in enumerate(best_iterations): </span>
-<span class="c1">#             params[&#39;n_estimators&#39;] = int(best_iter) # lgbm needs int here</span>
+<span class="c1">#             params['n_estimators'] = int(best_iter) # lgbm needs int here</span>
 <span class="c1">#             model = lgb.train(params = params, </span>
 <span class="c1">#                               train_set = train_dataset)</span>
-<span class="c1">#             model.save_model(os.path.join(cfg[&#39;path_models&#39;], f&#39;{cfg[&quot;prefix&quot;]}rerun_lgb_{fold}.txt&#39;))</span>
+<span class="c1">#             model.save_model(os.path.join(cfg['path_models'], f'{cfg["prefix"]}rerun_lgb_{fold}.txt'))</span>
     
-<span class="c1"># if __name__ == &#39;__main__&#39;: </span>
+<span class="c1"># if __name__ == '__main__': </span>
 <span class="c1">#     main()</span>
 </pre></div>
 
@@ -18203,8 +18203,8 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sdf</span><span class="p">[</span><span class="s1">&#39;diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sdf</span><span class="p">[</span><span class="s1">&#39;new&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">sdf</span><span class="p">[</span><span class="s1">&#39;old&#39;</span><span class="p">]</span>
-<span class="n">sdf</span><span class="p">[</span><span class="n">sdf</span><span class="p">[</span><span class="s1">&#39;diff&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sdf</span><span class="p">[</span><span class="s1">'diff'</span><span class="p">]</span> <span class="o">=</span> <span class="n">sdf</span><span class="p">[</span><span class="s1">'new'</span><span class="p">]</span> <span class="o">-</span> <span class="n">sdf</span><span class="p">[</span><span class="s1">'old'</span><span class="p">]</span>
+<span class="n">sdf</span><span class="p">[</span><span class="n">sdf</span><span class="p">[</span><span class="s1">'diff'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -18359,7 +18359,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">tmp</span> <span class="o">=</span> <span class="n">old_preds</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">tmp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">tmp</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">==</span> <span class="mi">31</span><span class="p">,</span> <span class="s1">&#39;pred&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_preds</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_preds</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">==</span> <span class="mi">31</span><span class="p">,</span> <span class="s1">&#39;pred&#39;</span><span class="p">]</span>
+<span class="n">tmp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">tmp</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">==</span> <span class="mi">31</span><span class="p">,</span> <span class="s1">'pred'</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_preds</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_preds</span><span class="o">.</span><span class="n">stock_id</span> <span class="o">==</span> <span class="mi">31</span><span class="p">,</span> <span class="s1">'pred'</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -18444,7 +18444,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sdf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;diff&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sdf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'diff'</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -18597,5 +18597,5 @@ Name: 80, dtype: float64</pre>
     {% endraw %}
 
 </div>
- 
+
 

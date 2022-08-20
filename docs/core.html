@@ -96,6 +96,7 @@ nb_path: "00_core.ipynb"
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="mkdirs_data" class="doc_header"><code>mkdirs_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L28" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>mkdirs_data</code>(<strong><code>data_dir_name</code></strong>:<code>str</code>=<em><code>'data'</code></em>)</p>
 </blockquote>
@@ -119,6 +120,7 @@ nb_path: "00_core.ipynb"
 <div class="output">
 
 <div class="output_area">
+
 
 
 <div class="output_markdown rendered_html output_subarea ">
@@ -145,6 +147,7 @@ nb_path: "00_core.ipynb"
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="cp_tree" class="doc_header"><code>cp_tree</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L39" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cp_tree</code>(<strong><code>dir1</code></strong>:"path to directory to copy", <strong><code>dir2</code></strong>:"path to endpoint")</p>
 </blockquote>
@@ -166,20 +169,20 @@ nb_path: "00_core.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">mkdirs_data</span><span class="p">(</span><span class="n">data_dir_name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> 
-    <span class="sd">&quot;&quot;&quot;Initializes the data directory structure&quot;&quot;&quot;</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/raw&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/interim&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/features&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/models&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">mkdirs_data</span><span class="p">(</span><span class="n">data_dir_name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">'data'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> 
+    <span class="sd">"""Initializes the data directory structure"""</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/raw'</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/interim'</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/features'</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/models'</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     
 <span class="nd">@call_parse</span>
-<span class="k">def</span> <span class="nf">cli_mkdirs_data</span><span class="p">(</span><span class="n">data_dir_name</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;Name of data folder&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> 
+<span class="k">def</span> <span class="nf">cli_mkdirs_data</span><span class="p">(</span><span class="n">data_dir_name</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">'Name of data folder'</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">=</span><span class="s1">'data'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> 
     <span class="n">mkdirs_data</span><span class="p">(</span><span class="n">data_dir_name</span><span class="p">)</span>
     
 <span class="nd">@call_parse</span>
-<span class="k">def</span> <span class="nf">cp_tree</span><span class="p">(</span><span class="n">dir1</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;path to directory to copy&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span> 
-            <span class="n">dir2</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;path to endpoint&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span> 
+<span class="k">def</span> <span class="nf">cp_tree</span><span class="p">(</span><span class="n">dir1</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">'path to directory to copy'</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span> 
+            <span class="n">dir2</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">'path to endpoint'</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span> 
     <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">dir1</span><span class="p">,</span> <span class="n">dir2</span><span class="p">,</span> <span class="n">dirs_exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
@@ -198,6 +201,7 @@ nb_path: "00_core.ipynb"
 <div class="output">
 
 <div class="output_area">
+
 
 
 <div class="output_markdown rendered_html output_subarea ">
@@ -223,6 +227,7 @@ nb_path: "00_core.ipynb"
 <div class="output">
 
 <div class="output_area">
+
 
 
 <div class="output_markdown rendered_html output_subarea ">
@@ -269,6 +274,7 @@ nb_path: "00_core.ipynb"
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="make_unique" class="doc_header"><code>make_unique</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L58" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_unique</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>names</code></strong>:<code>list or set or dict</code>)</p>
 </blockquote>
@@ -293,15 +299,15 @@ existing data with the same key <code>name</code>.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">make_unique</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="s2">&quot;list or set or dict&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> 
-    <span class="sd">&quot;&quot;&quot;Returns name with (x)_ prefix if `name` already in `names`. </span>
-<span class="sd">    This is useful when you want to make sure you don&#39;t save over</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">make_unique</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="s2">"list or set or dict"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> 
+    <span class="sd">"""Returns name with (x)_ prefix if `name` already in `names`. </span>
+<span class="sd">    This is useful when you want to make sure you don't save over</span>
 <span class="sd">    existing data with the same key `name`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
         <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">while</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">)_&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span> <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">)_&#39;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="k">while</span> <span class="sa">f</span><span class="s1">'(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">)_'</span> <span class="o">+</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span> <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">)_'</span> <span class="o">+</span> <span class="n">name</span>
     <span class="k">return</span> <span class="n">name</span>
 </pre></div>
 
@@ -319,7 +325,7 @@ existing data with the same key <code>name</code>.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">make_unique</span><span class="p">(</span><span class="s1">'d'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -352,7 +358,7 @@ existing data with the same key <code>name</code>.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">make_unique</span><span class="p">(</span><span class="s1">'a'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -385,12 +391,12 @@ existing data with the same key <code>name</code>.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span>
-<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="s1">&#39;dan&#39;</span><span class="p">,</span> <span class="s1">&#39;bill&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="s1">&#39;(1)_chris&#39;</span>
-<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="s1">&#39;dan&#39;</span><span class="p">,</span> <span class="s1">&#39;bill&#39;</span><span class="p">,</span> <span class="s1">&#39;(1)_chris&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="s1">&#39;(2)_chris&#39;</span>
-<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="s1">&#39;dan&#39;</span><span class="p">,</span> <span class="s1">&#39;bill&#39;</span><span class="p">,</span> <span class="s1">&#39;(1)_chris&#39;</span><span class="p">]))</span> <span class="o">==</span> <span class="s1">&#39;(2)_chris&#39;</span>
-<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span> <span class="o">==</span> <span class="s1">&#39;(1)_a&#39;</span>
-<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">'d'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">])</span> <span class="o">==</span> <span class="s1">'d'</span>
+<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">'chris'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'chris'</span><span class="p">,</span> <span class="s1">'dan'</span><span class="p">,</span> <span class="s1">'bill'</span><span class="p">])</span> <span class="o">==</span> <span class="s1">'(1)_chris'</span>
+<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">'chris'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'chris'</span><span class="p">,</span> <span class="s1">'dan'</span><span class="p">,</span> <span class="s1">'bill'</span><span class="p">,</span> <span class="s1">'(1)_chris'</span><span class="p">])</span> <span class="o">==</span> <span class="s1">'(2)_chris'</span>
+<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">'chris'</span><span class="p">,</span> <span class="nb">set</span><span class="p">([</span><span class="s1">'chris'</span><span class="p">,</span> <span class="s1">'dan'</span><span class="p">,</span> <span class="s1">'bill'</span><span class="p">,</span> <span class="s1">'(1)_chris'</span><span class="p">]))</span> <span class="o">==</span> <span class="s1">'(2)_chris'</span>
+<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">'a'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'a'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span> <span class="o">==</span> <span class="s1">'(1)_a'</span>
+<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">'d'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'a'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span> <span class="o">==</span> <span class="s1">'d'</span>
 </pre></div>
 
     </div>
@@ -408,6 +414,7 @@ existing data with the same key <code>name</code>.</p>
 <div class="output">
 
 <div class="output_area">
+
 
 
 <div class="output_markdown rendered_html output_subarea ">
@@ -434,11 +441,11 @@ path if it is a duplicate.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">make_unique_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>  
-    <span class="sd">&quot;&quot;&quot;Returns path with prefix &#39;(n)_&#39; before the last element in </span>
+    <span class="sd">"""Returns path with prefix '(n)_' before the last element in </span>
 <span class="sd">    path if it is a duplicate. </span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">pre_path</span><span class="p">,</span> <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-    <span class="n">file_name</span> <span class="o">=</span> <span class="n">make_unique</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">pre_path</span> <span class="ow">or</span> <span class="s1">&#39;.&#39;</span><span class="p">))</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">make_unique</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">pre_path</span> <span class="ow">or</span> <span class="s1">'.'</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pre_path</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
 </pre></div>
 
@@ -456,11 +463,11 @@ path if it is a duplicate.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">&#39;tmp&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">make_unique_path</span><span class="p">(</span><span class="s1">&#39;tmp/tmp.csv&#39;</span><span class="p">))</span>
-<span class="nb">open</span><span class="p">(</span><span class="s1">&#39;tmp/tmp.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">make_unique_path</span><span class="p">(</span><span class="s1">&#39;tmp/tmp.csv&#39;</span><span class="p">))</span>
-<span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s1">&#39;tmp&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">'tmp'</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">make_unique_path</span><span class="p">(</span><span class="s1">'tmp/tmp.csv'</span><span class="p">))</span>
+<span class="nb">open</span><span class="p">(</span><span class="s1">'tmp/tmp.csv'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">make_unique_path</span><span class="p">(</span><span class="s1">'tmp/tmp.csv'</span><span class="p">))</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s1">'tmp'</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -501,6 +508,7 @@ tmp/(1)_tmp.csv
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="save_file" class="doc_header"><code>save_file</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L79" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>save_file</code>(<strong><code>df</code></strong>:<code>DataFrame</code>, <strong><code>path</code></strong>:<code>str</code>, <strong><code>usecols</code></strong>:<code>list</code>=<em><code>None</code></em>, <strong><code>save_index</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>save_dtypes</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>pickle</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
 </blockquote>
@@ -525,6 +533,7 @@ is set to True. Load a files in this structure with <a href="/chrisrichardmiles/
 <div class="output">
 
 <div class="output_area">
+
 
 
 <div class="output_markdown rendered_html output_subarea ">
@@ -557,14 +566,14 @@ Loads a files in the structure created with <a href="/chrisrichardmiles/core.htm
               <span class="n">save_index</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
               <span class="n">save_dtypes</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
               <span class="n">pickle</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Saves `df` to `path` with dtypes as top column if `save_dtypes` </span>
+    <span class="sd">"""Saves `df` to `path` with dtypes as top column if `save_dtypes` </span>
 <span class="sd">    is set to True. Load a files in this structure with `load_file`</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">pickle</span><span class="p">:</span> 
         <span class="n">usecols</span> <span class="o">=</span> <span class="n">usecols</span> <span class="k">if</span> <span class="n">usecols</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-        <span class="n">path_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">path</span> <span class="c1"># For M5 project maintenence</span>
+        <span class="n">path_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.csv'</span><span class="p">)</span> <span class="k">else</span> <span class="n">path</span> <span class="c1"># For M5 project maintenence</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">):</span> 
-            <span class="n">df</span><span class="p">[[</span><span class="n">col</span><span class="p">]]</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_dir</span><span class="p">,</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;.pkl&#39;</span><span class="p">))</span>
+            <span class="n">df</span><span class="p">[[</span><span class="n">col</span><span class="p">]]</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_dir</span><span class="p">,</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">'.pkl'</span><span class="p">))</span>
         <span class="k">return</span> 
     
     <span class="n">path</span> <span class="o">=</span> <span class="n">make_unique_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
@@ -575,17 +584,17 @@ Loads a files in the structure created with <a href="/chrisrichardmiles/core.htm
             <span class="n">df_tmp</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">df_dtypes</span> <span class="o">=</span> <span class="n">df_tmp</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
         <span class="n">df_dtypes</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">save_index</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+        <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'a'</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">save_index</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
                   <span class="n">columns</span><span class="o">=</span><span class="n">usecols</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span> 
         <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">save_index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">usecols</span><span class="p">)</span>
         
 <span class="k">def</span> <span class="nf">load_file</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">load_dtypes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">usecols</span><span class="p">:</span> <span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Loads a file into a DataFrame from `path` with dtypes </span>
+    <span class="sd">"""Loads a file into a DataFrame from `path` with dtypes </span>
 <span class="sd">    taken from the top column if `load_dtypes` is set to True. </span>
 <span class="sd">    Loads a files in the structure created with `save_file`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;pkl&#39;</span><span class="p">):</span> 
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'pkl'</span><span class="p">):</span> 
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">usecols</span><span class="p">]</span> <span class="k">if</span> <span class="n">usecols</span> <span class="k">else</span> <span class="n">df</span>
     
@@ -610,17 +619,17 @@ Loads a files in the structure created with <a href="/chrisrichardmiles/core.htm
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">],</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">]})</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;int32&#39;</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">])))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saving the the dataframe to csv with the dtypes&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'a'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">'b'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'bar'</span><span class="p">],</span> <span class="s1">'c'</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">]})</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'int32'</span><span class="p">,</span> <span class="s1">'category'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Saving the the dataframe to csv with the dtypes'</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
-<span class="n">save_file</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;tmp.csv&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Now the csv has the datatypes as the top line when we read it in&#39;</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;tmp.csv&#39;</span><span class="p">))</span>
+<span class="n">save_file</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">'tmp.csv'</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Now the csv has the datatypes as the top line when we read it in'</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'tmp.csv'</span><span class="p">))</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;We can use `load_file` to read in the csv with the right dtypes&#39;</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;tmp.csv&#39;</span><span class="p">))</span>
-<span class="n">display</span><span class="p">(</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;tmp.csv&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'We can use `load_file` to read in the csv with the right dtypes'</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">load_file</span><span class="p">(</span><span class="s1">'tmp.csv'</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">load_file</span><span class="p">(</span><span class="s1">'tmp.csv'</span><span class="p">)</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -789,8 +798,8 @@ dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">save_file</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">load_file</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="s1">&#39;.pkl&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="s1">&#39;abc&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">save_file</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">'.'</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">load_file</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="s1">'.pkl'</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="s1">'abc'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 <span class="o">!</span>rm a.pkl b.pkl c.pkl
 </pre></div>
 
@@ -859,8 +868,8 @@ dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">save_file</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;tmp2.csv&#39;</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="n">save_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;tmp2.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">save_file</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">'tmp2.csv'</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">],</span> <span class="n">save_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">load_file</span><span class="p">(</span><span class="s1">'tmp2.csv'</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -951,7 +960,7 @@ dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 </pre></div>
 
@@ -1010,6 +1019,7 @@ small_data
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="get_file_cols_dict" class="doc_header"><code>get_file_cols_dict</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L124" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_file_cols_dict</code>(<strong><code>path</code></strong>:<code>str</code>=<em><code>'.'</code></em>, <strong><code>path_json</code></strong>:<code>str</code>=<em><code>''</code></em>, <strong><code>ignore_cols</code></strong>:<code>list</code>=<em><code>['index']</code></em>)</p>
 </blockquote>
@@ -1041,6 +1051,7 @@ value.</p>
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="fe_dict" class="doc_header"><code>fe_dict</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L148" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>fe_dict</code>(<strong><code>path</code></strong>:"path to directory with files"=<em><code>'data/features'</code></em>, <strong><code>path_json</code></strong>:"path to json for saving dict"=<em><code>'fe_dict.json'</code></em>)</p>
 </blockquote>
@@ -1062,33 +1073,33 @@ value.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_file_cols_dict</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> 
-                       <span class="n">path_json</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> 
-                       <span class="n">ignore_cols</span><span class="p">:</span> <span class="nb">list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;Explores `path` and returns a dictionary of file names and their columns</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_file_cols_dict</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">'.'</span><span class="p">,</span> 
+                       <span class="n">path_json</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> 
+                       <span class="n">ignore_cols</span><span class="p">:</span> <span class="nb">list</span><span class="o">=</span><span class="p">[</span><span class="s1">'index'</span><span class="p">]):</span>
+    <span class="sd">"""Explores `path` and returns a dictionary of file names and their columns</span>
 <span class="sd">    for each file in `path`. Only file names that end with </span>
-<span class="sd">    &#39;.csv&#39; and &#39;.pkl&#39; will be considered. Pickle file names</span>
-<span class="sd">    will go in the &#39;pickles&#39; key of the returned dictionary.</span>
+<span class="sd">    '.csv' and '.pkl' will be considered. Pickle file names</span>
+<span class="sd">    will go in the 'pickles' key of the returned dictionary.</span>
 <span class="sd">    Csv files will see their file name saved as a key with </span>
 <span class="sd">    a list of their column names saved as the corresponding </span>
 <span class="sd">    value.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     
     <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)):</span> 
-        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">):</span> 
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.csv'</span><span class="p">):</span> 
             <span class="n">cols</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">file</span><span class="p">),</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
             <span class="n">d</span><span class="p">[</span><span class="n">file</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ignore_cols</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pkl&#39;</span><span class="p">):</span> 
-            <span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;pickles&#39;</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.pkl'</span><span class="p">):</span> 
+            <span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">'pickles'</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">path_json</span><span class="p">:</span> 
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_json</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">path_json</span><span class="p">:</span> 
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_json</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">path_json</span><span class="p">:</span> 
             <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">path_json</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">d</span>
 
 <span class="nd">@call_parse</span>
-<span class="k">def</span> <span class="nf">fe_dict</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;path to directory with files&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;data/features&#39;</span><span class="p">,</span> 
-            <span class="n">path_json</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;path to json for saving dict&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;fe_dict.json&#39;</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">fe_dict</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">'path to directory with files'</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">=</span><span class="s1">'data/features'</span><span class="p">,</span> 
+            <span class="n">path_json</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">'path to json for saving dict'</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">=</span><span class="s1">'fe_dict.json'</span><span class="p">):</span>
     <span class="n">get_file_cols_dict</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path_json</span><span class="p">)</span>
 </pre></div>
 
@@ -1106,19 +1117,19 @@ value.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;feat_1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;feat_2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;feat_3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]})</span>
-<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;shift_feat_4&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;shift_feat_5&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span> <span class="s1">&#39;shift_feat_6&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]})</span>
-<span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;feat_7&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;feat_8&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;feat_9&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]})</span>
-<span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;feat_10&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;feat_11&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;feat_12&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> 
-                    <span class="s1">&#39;feat_13&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">]})</span>
-<span class="n">df4</span><span class="o">.</span><span class="n">feat_10</span> <span class="o">=</span> <span class="n">df4</span><span class="o">.</span><span class="n">feat_10</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int8&#39;</span><span class="p">)</span>
-<span class="n">df4</span><span class="o">.</span><span class="n">feat_13</span> <span class="o">=</span> <span class="n">df4</span><span class="o">.</span><span class="n">feat_13</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'feat_1'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="s1">'feat_2'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">'feat_3'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]})</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'shift_feat_4'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="s1">'shift_feat_5'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span> <span class="s1">'shift_feat_6'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]})</span>
+<span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'feat_7'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="s1">'feat_8'</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">'feat_9'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]})</span>
+<span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'feat_10'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="s1">'feat_11'</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">'feat_12'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> 
+                    <span class="s1">'feat_13'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">]})</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">feat_10</span> <span class="o">=</span> <span class="n">df4</span><span class="o">.</span><span class="n">feat_10</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'int8'</span><span class="p">)</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">feat_13</span> <span class="o">=</span> <span class="n">df4</span><span class="o">.</span><span class="n">feat_13</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'category'</span><span class="p">)</span>
 
-<span class="n">save_file</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="s1">&#39;features_1.csv&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">save_file</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="s1">&#39;shift_features_2.csv&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">save_file</span><span class="p">(</span><span class="n">df3</span><span class="p">,</span> <span class="s1">&#39;features_3.csv&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">save_file</span><span class="p">(</span><span class="n">df4</span><span class="p">,</span> <span class="s1">&#39;features_4.csv&#39;</span><span class="p">,</span> <span class="n">save_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">save_file</span><span class="p">(</span><span class="n">df3</span><span class="p">,</span> <span class="s1">&#39;features_3_less_cols.csv&#39;</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;feat_7&#39;</span><span class="p">],</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">save_file</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="s1">'features_1.csv'</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">save_file</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="s1">'shift_features_2.csv'</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">save_file</span><span class="p">(</span><span class="n">df3</span><span class="p">,</span> <span class="s1">'features_3.csv'</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">save_file</span><span class="p">(</span><span class="n">df4</span><span class="p">,</span> <span class="s1">'features_4.csv'</span><span class="p">,</span> <span class="n">save_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">save_file</span><span class="p">(</span><span class="n">df3</span><span class="p">,</span> <span class="s1">'features_3_less_cols.csv'</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">'feat_7'</span><span class="p">],</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1135,7 +1146,7 @@ value.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_file_cols_dict</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">path_json</span><span class="o">=</span><span class="s1">&#39;tmp_features.json&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_file_cols_dict</span><span class="p">(</span><span class="s1">'.'</span><span class="p">,</span> <span class="n">path_json</span><span class="o">=</span><span class="s1">'tmp_features.json'</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1172,7 +1183,7 @@ value.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_file_cols_dict</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_file_cols_dict</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1216,6 +1227,7 @@ value.</p>
 <div class="output">
 
 <div class="output_area">
+
 
 
 <div class="output_markdown rendered_html output_subarea ">
@@ -1277,7 +1289,7 @@ directory.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">load_features</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;tmp_features.json&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">load_features</span><span class="p">(</span><span class="s1">'.'</span><span class="p">,</span> <span class="s1">'tmp_features.json'</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1412,7 +1424,7 @@ directory.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">load_features</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;tmp_features.json&#39;</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;feat_3&#39;</span><span class="p">,</span> <span class="s1">&#39;feat_10&#39;</span><span class="p">,</span> <span class="s1">&#39;feat_13&#39;</span><span class="p">],</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">load_features</span><span class="p">(</span><span class="s1">'.'</span><span class="p">,</span> <span class="s1">'tmp_features.json'</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="p">[</span><span class="s1">'feat_3'</span><span class="p">,</span> <span class="s1">'feat_10'</span><span class="p">,</span> <span class="s1">'feat_13'</span><span class="p">],</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
 </pre></div>
@@ -1514,7 +1526,7 @@ dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">load_features</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;tmp_features.json&#39;</span><span class="p">,</span> <span class="n">shift_index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">load_features</span><span class="p">(</span><span class="s1">'.'</span><span class="p">,</span> <span class="s1">'tmp_features.json'</span><span class="p">,</span> <span class="n">shift_index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1673,7 +1685,7 @@ dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">load_features</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;tmp_features.json&#39;</span><span class="p">,</span> <span class="n">shift_index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reindex_with</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">load_features</span><span class="p">(</span><span class="s1">'.'</span><span class="p">,</span> <span class="s1">'tmp_features.json'</span><span class="p">,</span> <span class="n">shift_index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reindex_with</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1781,7 +1793,7 @@ dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="s1">&#39;tmp_features.json&#39;</span><span class="p">,</span> <span class="s1">&#39;tmp_features_1.json&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="s1">'tmp_features.json'</span><span class="p">,</span> <span class="s1">'tmp_features_1.json'</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1876,7 +1888,7 @@ dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">load_features</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;tmp_features_1.json&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">load_features</span><span class="p">(</span><span class="s1">'.'</span><span class="p">,</span> <span class="s1">'tmp_features_1.json'</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2044,6 +2056,7 @@ dtype: object</pre>
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="pool_func" class="doc_header"><code>pool_func</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L244" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pool_func</code>(<strong><code>function</code></strong>, <strong><code>input_list</code></strong>:<code>list</code>, <strong><code>verbose</code></strong>=<em><code>False</code></em>, <strong><code>n_cpu</code></strong>=<em><code>99</code></em>)</p>
 </blockquote>
@@ -2131,6 +2144,7 @@ Time taken: 0.0 minutes
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="reduce_mem_usage" class="doc_header"><code>reduce_mem_usage</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L271" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>reduce_mem_usage</code>(<strong><code>df</code></strong>, <strong><code>verbose</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
@@ -2161,6 +2175,7 @@ Time taken: 0.0 minutes
 <div class="output">
 
 <div class="output_area">
+
 
 
 <div class="output_markdown rendered_html output_subarea ">
@@ -2194,6 +2209,7 @@ Time taken: 0.0 minutes
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="get_memory_usage" class="doc_header"><code>get_memory_usage</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L311" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_memory_usage</code>()</p>
 </blockquote>
@@ -2217,6 +2233,7 @@ Time taken: 0.0 minutes
 <div class="output">
 
 <div class="output_area">
+
 
 
 <div class="output_markdown rendered_html output_subarea ">
@@ -2282,6 +2299,7 @@ Time taken: 0.0 minutes
 <div class="output">
 
 <div class="output_area">
+
 
 
 <div class="output_markdown rendered_html output_subarea ">
@@ -2379,5 +2397,5 @@ start_time = time.time()</p>
     {% endraw %}
 
 </div>
- 
+
 

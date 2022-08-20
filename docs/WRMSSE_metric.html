@@ -36,8 +36,8 @@ nb_path: "projects/m5/02_WRMSSE_metric.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">PATH_DATA</span> <span class="o">=</span> <span class="s1">&#39;small_data&#39;</span>
-<span class="n">PATH_DATA_RAW</span> <span class="o">=</span> <span class="s1">&#39;small_data/raw&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">PATH_DATA</span> <span class="o">=</span> <span class="s1">'small_data'</span>
+<span class="n">PATH_DATA_RAW</span> <span class="o">=</span> <span class="s1">'small_data/raw'</span>
 <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">PATH_DATA_RAW</span><span class="p">)</span>
 </pre></div>
 
@@ -74,8 +74,8 @@ nb_path: "projects/m5/02_WRMSSE_metric.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">PATH_DATA</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
-<span class="n">PATH_DATA_RAW</span> <span class="o">=</span> <span class="s1">&#39;data/raw&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">PATH_DATA</span> <span class="o">=</span> <span class="s1">'data'</span>
+<span class="n">PATH_DATA_RAW</span> <span class="o">=</span> <span class="s1">'data/raw'</span>
 <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">PATH_DATA_RAW</span><span class="p">)</span>
 </pre></div>
 
@@ -93,11 +93,11 @@ nb_path: "projects/m5/02_WRMSSE_metric.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">chunks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH_DATA_RAW</span><span class="p">,</span> <span class="s1">&#39;sales_train_evaluation.csv&#39;</span><span class="p">),</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">chunks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH_DATA_RAW</span><span class="p">,</span> <span class="s1">'sales_train_evaluation.csv'</span><span class="p">),</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 <span class="n">df_stv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">chunks</span><span class="p">))</span> <span class="c1"># Safe for low RAM situation</span>
-<span class="n">df_cal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH_DATA_RAW</span><span class="p">,</span> <span class="s1">&#39;calendar.csv&#39;</span><span class="p">))</span>
-<span class="n">df_prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH_DATA_RAW</span><span class="p">,</span> <span class="s1">&#39;sell_prices.csv&#39;</span><span class="p">))</span>
-<span class="n">df_ss</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH_DATA_RAW</span><span class="p">,</span> <span class="s1">&#39;sample_submission.csv&#39;</span><span class="p">))</span>
+<span class="n">df_cal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH_DATA_RAW</span><span class="p">,</span> <span class="s1">'calendar.csv'</span><span class="p">))</span>
+<span class="n">df_prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH_DATA_RAW</span><span class="p">,</span> <span class="s1">'sell_prices.csv'</span><span class="p">))</span>
+<span class="n">df_ss</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH_DATA_RAW</span><span class="p">,</span> <span class="s1">'sample_submission.csv'</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -222,6 +222,7 @@ column or columns.</p>
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="get_agg" class="doc_header"><code>get_agg</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_agg</code>(<strong><code>df_stv</code></strong>)</p>
 </blockquote>
@@ -253,7 +254,7 @@ column or columns.</p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">agg_matrix_csr</span><span class="p">,</span> <span class="n">agg_index</span> <span class="o">=</span> <span class="n">get_agg</span><span class="p">(</span><span class="n">df_stv</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">agg_index</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of series per each level&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Number of series per each level'</span><span class="p">)</span>
 <span class="n">agg_index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
@@ -331,6 +332,7 @@ Name: level, dtype: int64</pre>
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="get_df_weights" class="doc_header"><code>get_df_weights</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L50" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_df_weights</code>(<strong><code>df_stv</code></strong>, <strong><code>df_cal</code></strong>, <strong><code>df_prices</code></strong>, <strong><code>agg_index</code></strong>, <strong><code>agg_matrix_csr</code></strong>, <strong><code>start_test</code></strong>=<em><code>1914</code></em>)</p>
 </blockquote>
@@ -393,8 +395,8 @@ adding scale and scaled_weight columns.</p>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_weights</span> <span class="o">=</span> <span class="n">get_df_weights</span><span class="p">(</span><span class="n">df_stv</span><span class="p">,</span> <span class="n">df_cal</span><span class="p">,</span> <span class="n">df_prices</span><span class="p">,</span> <span class="n">agg_index</span><span class="p">,</span> <span class="n">agg_matrix_csr</span><span class="p">,</span> <span class="n">start_test</span><span class="o">=</span><span class="mi">1914</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df_weights</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All weights add to 1 for each level&quot;</span><span class="p">)</span>
-<span class="n">df_weights</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"All weights add to 1 for each level"</span><span class="p">)</span>
+<span class="n">df_weights</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="s1">'weight'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -645,10 +647,10 @@ adding scale and scaled_weight columns.</p>
 <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">errors</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">wrmsse_by_series</span> <span class="o">=</span> <span class="n">rmse</span> <span class="o">*</span> <span class="n">df_weights</span><span class="o">.</span><span class="n">scaled_weight</span>
 <span class="n">df_scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">wrmsse_by_series</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
-                <span class="n">mapper</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;scaled_weight&#39;</span><span class="p">:</span> <span class="s1">&#39;WRMSSE&#39;</span><span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">mapper</span><span class="o">=</span><span class="p">{</span><span class="s1">'scaled_weight'</span><span class="p">:</span> <span class="s1">'WRMSSE'</span><span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">wrmsse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">wrmsse_by_series</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">wrmsse</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scores for all series&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Scores for all series'</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df_scores</span><span class="p">)</span>
 </pre></div>
 
@@ -775,13 +777,13 @@ Scores for all series
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_name</span> <span class="o">=</span> <span class="s1">&#39;last_month_sales&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_name</span> <span class="o">=</span> <span class="s1">'last_month_sales'</span>
 <span class="n">start_test</span> <span class="o">=</span> <span class="mi">1914</span>
 <span class="c1"># level_scores</span>
 <span class="n">level_scores</span> <span class="o">=</span> <span class="n">df_scores</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">level_scores</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="n">level_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">level_scores</span><span class="p">[</span><span class="s1">&#39;model_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_name</span>
-<span class="n">level_scores</span><span class="p">[</span><span class="s1">&#39;start_test&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">start_test</span>
+<span class="n">level_scores</span><span class="p">[</span><span class="s1">'model_name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_name</span>
+<span class="n">level_scores</span><span class="p">[</span><span class="s1">'start_test'</span><span class="p">]</span> <span class="o">=</span> <span class="n">start_test</span>
 <span class="n">level_scores</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">level_scores</span>
 </pre></div>
@@ -944,6 +946,7 @@ a single column as a unique identifier. I will also want to reverse this process
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="combine_cols" class="doc_header"><code>combine_cols</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L126" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>combine_cols</code>(<strong><code>df</code></strong>, <strong><code>cols</code></strong>:<code>list</code>, <strong><code>sep</code></strong>=<em><code>'__'</code></em>, <strong><code>name</code></strong>=<em><code>'id'</code></em>, <strong><code>reverse</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
@@ -974,13 +977,13 @@ separated by <code>sep</code>, or with the <code>name</code> column expanded int
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cols</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;model_name&#39;</span><span class="p">,</span> <span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="s1">&#39;start_test&#39;</span><span class="p">],</span> <span class="s1">&#39;__&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cols</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'model_name'</span><span class="p">,</span> <span class="s1">'level'</span><span class="p">,</span> <span class="s1">'start_test'</span><span class="p">],</span> <span class="s1">'__'</span><span class="p">,</span> <span class="s1">'id'</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;level_scores with columns combined&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'level_scores with columns combined'</span><span class="p">)</span>
 <span class="n">level_scores</span> <span class="o">=</span> <span class="n">combine_cols</span><span class="p">(</span><span class="n">level_scores</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">level_scores</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;reversed&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'reversed'</span><span class="p">)</span>
 <span class="n">df_r</span> <span class="o">=</span> <span class="n">combine_cols</span><span class="p">(</span><span class="n">level_scores</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df_r</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
 </pre></div>
@@ -1133,6 +1136,7 @@ separated by <code>sep</code>, or with the <code>name</code> column expanded int
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="append_df_unique_id" class="doc_header"><code>append_df_unique_id</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L140" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>append_df_unique_id</code>(<strong><code>df</code></strong>, <strong><code>df_new</code></strong>, <strong><code>id_col</code></strong>=<em><code>'id'</code></em>)</p>
 </blockquote>
@@ -1169,8 +1173,8 @@ are not copies of a unique identifier.</p>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">tmp</span> <span class="o">=</span> <span class="n">level_scores</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span> 
-    <span class="n">df</span> <span class="o">=</span> <span class="n">append_df_unique_id</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">tmp</span><span class="p">,</span> <span class="n">id_col</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No copies, no overrides&#39;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">append_df_unique_id</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">tmp</span><span class="p">,</span> <span class="n">id_col</span><span class="o">=</span><span class="s1">'id'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'No copies, no overrides'</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 
@@ -1300,18 +1304,18 @@ are not copies of a unique identifier.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_name</span> <span class="o">=</span> <span class="s1">&#39;all_ones&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_name</span> <span class="o">=</span> <span class="s1">'all_ones'</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">level_scores</span> <span class="o">=</span> <span class="n">df_scores</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">level_scores</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">level_scores</span><span class="p">[</span><span class="s1">&#39;WRMSSE&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">level_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-<span class="n">name_and_days</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> day </span><span class="si">{</span><span class="n">START_TEST</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">START_TEST</span> <span class="o">+</span> <span class="mi">27</span><span class="si">}</span><span class="s1">&#39;</span>
-<span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name_and_days</span><span class="si">}</span><span class="s1"> WRMSSE total: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">level_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">level_scores</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">level_scores</span><span class="p">[</span><span class="s1">'WRMSSE'</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">level_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">':'</span><span class="p">)</span>
+<span class="n">name_and_days</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> day </span><span class="si">{</span><span class="n">START_TEST</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">START_TEST</span> <span class="o">+</span> <span class="mi">27</span><span class="si">}</span><span class="s1">'</span>
+<span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">name_and_days</span><span class="si">}</span><span class="s1"> WRMSSE total: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">level_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span> 
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">level_scores</span><span class="p">[</span><span class="s1">&#39;WRMSSE&#39;</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> 
-            <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">level_scores</span><span class="p">[</span><span class="s1">&#39;WRMSSE&#39;</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="mi">4</span><span class="p">)),</span> 
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">level_scores</span><span class="p">[</span><span class="s1">'WRMSSE'</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> 
+            <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">level_scores</span><span class="p">[</span><span class="s1">'WRMSSE'</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="mi">4</span><span class="p">)),</span> 
+            <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -1354,7 +1358,7 @@ are not copies of a unique identifier.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The id column needs a _validation or _evaluation tag&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">'The id column needs a _validation or _evaluation tag'</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df_ss</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df_ss</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
 </pre></div>
@@ -1741,11 +1745,11 @@ are not copies of a unique identifier.</p>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_preds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">df_scores</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
 <span class="n">test</span><span class="o">=</span><span class="kc">False</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">test</span><span class="p">:</span> <span class="n">df_preds</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_preds</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_validation&#39;</span>
-<span class="k">else</span><span class="p">:</span> <span class="n">df_preds</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_preds</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_evaluation&#39;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">test</span><span class="p">:</span> <span class="n">df_preds</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_preds</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'_validation'</span>
+<span class="k">else</span><span class="p">:</span> <span class="n">df_preds</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_preds</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'_evaluation'</span>
     
-<span class="n">df_sub</span> <span class="o">=</span> <span class="n">df_ss</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_preds</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;sub_&#39;</span> <span class="o">+</span> <span class="n">model_name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
+<span class="n">df_sub</span> <span class="o">=</span> <span class="n">df_ss</span><span class="p">[[</span><span class="s1">'id'</span><span class="p">]]</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_preds</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'id'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'left'</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">file_name</span> <span class="o">=</span> <span class="s1">'sub_'</span> <span class="o">+</span> <span class="n">model_name</span> <span class="o">+</span> <span class="s1">'.csv'</span>
 <span class="n">df_sub</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
@@ -2128,6 +2132,7 @@ are not copies of a unique identifier.</p>
 <div class="output_area">
 
 
+
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="WRMSSE" class="doc_header"><code>class</code> <code>WRMSSE</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/m5/metric.py#L164" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WRMSSE</code>(<strong><code>PATH_DATA_RAW</code></strong>:<code>str</code>=<em><code>'data/raw'</code></em>, <strong><code>start_test</code></strong>:<code>int</code>=<em><code>1914</code></em>, <strong><code>horizon</code></strong>:<code>int</code>=<em><code>28</code></em>, <strong><code>df_stv_trunc</code></strong>:<code>DataFrame</code>=<em><code>None</code></em>)</p>
 </blockquote>
@@ -2343,8 +2348,8 @@ are not copies of a unique identifier.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">df_stv</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="sa">f</span><span class="s1">&#39;d_</span><span class="si">{</span><span class="n">start_test</span> <span class="o">-</span> <span class="mi">28</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;d_</span><span class="si">{</span><span class="n">start_test</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">e</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;same_as_last_month&#39;</span><span class="p">,</span> <span class="n">fast</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">df_stv</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="sa">f</span><span class="s1">'d_</span><span class="si">{</span><span class="n">start_test</span> <span class="o">-</span> <span class="mi">28</span><span class="si">}</span><span class="s1">'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'d_</span><span class="si">{</span><span class="n">start_test</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">e</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s1">'same_as_last_month'</span><span class="p">,</span> <span class="n">fast</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2421,7 +2426,7 @@ are not copies of a unique identifier.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">e</span><span class="o">.</span><span class="n">dump_scores</span><span class="p">(</span><span class="n">PATH_DATA</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH_DATA</span> <span class="o">+</span> <span class="s1">&#39;/scores.csv&#39;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH_DATA</span> <span class="o">+</span> <span class="s1">'/scores.csv'</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2542,7 +2547,7 @@ are not copies of a unique identifier.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">e</span><span class="o">.</span><span class="n">make_sub</span><span class="p">()</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;sub_&#39;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">model_name</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'sub_'</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">model_name</span> <span class="o">+</span> <span class="s1">'.csv'</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2888,7 +2893,7 @@ are not copies of a unique identifier.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>rm <span class="o">{</span><span class="s1">&#39;sub_&#39;</span> + e.model_name + <span class="s1">&#39;.csv&#39;</span><span class="o">}</span> <span class="o">{</span>PATH_DATA + <span class="s1">&#39;/scores.csv&#39;</span><span class="o">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>rm <span class="o">{</span><span class="s1">'sub_'</span> + e.model_name + <span class="s1">'.csv'</span><span class="o">}</span> <span class="o">{</span>PATH_DATA + <span class="s1">'/scores.csv'</span><span class="o">}</span>
 </pre></div>
 
     </div>
@@ -2906,5 +2911,5 @@ are not copies of a unique identifier.</p>
 </div>
 </div>
 </div>
- 
+
 
