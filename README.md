@@ -2,10 +2,12 @@
 
 > A software package built to share my kaggle solutions and other code.
 
-Check out my silver medal solutions here: \* [M5 - Accuracy Sales
+Check out my silver medal solutions here: 
+* [M5 - Accuracy Sales
 Forecasting - 77th place
 solution](https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/m5)
-\* [Optiver Realized Volatility - 91st place
+
+* [Optiver Realized Volatility - 91st place
 solution](https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/optiver)
 
 This package is built with [nbdev](https://nbdev.fast.ai/), so the

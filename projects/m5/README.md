@@ -11,7 +11,9 @@ documentation for details about the solution.
 
 ## Create submission from scratch from the command line
 
-Requirements: 20 GB of RAM and pip installed \### 1. Install package
+Requirements: 20 GB of RAM and pip installed 
+
+### 1. Install package
 with pip `pip install chrisrichardmiles`
 
 ### 2. Create data folders, download data, and unzip files
