@@ -1,31 +1,26 @@
 
 # Welcome to chrisrichardmiles.m5
 
-> A submodule built for the M5-Accuracy competition on Kaggle. Chris
-> Miles placed 77th in the competition
+> A submodule built for the 77th place solution for the M5-Accuracy
+> competition on Kaggle.
 
 This package is built with [nbdev](https://nbdev.fast.ai/), so the
 source code, testing, and documentation are all built in jupyter
-notebooks. Please read through the notebooks or online documentation
-sequentially for more information about the solution.
+notebooks. Please sequentially read through the notebooks or online
+documentation for details about the solution.
 
-## Create submission from scratch
+## Create submission from scratch from the command line
 
-Requirements: 16 of RAM and pip installed \### 1. Install package with
-pip `pip install chrisrichardmiles`
+Requirements: 20 GB of RAM and pip installed \### 1. Install package
+with pip `pip install chrisrichardmiles`
 
 ### 2. Create data folders, download data, and unzip files
 
--   If you have your kaggle api info in root/.kaggle/kaggle.json then
-    run:
-
-<!-- -->
+#### If you have your kaggle api info in root/.kaggle/kaggle.json then run:
 
     crm_download_kaggle_data --comp_name m5-forecasting-accuracy
 
--   Otherwise, you must run:
-
-<!-- -->
+#### Otherwise, you must run:
 
     crm_mkdirs_data
     cd data/raw
@@ -50,6 +45,32 @@ pip `pip install chrisrichardmiles`
 ### 5. Train models and create submission
 
     crm_m5_lgb_daily
+
+## Overview of solution
+
+-   Given Walmart sales data, tasked with delivering accurate
+    hierarchical sales forecasts over 28 days, preventing potential
+    losses in the millions resulting from overstocking and
+    understocking, my solution placed 77th of 5,558 teams (top 1.4%)
+    with a simple, explainable tree-based model, using LightGBM. It is
+    also a pip installable software package, with testing,
+    documentation, and continuous integration, found at my github.
+-   Given a novel scoring metric, I used calculus and numpy to implement
+    a custom objective function utilizable by LightGBM models. After
+    discovering non-convexity, I created another custom function,
+    utilizing insights about the data and metric, which outperformed all
+    other publicly known methods.
+-   With stockout-days non-differentiable from zero-sales-days, I used
+    probability to detect stockout days by assuming sales were Poisson
+    distributed, finding streaks of zeroes that were unreasonably long,
+    given the average daily sales of a product, leading to enhanced
+    data, more effective features, and superior models.
+-   With limited memory resources, I utilized principal component
+    analysis from scikit-learn to reduce dimensionality of features,
+    allowing more total features and better model performance.
+-   Needing feature engineering that did not exist in pandas, I used
+    numpy to calculate novel rolling window features, also giving a 20x
+    speed up, useful to speed up data pipelines.
 
 ## Some lessons I learned
 
