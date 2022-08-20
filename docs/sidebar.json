@@ -1,12 +1,17 @@
 {
+  "chrisrichardmiles": {
     "Overview": "/",
     "Core": "core.html",
-    "Projects": {"M5 sales forecasting solution": {"Welcome to chrisrichardmiles.m5": "index_m5.html",
-                                                   "Brief EDA  ": "brief_eda.html",
-                                                   "WRMSSE metric implementation": "WRMSSE_metric.html",
-                                                   "Feature engineering": "feature_engineering.html",
-                                                   "Train day-by-day models": "training_day_by_day_models.html"}, 
-                 "Optiver realized volatility solution": {"Overview": "index_optiver.html",
-                                                          "Error analysis": "opt-error-analysis.html"},
-    }, 
+    "M5 solution" : {"Welcome to chrisrichardmiles.m5": "index_m5.html",
+                     "Brief EDA  ": "brief_eda.html",
+                    "WRMSSE metric implementation": "WRMSSE_metric.html",
+                    "Feature engineering": "feature_engineering.html",
+                    "Train day-by-day models": "training_day_by_day_models.html",}, 
+    "Optiver solution": {"Overview": "index_optiver.html", 
+                         "Optiver Realized Volatility Prediction": "opt-eda-modified-from-host-nb.html",
+                        "Error analysis": "opt-error-analysis.html"}, 
+    
+    
+    
+  }
 }

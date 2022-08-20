@@ -29,6 +29,50 @@ nb_path: "projects/optiver/index_optiver.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Competition website: <a href="https://www.kaggle.com/competitions/optiver-realized-volatility-prediction/overview">https://www.kaggle.com/competitions/optiver-realized-volatility-prediction/overview</a></li>
+<li>Evaluation details: <a href="https://www.kaggle.com/competitions/optiver-realized-volatility-prediction/overview/evaluation">https://www.kaggle.com/competitions/optiver-realized-volatility-prediction/overview/evaluation</a></li>
+<li>Data details: <a href="https://www.kaggle.com/competitions/optiver-realized-volatility-prediction/data">https://www.kaggle.com/competitions/optiver-realized-volatility-prediction/overview/evaluation</a></li>
+<li>My submission: <a href="https://www.kaggle.com/code/chrisrichardmiles/opt-inf-ensemble-final-1">https://www.kaggle.com/code/chrisrichardmiles/opt-inf-ensemble-final-1</a></li>
+<li><a href="#My-solution">Jump to solution</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-does-the-host-of-this-competition-want?">What does the host of this competition want?<a class="anchor-link" href="#What-does-the-host-of-this-competition-want?"> </a></h2><p>Predictions of the volatility of stock prices over the next 10 minute window, given trading data and book data.</p>
+<h2 id="Why-volatility?">Why volatility?<a class="anchor-link" href="#Why-volatility?"> </a></h2><p>Volatility is important because it is used in calculating the value of a stock option. We can trade more profitably if we are better at determining value.</p>
+$$
+\textrm{option value} = \textrm{intrinsic value} + \textrm{time value} 
+$$<p>Intrinsic value is just the difference between the current price of the stock and strike price of the option, so it is known at the time of sale. But the time value is harder to calculate. To calculate the time value, one would need to know the probability density distribution of stock price at the expiration time of the option. The volatility of a stock's price will affect that distribution since a stock with high volatility will have larger price changes over time. Therefore if we can better predict the volatility of a stock, we can trade options more profitably.</p>
+<h2 id="Precisely,-what-are-we-being-asked-to-predict?">Precisely, what are we being asked to predict?<a class="anchor-link" href="#Precisely,-what-are-we-being-asked-to-predict?"> </a></h2><h3 id="realized-volatility">realized volatility<a class="anchor-link" href="#realized-volatility"> </a></h3><p>We will compute the log returns over all consecutive book updates and we define the <strong>realized volatility, $\sigma$,</strong> as the squared root of the sum of squared log returns.
+$$
+\sigma = \sqrt{\sum_{t}r_{t-1, t}^2}
+$$</p>
+<h3 id="Log-returns">Log returns<a class="anchor-link" href="#Log-returns"> </a></h3><p>Calling $S_t$ the price of the stock $S$ at time $t$, we can define the log return between $t_1$ and $t_2$ as:
+$$
+r_{t_1, t_2} = \log \left( \frac{S_{t_2}}{S_{t_1}} \right)
+$$
+Where we use <strong>WAP</strong> (Weighted Average Price) as price of the stock to compute log returns.
+{% raw %}
+$$ WAP = \frac{BidPrice_{1}*AskSize_{1} + AskPrice_{1}*BidSize_{1}}{BidSize_{1} + AskSize_{1}} $$
+{% endraw %}
+where an order book looks like this:</p>
+<p><img src="https://www.optiver.com/wp-content/uploads/2021/05/OrderBook3.png" alt="order_book_1"></p>
+<h2 id="How-will-our-predictions-be-scored?">How will our predictions be scored?<a class="anchor-link" href="#How-will-our-predictions-be-scored?"> </a></h2><p>Submissions are evaluated using the root mean square percentage error, defined as:</p>
+<p>{% raw %}
+$$\text{RMSPE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} ((y_i - \hat{y}_i)/y_i)^2}$$
+{% endraw %}</p>
+<p>There will be around 100 stock ids in the test set and around 150,000 rows to predict.
+With <code>row_id</code> reffering to "stock_id"-"time_id", the submission file looks like:</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">

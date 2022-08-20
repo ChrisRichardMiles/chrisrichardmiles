@@ -31,9 +31,6 @@ entries:
       title: Welcome to chrisrichardmiles.m5
       url: index_m5.html
     - output: web,pdf
-      title: 'Optiver Realized Volatility Prediction: 91st place solution'
-      url: index_optiver.html
-    - output: web,pdf
       title: Optiver Realized Volatility Prediction
       url: opt-eda-modified-from-host-nb.html
     - output: web,pdf
