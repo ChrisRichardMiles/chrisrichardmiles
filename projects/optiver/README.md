@@ -1,14 +1,4 @@
 
-``` python
-#all_no_test
-#|hide
-# import pandas as pd
-# test = pd.read_csv('input/test.csv')
-# sample_submission = pd.read_csv('input/sample_submission.csv')
-# book_test = pd.read_parquet('input/book_test.parquet/stock_id=0')
-# trade_test = pd.read_parquet('input/trade_test.parquet/stock_id=0')
-```
-
 # Optiver Realized Volatility Prediction: 91st place solution
 
 -   Competition website:
@@ -379,7 +369,168 @@ params as dart \* lgb_l2: same as dart_l2, except `boosting_type`=`gbdt`
 
 ### Features
 
+#### Top 25 features
+
+This figure is taken from a dart model trained on a single fold.
+Standard lightgbm models and tabnet models also showed similar feature
+importance, with slight variations.
 ![optiver_feature_importance_gain.png](index_files/figure-gfm/optiver_feature_importance_gain.png)
+
+**Meaning of commonly used strings in features** \*
+`{time_id or stock_id}_{feature}_{mean or std}` means that we encoded
+the mean or standard deviation of `feature` onto each time_id or
+stock_id
+
+-   `{feature}_mean_decay`: Exponentially weighted mean of `feature`,
+    with later data being higher weighted.
+-   `{feature}_mean_decay_flip`: Exponentially weighted mean of
+    `feature`, with earlier data being higher weighted.
+-   `{feature}_momentum` = `{feature}_mean_decay` /
+    `{feature}_mean_decay_flip`.
+
+**Top 25 feature summary** \*
+**`real_vol_mean_decay_{decay factor}_{decay direction}`**: This is a
+weighted average of the features
+`real_vol_min_{minute x of range(0,9)}`. The weights are exponentially
+weighted by the “decay factor”. The weight of the ith minute has a
+weight of (decay factor) ^ i. The “decay direction” indicates if the
+highest weight is at the beginning (1) or at the end (-1). \*
+**`real_vol_mean_decay_{decay factor}_{decay direction}_2`**: Just like
+the last feature, but using the weighted average price of the second
+level bid and ask book information. \*
+**`real_vol_min_{minute x of range(0,9)}`**: The realized volatility
+calculated for each minute of the 10 minutes of input data. \*
+**`abs_log_return_std`**: Standard deviation of the absolute value of
+the log of the return = abs(log(price1 / price0)). \*
+**`time_id_order_norm_mean_decay_mean`**: `order_norm` is the order
+count, normalized by the average order count for the stock_id. \*
+**`time_id_abs_price_wap_diff_mean_decay_mean`**: `abs_price_wap_diff`
+is the absolute difference between the weighted average price and the
+price of a trade. \* **`time_id_spread_momentum_mean`**: `spread` is the
+difference between the ask price and bid price of the first level in the
+book data. \* **`time_id_spread_pct_momentum_mean`**: `spread_pct` =
+`spread` / `wap` (weighted average price) \*
+**`time_id_order_norm_sum_mean`**: `order_norm_sum` is the sum of
+`order_norm`. `order_norm` is the order count, normalized by the average
+order count for the stock_id. \* **`abs_log_return_mean_decay`**:
+Absolute value of the log of the return = abs(log(price1 / price0)). \*
+**`time_id_real_vol_ratio_5_10_mean`**: `real_vol_ratio_5_10` is
+sum_0\_5 / sum_6\_10, where sum_0\_5 is the sum of `real_vol_min_{x}`
+for x in the range 1 to 5 and sum_6\_10 is the sum of `real_vol_min_{x}`
+for x in the range 6 to 10. \* **`time_id_real_vol_ratio_5_10_std`**:
+`real_vol_ratio_5_10` is sum_0\_5 / sum_6\_10, where sum_0\_5 is the sum
+of `real_vol_min_{x}` for x in the range 1 to 5 and sum_6\_10 is the sum
+of `real_vol_min_{x}` for x in the range 6 to 10. \*
+**`time_id_spread_2_mean_decay_95_mean`**: `spread_2` is the difference
+between the ask price and bid price of the **second** level in the book
+data. \* **`time_id_order_count_sum_mean`**: `order_count_sum` is total
+number of unique orders made in the 10 minute window of input data in a
+row.
+
+#### Feature creation pipeline
+
+1.  Create features for an individual stock with a function `p{x}`
+    (`p13` was the final function used).
+2.  Encode mean and standard deviation of selected features onto the
+    categorical features time_id and stock_id.
+3.  Remove time_id and stock_id.
+    -   time_ids would be bad features because they never appear in both
+        train data and testing data. I also didn’t want to use stock_id
+        because I figured I could easily overfit to training data. By
+        encoding the information and dropping time_id and stock_id, I
+        think the models can be made more robust to shifts in data
+        distribution.
+
+##### `p13` preprocessing function steps:
+
+1.  Load and merge book data and trade data.
+2.  Calculate base features for each row (600 total, one per second over
+    10 minutes).
+3.  Aggregate base features over the full 10 minutes of each time_id to
+    get one row of data per time_id/stock_id combination. Aggregate
+    functions include max_minus_min, mean, std, sum, mean_decay.
+4.  Create features by combining aggregate features such as f1 - f2, f1
+    / f2, f1 + f3.
+5.  Add three `dummy_x` features that are random gaussian noise. These
+    are used to identify features that are not more useful than random
+    noise.
+
+##### Encoding using `encode_cols`:
+
+I create `tmp` by encoding the mean or standard deviation of selected
+features onto time_id and stock_id. For the training data, I then use
+the `shake_std` variable to add random noise sampled from a gaussian
+distribution, whose standard deviation is eqaul to `shake_std` \*
+(standard deviation of `tmp`). With `shake_std`=.3, I was able to obtain
+the same boost in cv score as I obtained with `shake_std`=0, but with a
+smaller difference between the training score and validation score. I
+did not add noise to the test data.
+
+I did not find using `shake`, which uses the mean of `tmp` to scale the
+noise distribution, to be as usefull as `shake_std`.
+
+    def encode_cols(df, cols, funcs=['mean', 'std'], on='stock_id', shake=False, shake_std=False): 
+        if not cols or not funcs: return df
+        tmp = df.groupby(on)[cols].agg(funcs)
+        tmp.columns = ['_'.join(c) for c in tmp.columns]
+        tmp = tmp.add_prefix(on + '_')
+        tmp =  df.join(tmp, on=on)
+        if shake: 
+            for c in tmp.columns: 
+                if c.startswith(on + '_'):
+                    c_mean = tmp[c].mean()
+                    tmp[c] = tmp[c] + np.random.normal(scale=abs(c_mean * shake), size=len(tmp))
+                    
+        if shake_std: 
+            for c in tmp.columns: 
+                if c.startswith(on + '_'):
+                    c_std = tmp[c].std()
+                    tmp[c] = tmp[c] + np.random.normal(scale=c_std * shake_std, size=len(tmp))
+        return tmp 
+
+### Validation
+
+I used k-fold cross validaton with early stopping on the validation set.
+
+**Information leakage**: General term talking about a model that is
+trained with information advantages not given to the model when
+predicting unseen data, causing it to perform badly. For instance, if we
+encode a categorical variabl
+
+**Choices for early stopping**: 1. Use train/validation split for each
+fold and early stop on validation set. \* Pros: We risk overfitting on
+the validation sets. \* Cons: Faster experiments and I believe this is
+the best way to find the best “fit”
+
+2.  Use choice 1 and then retrain one model on the entire train set with
+    the average (mean or median) number of iterations (no validation
+    set).
+
+-   Pros: We get to use all the training data at the same time.
+-   Cons: With only one model, the risk that we missed the optimal
+    number of training iterations.
+
+3.  Use nested k fold, with early stopping on the inner loop.
+
+-   Pros: We get the “proper fit” benefit of early stopping, but our
+    out-of-fold predictions can be made without any data leakage, which
+    makes our cv score a more realistic estimation of errors in
+    production. We can also use these prediction as features in other
+    models (model stacking) since the predictions aren’t made with
+    information leakage.
+
+3.  No early stopping and use large number of iterations with shrinking
+    learning rate and or regularization. I have little experience with
+    this but I believe it is better suited to neural networks rather
+    than gradient boosted trees.
+
+In this competition I tested 1 vs 2 using both nested k-fold test sets
+and the public test set as validation. I found that 1 gave better
+results, even when I tried using a variation of 2, using many
+num_iterations to retrain models, which increased computation cost but
+didn’t improve metric.
+
+I also tried
 
 #### K-fold cross validation brief explanation:
 
