@@ -5,13 +5,16 @@
 # Instead edit ../../sidebar.json
 entries:
 - folders:
+  - output: web,pdf
+    title: Overview
+    url: /
+  - output: web,pdf
+    title: Core
+    url: core.html
   - folderitems:
     - output: web,pdf
-      title: Overview
-      url: /
-    - output: web,pdf
-      title: Core
-      url: core.html
+      title: Welcome to chrisrichardmiles.m5
+      url: index_m5.html
     - output: web,pdf
       title: 'Brief EDA  '
       url: brief_eda.html
@@ -22,24 +25,18 @@ entries:
       title: Feature engineering
       url: feature_engineering.html
     - output: web,pdf
-      title: Title
-      url: opt-train-tabnet-142.html
-    - output: web,pdf
       title: Train day-by-day models
       url: training_day_by_day_models.html
-    - output: web,pdf
-      title: Welcome to chrisrichardmiles.m5
-      url: index_m5.html
+    output: web
+    title: M5
+  - folderitems:
     - output: web,pdf
       title: 'Optiver Realized Volatility Prediction: 91st place solution'
       url: index_optiver.html
     - output: web,pdf
-      title: Optiver Realized Volatility Prediction
-      url: opt-eda-modified-from-host-nb.html
-    - output: web,pdf
       title: Error analysis
       url: opt-error-analysis.html
     output: web
-    title: chrisrichardmiles
+    title: Optiver
   output: web
   title: Sidebar
