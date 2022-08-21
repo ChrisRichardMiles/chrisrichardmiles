@@ -12,36 +12,33 @@ entries:
     - output: web,pdf
       title: Core
       url: core.html
-    - output: web
-      subfolders:
-      - output: web,pdf
-        title: Welcome to chrisrichardmiles.m5
-        url: index_m5.html
-      - output: web,pdf
-        title: 'Brief EDA  '
-        url: brief_eda.html
-      - output: web,pdf
-        title: WRMSSE metric implementation
-        url: WRMSSE_metric.html
-      - output: web,pdf
-        title: Feature engineering
-        url: feature_engineering.html
-      - output: web,pdf
-        title: Train day-by-day models
-        url: training_day_by_day_models.html
-      title: M5 solution
-    - output: web
-      subfolders:
-      - output: web,pdf
-        title: Overview
-        url: index_optiver.html
-      - output: web,pdf
-        title: Optiver Realized Volatility Prediction
-        url: opt-eda-modified-from-host-nb.html
-      - output: web,pdf
-        title: Error analysis
-        url: opt-error-analysis.html
-      title: Optiver solution
+    - output: web,pdf
+      title: 'Brief EDA  '
+      url: brief_eda.html
+    - output: web,pdf
+      title: WRMSSE metric implementation
+      url: WRMSSE_metric.html
+    - output: web,pdf
+      title: Feature engineering
+      url: feature_engineering.html
+    - output: web,pdf
+      title: Title
+      url: opt-train-tabnet-142.html
+    - output: web,pdf
+      title: Train day-by-day models
+      url: training_day_by_day_models.html
+    - output: web,pdf
+      title: Welcome to chrisrichardmiles.m5
+      url: index_m5.html
+    - output: web,pdf
+      title: 'Optiver Realized Volatility Prediction: 91st place solution'
+      url: index_optiver.html
+    - output: web,pdf
+      title: Optiver Realized Volatility Prediction
+      url: opt-eda-modified-from-host-nb.html
+    - output: web,pdf
+      title: Error analysis
+      url: opt-error-analysis.html
     output: web
     title: chrisrichardmiles
   output: web
