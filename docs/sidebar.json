@@ -9,7 +9,7 @@
                     "Train day-by-day models": "training_day_by_day_models.html"}, 
     "Optiver solution": {"Overview": "index_optiver.html", 
                          "Optiver Realized Volatility Prediction": "opt-eda-modified-from-host-nb.html",
-                        "Error analysis": "opt-error-analysis.html"}, 
+                        "Error analysis": "opt-error-analysis.html"}
     
     
     
