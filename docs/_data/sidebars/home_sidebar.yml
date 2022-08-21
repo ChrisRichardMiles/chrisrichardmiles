@@ -5,13 +5,13 @@
 # Instead edit ../../sidebar.json
 entries:
 - folders:
-  - output: web,pdf
-    title: Overview
-    url: /
-  - output: web,pdf
-    title: Core
-    url: core.html
   - folderitems:
+    - output: web,pdf
+      title: Overview
+      url: /
+    - output: web,pdf
+      title: Core
+      url: core.html
     - output: web,pdf
       title: Welcome to chrisrichardmiles.m5
       url: index_m5.html
@@ -27,9 +27,6 @@ entries:
     - output: web,pdf
       title: Train day-by-day models
       url: training_day_by_day_models.html
-    output: web
-    title: M5
-  - folderitems:
     - output: web,pdf
       title: 'Optiver Realized Volatility Prediction: 91st place solution'
       url: index_optiver.html
@@ -37,6 +34,6 @@ entries:
       title: Error analysis
       url: opt-error-analysis.html
     output: web
-    title: Optiver
+    title: chrisrichardmiles
   output: web
   title: Sidebar
