@@ -1,575 +1,684 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+---
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.251">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<meta name="description" content="Some basic functions used in the chrisrichardmiles library.">
-
-<title>chrisrichardmiles - Core</title>
-<style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
-  vertical-align: middle;
-}
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
+title: Core
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 20,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
-  }
-}</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+keywords: fastai
+sidebar: home_sidebar
 
+summary: "Some basic functions used in the chrisrichardmiles library. "
+description: "Some basic functions used in the chrisrichardmiles library. "
+nb_path: "00_core.ipynb"
+---
+<!--
 
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="chrisrichardmiles - Core">
-<meta property="og:description" content="Some basic functions used in the chrisrichardmiles library.">
-<meta property="og:site-name" content="chrisrichardmiles">
-<meta name="twitter:title" content="chrisrichardmiles - Core">
-<meta name="twitter:description" content="Some basic functions used in the chrisrichardmiles library.">
-<meta name="twitter:card" content="summary">
-</head>
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: 00_core.ipynb
+# command to build the docs after a change: nbdev_build_docs
 
-<body class="nav-sidebar floating nav-fixed">
+-->
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">chrisrichardmiles</span>
-    </a>
-  </div>
-          <div id="quarto-search" class="" title="Search"></div>
-      </div> <!-- /container-fluid -->
-    </nav>
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Core</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
-      </button>
-    </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">chrisrichardmiles</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./core.html" class="sidebar-item-text sidebar-link active">Core</a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">projects</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">m5</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/m5/index_m5.html" class="sidebar-item-text sidebar-link">Welcome to chrisrichardmiles.m5</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/m5/brief_eda.html" class="sidebar-item-text sidebar-link">Brief EDA</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/m5/feature_engineering.html" class="sidebar-item-text sidebar-link">Feature engineering</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/m5/04_out_of_stock_detection.html" class="sidebar-item-text sidebar-link">Total sales for all series of aggregation</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/m5/training_day_by_day_models.html" class="sidebar-item-text sidebar-link">Train day-by-day models</a>
-  </div>
-</li>
-      </ul>
-  </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">optiver</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/optiver/index_optiver.html" class="sidebar-item-text sidebar-link">Optiver Realized Volatility Prediction: 91st place solution</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/optiver/opt-error-analysis.html" class="sidebar-item-text sidebar-link">Error analysis</a>
-  </div>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">notebooks</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/optiver/notebooks/opt-book-trade-eda.html" class="sidebar-item-text sidebar-link">price features</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/optiver/notebooks/opt-eda-modified-from-host-nb.html" class="sidebar-item-text sidebar-link">Optiver Realized Volatility Prediction</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/optiver/notebooks/opt-train-dart-op-129a-stock-31-only.html" class="sidebar-item-text sidebar-link">opt-train-dart-op-129a-stock-31-only.html</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/optiver/notebooks/opt-train-dart.html" class="sidebar-item-text sidebar-link">opt-train-dart.html</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/optiver/notebooks/opt-train-one-at-a-time.html" class="sidebar-item-text sidebar-link">opt-train-one-at-a-time.html</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./projects/optiver/notebooks/opt-train-tabnet-142.html" class="sidebar-item-text sidebar-link">opt-train-tabnet-142.html</a>
-  </div>
-</li>
-      </ul>
-  </li>
-      </ul>
-  </li>
-      </ul>
-  </li>
-    </ul>
-    </div>
-</nav>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#make-data-folder-with-subfolders-raw-interim-features-models" id="toc-make-data-folder-with-subfolders-raw-interim-features-models" class="nav-link active" data-scroll-target="#make-data-folder-with-subfolders-raw-interim-features-models">Make data folder with subfolders raw, interim, features, models</a>
-  <ul class="collapse">
-  <li><a href="#cli_mkdirs_data" id="toc-cli_mkdirs_data" class="nav-link" data-scroll-target="#cli_mkdirs_data">cli_mkdirs_data</a></li>
-  <li><a href="#mkdirs_data" id="toc-mkdirs_data" class="nav-link" data-scroll-target="#mkdirs_data">mkdirs_data</a></li>
-  </ul></li>
-  <li><a href="#downloading-kaggle-data" id="toc-downloading-kaggle-data" class="nav-link" data-scroll-target="#downloading-kaggle-data">Downloading kaggle data</a>
-  <ul class="collapse">
-  <li><a href="#cli_download_kaggle_data" id="toc-cli_download_kaggle_data" class="nav-link" data-scroll-target="#cli_download_kaggle_data">cli_download_kaggle_data</a></li>
-  <li><a href="#download_kaggle_data" id="toc-download_kaggle_data" class="nav-link" data-scroll-target="#download_kaggle_data">download_kaggle_data</a></li>
-  </ul></li>
-  <li><a href="#saving-and-loading-flies" id="toc-saving-and-loading-flies" class="nav-link" data-scroll-target="#saving-and-loading-flies">Saving and loading flies</a>
-  <ul class="collapse">
-  <li><a href="#prevent-saving-over-files" id="toc-prevent-saving-over-files" class="nav-link" data-scroll-target="#prevent-saving-over-files">Prevent saving over files</a></li>
-  <li><a href="#make_unique" id="toc-make_unique" class="nav-link" data-scroll-target="#make_unique">make_unique</a></li>
-  <li><a href="#make_unique_path" id="toc-make_unique_path" class="nav-link" data-scroll-target="#make_unique_path">make_unique_path</a></li>
-  <li><a href="#saving-and-loading-pandas-dataframes" id="toc-saving-and-loading-pandas-dataframes" class="nav-link" data-scroll-target="#saving-and-loading-pandas-dataframes">Saving and loading pandas dataframes</a></li>
-  <li><a href="#load_file" id="toc-load_file" class="nav-link" data-scroll-target="#load_file">load_file</a></li>
-  <li><a href="#save_file" id="toc-save_file" class="nav-link" data-scroll-target="#save_file">save_file</a></li>
-  <li><a href="#making-a-dictionary-and-json-with-file-names-as-keys-and-list-of-column-names-as-values." id="toc-making-a-dictionary-and-json-with-file-names-as-keys-and-list-of-column-names-as-values." class="nav-link" data-scroll-target="#making-a-dictionary-and-json-with-file-names-as-keys-and-list-of-column-names-as-values.">Making a dictionary and json with file names as keys and list of column names as values.</a></li>
-  <li><a href="#fe_dict" id="toc-fe_dict" class="nav-link" data-scroll-target="#fe_dict">fe_dict</a></li>
-  <li><a href="#get_file_cols_dict" id="toc-get_file_cols_dict" class="nav-link" data-scroll-target="#get_file_cols_dict">get_file_cols_dict</a></li>
-  <li><a href="#loading-features" id="toc-loading-features" class="nav-link" data-scroll-target="#loading-features">Loading features</a></li>
-  </ul></li>
-  <li><a href="#speed-and-memory-functions" id="toc-speed-and-memory-functions" class="nav-link" data-scroll-target="#speed-and-memory-functions">Speed and memory functions</a>
-  <ul class="collapse">
-  <li><a href="#paralel-runs" id="toc-paralel-runs" class="nav-link" data-scroll-target="#paralel-runs">Paralel runs</a></li>
-  <li><a href="#pool_func" id="toc-pool_func" class="nav-link" data-scroll-target="#pool_func">pool_func</a></li>
-  <li><a href="#saving-memory" id="toc-saving-memory" class="nav-link" data-scroll-target="#saving-memory">Saving memory</a></li>
-  <li><a href="#reduce_mem_usage" id="toc-reduce_mem_usage" class="nav-link" data-scroll-target="#reduce_mem_usage">reduce_mem_usage</a></li>
-  <li><a href="#merge_by_concat" id="toc-merge_by_concat" class="nav-link" data-scroll-target="#merge_by_concat">merge_by_concat</a></li>
-  <li><a href="#sizeof_fmt" id="toc-sizeof_fmt" class="nav-link" data-scroll-target="#sizeof_fmt">sizeof_fmt</a></li>
-  <li><a href="#get_memory_usage" id="toc-get_memory_usage" class="nav-link" data-scroll-target="#get_memory_usage">get_memory_usage</a></li>
-  <li><a href="#time_taken" id="toc-time_taken" class="nav-link" data-scroll-target="#time_taken">time_taken</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
-    </div>
-<!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title d-none d-lg-block">Core</h1>
-</div>
-
-<div>
-  <div class="description">
-    Some basic functions used in the chrisrichardmiles library.
-  </div>
-</div>
-
-
-<div class="quarto-title-meta">
-
+<div class="container" id="notebook-container">
+        
+    {% raw %}
     
-    
-  </div>
-  
+<div class="cell border-box-sizing code_cell rendered">
 
-</header>
-
-<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
-<section id="make-data-folder-with-subfolders-raw-interim-features-models" class="level2">
-<h2 class="anchored" data-anchor-id="make-data-folder-with-subfolders-raw-interim-features-models">Make data folder with subfolders raw, interim, features, models</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mkdirs_data(data_dir_name: <span class="bu">str</span><span class="op">=</span><span class="st">'data'</span>) <span class="op">-&gt;</span> <span class="va">None</span>: </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Initializes the data directory structure"""</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    os.makedirs(<span class="ss">f'</span><span class="sc">{</span>data_dir_name<span class="sc">}</span><span class="ss">/raw'</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    os.makedirs(<span class="ss">f'</span><span class="sc">{</span>data_dir_name<span class="sc">}</span><span class="ss">/interim'</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    os.makedirs(<span class="ss">f'</span><span class="sc">{</span>data_dir_name<span class="sc">}</span><span class="ss">/features'</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    os.makedirs(<span class="ss">f'</span><span class="sc">{</span>data_dir_name<span class="sc">}</span><span class="ss">/models'</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">@call_parse</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cli_mkdirs_data(data_dir_name: Param(<span class="st">'Name of data folder'</span>, <span class="bu">str</span>)<span class="op">=</span><span class="st">'data'</span>) <span class="op">-&gt;</span> <span class="va">None</span>: </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    mkdirs_data(data_dir_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<hr>
-<section id="cli_mkdirs_data" class="level3">
-<h3 class="anchored" data-anchor-id="cli_mkdirs_data">cli_mkdirs_data</h3>
-<blockquote class="blockquote">
-<pre><code> cli_mkdirs_data (data_dir_name:str&lt;Nameofdatafolder&gt;='data')</code></pre>
-</blockquote>
-<hr>
-</section>
-<section id="mkdirs_data" class="level3">
-<h3 class="anchored" data-anchor-id="mkdirs_data">mkdirs_data</h3>
-<blockquote class="blockquote">
-<pre><code> mkdirs_data (data_dir_name:str='data')</code></pre>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">gc</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span><span class="p">,</span> <span class="n">cpu_count</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">psutil</span>
+<span class="kn">from</span> <span class="nn">fastcore.script</span> <span class="kn">import</span> <span class="n">call_parse</span><span class="p">,</span> <span class="n">Param</span>
+<span class="kn">from</span> <span class="nn">fastcore.parallel</span> <span class="kn">import</span> <span class="n">parallel</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-directories">Data directories<a class="anchor-link" href="#Data-directories"> </a></h2>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="mkdirs_data" class="doc_header"><code>mkdirs_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L28" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>mkdirs_data</code>(<strong><code>data_dir_name</code></strong>:<code>str</code>=<em><code>'data'</code></em>)</p>
 </blockquote>
 <p>Initializes the data directory structure</p>
-</section>
-</section>
-<section id="downloading-kaggle-data" class="level2">
-<h2 class="anchored" data-anchor-id="downloading-kaggle-data">Downloading kaggle data</h2>
-<hr>
-<section id="cli_download_kaggle_data" class="level3">
-<h3 class="anchored" data-anchor-id="cli_download_kaggle_data">cli_download_kaggle_data</h3>
-<blockquote class="blockquote">
-<pre><code> cli_download_kaggle_data (comp_name:str&lt;nameofkagglecompetition&gt;=None)</code></pre>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="cli_mkdirs_data" class="doc_header"><code>cli_mkdirs_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L35" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cli_mkdirs_data</code>(<strong><code>data_dir_name</code></strong>:"Name of data folder"=<em><code>'data'</code></em>)</p>
 </blockquote>
-<hr>
-</section>
-<section id="download_kaggle_data" class="level3">
-<h3 class="anchored" data-anchor-id="download_kaggle_data">download_kaggle_data</h3>
-<blockquote class="blockquote">
-<pre><code> download_kaggle_data (comp_name:str=None)</code></pre>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="cp_tree" class="doc_header"><code>cp_tree</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L39" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cp_tree</code>(<strong><code>dir1</code></strong>:"path to directory to copy", <strong><code>dir2</code></strong>:"path to endpoint")</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">mkdirs_data</span><span class="p">(</span><span class="n">data_dir_name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> 
+    <span class="sd">&quot;&quot;&quot;Initializes the data directory structure&quot;&quot;&quot;</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/raw&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/interim&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/features&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_dir_name</span><span class="si">}</span><span class="s1">/models&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+<span class="nd">@call_parse</span>
+<span class="k">def</span> <span class="nf">cli_mkdirs_data</span><span class="p">(</span><span class="n">data_dir_name</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;Name of data folder&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> 
+    <span class="n">mkdirs_data</span><span class="p">(</span><span class="n">data_dir_name</span><span class="p">)</span>
+    
+<span class="nd">@call_parse</span>
+<span class="k">def</span> <span class="nf">cp_tree</span><span class="p">(</span><span class="n">dir1</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;path to directory to copy&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span> 
+            <span class="n">dir2</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;path to endpoint&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span> 
+    <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">dir1</span><span class="p">,</span> <span class="n">dir2</span><span class="p">,</span> <span class="n">dirs_exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="download_kaggle_data" class="doc_header"><code>download_kaggle_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L45" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>download_kaggle_data</code>(<strong><code>comp_name</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Downloads competition data using the kaggle api</p>
-</section>
-</section>
-<section id="saving-and-loading-flies" class="level2">
-<h2 class="anchored" data-anchor-id="saving-and-loading-flies">Saving and loading flies</h2>
-<section id="prevent-saving-over-files" class="level3">
-<h3 class="anchored" data-anchor-id="prevent-saving-over-files">Prevent saving over files</h3>
-<p>In order to to make sure we don’t accidentally save over a file with the the same name, we have some functions to ensures that certain strings and paths are unique.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_unique(name: <span class="bu">str</span>, names: <span class="st">"list or set or dict"</span>) <span class="op">-&gt;</span> <span class="bu">str</span>: </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Returns name with (x)_ prefix if `name` already in `names`. </span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">    This is useful when you want to make sure you don't save over</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">    existing data with the same key `name`.</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> name <span class="kw">in</span> names:</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="ss">f'(</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">)_'</span> <span class="op">+</span> name <span class="kw">in</span> names: x <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        name <span class="op">=</span> <span class="ss">f'(</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">)_'</span> <span class="op">+</span> name</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
-<hr>
-</section>
-<section id="make_unique" class="level3">
-<h3 class="anchored" data-anchor-id="make_unique">make_unique</h3>
-<blockquote class="blockquote">
-<pre><code> make_unique (name:str, names:list)</code></pre>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="cli_download_kaggle_data" class="doc_header"><code>cli_download_kaggle_data</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L53" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>cli_download_kaggle_data</code>(<strong><code>comp_name</code></strong>:"name of kaggle competition"=<em><code>None</code></em>)</p>
 </blockquote>
-<p>Returns name with (x)_ prefix if <code>name</code> already in <code>names</code>. This is useful when you want to make sure you don’t save over existing data with the same key <code>name</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>make_unique(<span class="st">'d'</span>, [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>'d'</code></pre>
+
+</div>
+
+</div>
+
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>make_unique(<span class="st">'a'</span>, [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>'(1)_a'</code></pre>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Saving-and-loading-flies">Saving and loading flies<a class="anchor-link" href="#Saving-and-loading-flies"> </a></h2>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> make_unique(<span class="st">'d'</span>, [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>]) <span class="op">==</span> <span class="st">'d'</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> make_unique(<span class="st">'chris'</span>, [<span class="st">'chris'</span>, <span class="st">'dan'</span>, <span class="st">'bill'</span>]) <span class="op">==</span> <span class="st">'(1)_chris'</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> make_unique(<span class="st">'chris'</span>, [<span class="st">'chris'</span>, <span class="st">'dan'</span>, <span class="st">'bill'</span>, <span class="st">'(1)_chris'</span>]) <span class="op">==</span> <span class="st">'(2)_chris'</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> make_unique(<span class="st">'chris'</span>, <span class="bu">set</span>([<span class="st">'chris'</span>, <span class="st">'dan'</span>, <span class="st">'bill'</span>, <span class="st">'(1)_chris'</span>])) <span class="op">==</span> <span class="st">'(2)_chris'</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> make_unique(<span class="st">'a'</span>, {<span class="st">'a'</span>: <span class="dv">1</span>, <span class="st">'b'</span>: <span class="dv">2</span>, <span class="st">'c'</span>: <span class="dv">3</span>}) <span class="op">==</span> <span class="st">'(1)_a'</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> make_unique(<span class="st">'d'</span>, {<span class="st">'a'</span>: <span class="dv">1</span>, <span class="st">'b'</span>: <span class="dv">2</span>, <span class="st">'c'</span>: <span class="dv">3</span>}) <span class="op">==</span> <span class="st">'d'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_unique_path(path):  </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Returns path with prefix '(n)_' before the last element in </span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">    path if it is a duplicate. </span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    pre_path, file_name <span class="op">=</span> os.path.split(path)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    file_name <span class="op">=</span> make_unique(file_name, os.listdir(pre_path <span class="kw">or</span> <span class="st">'.'</span>))</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> os.path.join(pre_path, file_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Prevent-saving-over-files">Prevent saving over files<a class="anchor-link" href="#Prevent-saving-over-files"> </a></h3><p>In order to to make sure we don't accidentally save over a file with the the same name, we have some functions to ensures that certain strings and paths are unique.</p>
+
 </div>
-<hr>
-</section>
-<section id="make_unique_path" class="level3">
-<h3 class="anchored" data-anchor-id="make_unique_path">make_unique_path</h3>
-<blockquote class="blockquote">
-<pre><code> make_unique_path (path)</code></pre>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="make_unique" class="doc_header"><code>make_unique</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L58" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_unique</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>names</code></strong>:<code>list or set or dict</code>)</p>
 </blockquote>
-<p>Returns path with prefix ’(n)_’ before the last element in path if it is a duplicate.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>os.makedirs(<span class="st">'tmp'</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(make_unique_path(<span class="st">'tmp/tmp.csv'</span>))</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">open</span>(<span class="st">'tmp/tmp.csv'</span>, <span class="st">'w'</span>).close()</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(make_unique_path(<span class="st">'tmp/tmp.csv'</span>))</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>shutil.rmtree(<span class="st">'tmp'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>tmp/tmp.csv
-tmp/(1)_tmp.csv</code></pre>
+<p>Returns name with (x)_ prefix if <code>name</code> already in <code>names</code>.
+This is useful when you want to make sure you don't save over
+existing data with the same key <code>name</code>.</p>
+
+</div>
+
+</div>
+
 </div>
 </div>
-</section>
-<section id="saving-and-loading-pandas-dataframes" class="level3">
-<h3 class="anchored" data-anchor-id="saving-and-loading-pandas-dataframes">Saving and loading pandas dataframes</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> save_file(df: pd.DataFrame, </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>              path: <span class="bu">str</span>, </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>              usecols: <span class="bu">list</span><span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>              save_index: <span class="bu">bool</span><span class="op">=</span><span class="va">False</span>, </span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>              save_dtypes: <span class="bu">bool</span><span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>              pickle: <span class="bu">bool</span><span class="op">=</span><span class="va">False</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Saves `df` to `path` with dtypes as top column if `save_dtypes` </span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">    is set to True. Load a files in this structure with `load_file`</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pickle: </span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        usecols <span class="op">=</span> usecols <span class="cf">if</span> usecols <span class="cf">else</span> <span class="bu">list</span>(df)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        path_dir <span class="op">=</span> os.path.split(path)[<span class="dv">0</span>] <span class="cf">if</span> path.endswith(<span class="st">'.csv'</span>) <span class="cf">else</span> path <span class="co"># For M5 project maintenence</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">list</span>(df): </span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>            df[[col]].to_pickle(os.path.join(path_dir, col <span class="op">+</span> <span class="st">'.pkl'</span>))</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> </span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    path <span class="op">=</span> make_unique_path(path)</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> save_dtypes:</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        df_tmp <span class="op">=</span> df.iloc[[<span class="dv">0</span>], :]</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> usecols: df_tmp <span class="op">=</span> df_tmp.loc[:, usecols]</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> save_index: </span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>            df_tmp.reset_index(inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>        df_dtypes <span class="op">=</span> df_tmp.dtypes.to_frame().T</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>        df_dtypes.to_csv(path, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>        df.to_csv(path, mode<span class="op">=</span><span class="st">'a'</span>, index<span class="op">=</span>save_index, header<span class="op">=</span><span class="va">False</span>, </span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>                  columns<span class="op">=</span>usecols)</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: </span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>        df.to_csv(path, index<span class="op">=</span>save_index, columns<span class="op">=</span>usecols)</span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_file(path: <span class="bu">str</span>, load_dtypes<span class="op">=</span><span class="va">True</span>, usecols: <span class="bu">list</span><span class="op">=</span><span class="va">None</span>) <span class="op">-&gt;</span> pd.DataFrame:</span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Loads a file into a DataFrame from `path` with dtypes </span></span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="co">    taken from the top column if `load_dtypes` is set to True. </span></span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="co">    Loads a files in the structure created with `save_file`.</span></span>
-<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> path.endswith(<span class="st">'pkl'</span>): </span>
-<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> pd.read_pickle(path)</span>
-<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> df[usecols] <span class="cf">if</span> usecols <span class="cf">else</span> df</span>
-<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> load_dtypes:</span>
-<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>        dtypes <span class="op">=</span> pd.read_csv(path, nrows<span class="op">=</span><span class="dv">1</span>).iloc[<span class="dv">0</span>].to_dict()</span>
-<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pd.read_csv(path, skiprows<span class="op">=</span>[<span class="dv">1</span>], dtype<span class="op">=</span>dtypes, usecols<span class="op">=</span>usecols)</span>
-<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pd.read_csv(path, usecols<span class="op">=</span>usecols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
-<hr>
-</section>
-<section id="load_file" class="level3">
-<h3 class="anchored" data-anchor-id="load_file">load_file</h3>
-<blockquote class="blockquote">
-<pre><code> load_file (path:str, load_dtypes=True, usecols:list=None)</code></pre>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">make_unique</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="s2">&quot;list or set or dict&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> 
+    <span class="sd">&quot;&quot;&quot;Returns name with (x)_ prefix if `name` already in `names`. </span>
+<span class="sd">    This is useful when you want to make sure you don&#39;t save over</span>
+<span class="sd">    existing data with the same key `name`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">)_&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span> <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">)_&#39;</span> <span class="o">+</span> <span class="n">name</span>
+    <span class="k">return</span> <span class="n">name</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;d&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;(1)_a&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span>
+<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="s1">&#39;dan&#39;</span><span class="p">,</span> <span class="s1">&#39;bill&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="s1">&#39;(1)_chris&#39;</span>
+<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="s1">&#39;dan&#39;</span><span class="p">,</span> <span class="s1">&#39;bill&#39;</span><span class="p">,</span> <span class="s1">&#39;(1)_chris&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="s1">&#39;(2)_chris&#39;</span>
+<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="s1">&#39;dan&#39;</span><span class="p">,</span> <span class="s1">&#39;bill&#39;</span><span class="p">,</span> <span class="s1">&#39;(1)_chris&#39;</span><span class="p">]))</span> <span class="o">==</span> <span class="s1">&#39;(2)_chris&#39;</span>
+<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span> <span class="o">==</span> <span class="s1">&#39;(1)_a&#39;</span>
+<span class="k">assert</span> <span class="n">make_unique</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="make_unique_path" class="doc_header"><code>make_unique_path</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_unique_path</code>(<strong><code>path</code></strong>)</p>
 </blockquote>
-<p>Loads a file into a DataFrame from <code>path</code> with dtypes taken from the top column if <code>load_dtypes</code> is set to True. Loads a files in the structure created with <code>save_file</code>.</p>
-<hr>
-</section>
-<section id="save_file" class="level3">
-<h3 class="anchored" data-anchor-id="save_file">save_file</h3>
-<blockquote class="blockquote">
-<pre><code> save_file (df:pandas.core.frame.DataFrame, path:str, usecols:list=None,
-            save_index:bool=False, save_dtypes:bool=True,
-            pickle:bool=False)</code></pre>
-</blockquote>
-<p>Saves <code>df</code> to <code>path</code> with dtypes as top column if <code>save_dtypes</code> is set to True. Load a files in this structure with <code>load_file</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'a'</span>: [<span class="dv">1</span>, <span class="dv">2</span>], <span class="st">'b'</span>: [<span class="st">'foo'</span>, <span class="st">'bar'</span>], <span class="st">'c'</span>: [<span class="fl">1.2</span>, <span class="fl">3.3</span>]})</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.astype(<span class="bu">dict</span>(<span class="bu">zip</span>([<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>], [<span class="st">'int32'</span>, <span class="st">'category'</span>, np.float16])))</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Saving the the dataframe to csv with the dtypes'</span>)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>display(df.dtypes)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>save_file(df, <span class="st">'tmp.csv'</span>, pickle<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Now the csv has the datatypes as the top line when we read it in'</span>)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>display(pd.read_csv(<span class="st">'tmp.csv'</span>))</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'We can use `load_file` to read in the csv with the right dtypes'</span>)</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>display(load_file(<span class="st">'tmp.csv'</span>))</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>display(load_file(<span class="st">'tmp.csv'</span>).dtypes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Saving the the dataframe to csv with the dtypes</code></pre>
+<p>Returns path with prefix '(n)_' before the last element in
+path if it is a duplicate.</p>
+
 </div>
-<div class="cell-output cell-output-display">
-<pre><code>a       int32
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">make_unique_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>  
+    <span class="sd">&quot;&quot;&quot;Returns path with prefix &#39;(n)_&#39; before the last element in </span>
+<span class="sd">    path if it is a duplicate. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pre_path</span><span class="p">,</span> <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">make_unique</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">pre_path</span> <span class="ow">or</span> <span class="s1">&#39;.&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pre_path</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">&#39;tmp&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">make_unique_path</span><span class="p">(</span><span class="s1">&#39;tmp/tmp.csv&#39;</span><span class="p">))</span>
+<span class="nb">open</span><span class="p">(</span><span class="s1">&#39;tmp/tmp.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">make_unique_path</span><span class="p">(</span><span class="s1">&#39;tmp/tmp.csv&#39;</span><span class="p">))</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s1">&#39;tmp&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tmp/tmp.csv
+tmp/(1)_tmp.csv
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Saving-and-loading-pandas-dataframes">Saving and loading pandas dataframes<a class="anchor-link" href="#Saving-and-loading-pandas-dataframes"> </a></h3>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="save_file" class="doc_header"><code>save_file</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L79" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>save_file</code>(<strong><code>df</code></strong>:<code>DataFrame</code>, <strong><code>path</code></strong>:<code>str</code>, <strong><code>usecols</code></strong>:<code>list</code>=<em><code>None</code></em>, <strong><code>save_index</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>save_dtypes</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>pickle</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+</blockquote>
+<p>Saves <code>df</code> to <code>path</code> with dtypes as top column if <code>save_dtypes</code>
+is set to True. Load a files in this structure with <a href="/chrisrichardmiles/core.html#load_file"><code>load_file</code></a></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="load_file" class="doc_header"><code>load_file</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L108" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_file</code>(<strong><code>path</code></strong>:<code>str</code>, <strong><code>load_dtypes</code></strong>=<em><code>True</code></em>, <strong><code>usecols</code></strong>:<code>list</code>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>Loads a file into a DataFrame from <code>path</code> with dtypes
+taken from the top column if <code>load_dtypes</code> is set to True.
+Loads a files in the structure created with <a href="/chrisrichardmiles/core.html#save_file"><code>save_file</code></a>.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">save_file</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> 
+              <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+              <span class="n">usecols</span><span class="p">:</span> <span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">save_index</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+              <span class="n">save_dtypes</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+              <span class="n">pickle</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Saves `df` to `path` with dtypes as top column if `save_dtypes` </span>
+<span class="sd">    is set to True. Load a files in this structure with `load_file`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pickle</span><span class="p">:</span> 
+        <span class="n">usecols</span> <span class="o">=</span> <span class="n">usecols</span> <span class="k">if</span> <span class="n">usecols</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+        <span class="n">path_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">path</span> <span class="c1"># For M5 project maintenence</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">):</span> 
+            <span class="n">df</span><span class="p">[[</span><span class="n">col</span><span class="p">]]</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_dir</span><span class="p">,</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;.pkl&#39;</span><span class="p">))</span>
+        <span class="k">return</span> 
+    
+    <span class="n">path</span> <span class="o">=</span> <span class="n">make_unique_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">save_dtypes</span><span class="p">:</span>
+        <span class="n">df_tmp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:]</span>
+        <span class="k">if</span> <span class="n">usecols</span><span class="p">:</span> <span class="n">df_tmp</span> <span class="o">=</span> <span class="n">df_tmp</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">usecols</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">save_index</span><span class="p">:</span> 
+            <span class="n">df_tmp</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">df_dtypes</span> <span class="o">=</span> <span class="n">df_tmp</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">df_dtypes</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">save_index</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+                  <span class="n">columns</span><span class="o">=</span><span class="n">usecols</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> 
+        <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">save_index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">usecols</span><span class="p">)</span>
+        
+<span class="k">def</span> <span class="nf">load_file</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">load_dtypes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">usecols</span><span class="p">:</span> <span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Loads a file into a DataFrame from `path` with dtypes </span>
+<span class="sd">    taken from the top column if `load_dtypes` is set to True. </span>
+<span class="sd">    Loads a files in the structure created with `save_file`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;pkl&#39;</span><span class="p">):</span> 
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">usecols</span><span class="p">]</span> <span class="k">if</span> <span class="n">usecols</span> <span class="k">else</span> <span class="n">df</span>
+    
+    <span class="k">if</span> <span class="n">load_dtypes</span><span class="p">:</span>
+        <span class="n">dtypes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtypes</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">],</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">]})</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;int32&#39;</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saving the the dataframe to csv with the dtypes&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+<span class="n">save_file</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;tmp.csv&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Now the csv has the datatypes as the top line when we read it in&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;tmp.csv&#39;</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;We can use `load_file` to read in the csv with the right dtypes&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;tmp.csv&#39;</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;tmp.csv&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Saving the the dataframe to csv with the dtypes
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>a       int32
 b    category
 c     float16
-dtype: object</code></pre>
+dtype: object</pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Now the csv has the datatypes as the top line when we read it in</code></pre>
+
 </div>
-<div class="cell-output cell-output-display">
 
-<div>
+<div class="output_area">
 
-<table class="dataframe table table-sm table-striped">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Now the csv has the datatypes as the top line when we read it in
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea "><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
   <thead>
-    <tr>
+    <tr style="text-align: right;">
       <th></th>
       <th>a</th>
       <th>b</th>
@@ -597,18 +706,38 @@ dtype: object</code></pre>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>We can use `load_file` to read in the csv with the right dtypes</code></pre>
-</div>
-<div class="cell-output cell-output-display">
+</div></div>
 
-<div>
+</div>
 
-<table class="dataframe table table-sm table-striped">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>We can use `load_file` to read in the csv with the right dtypes
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea "><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
   <thead>
-    <tr>
+    <tr style="text-align: right;">
       <th></th>
       <th>a</th>
       <th>b</th>
@@ -630,26 +759,68 @@ dtype: object</code></pre>
     </tr>
   </tbody>
 </table>
+</div></div>
+
 </div>
-</div>
-<div class="cell-output cell-output-display">
-<pre><code>a       int32
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>a       int32
 b    category
 c     float16
-dtype: object</code></pre>
+dtype: object</pre>
+</div>
+
+</div>
+
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>save_file(df, <span class="st">'.'</span>, pickle<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>display(pd.concat([load_file(x <span class="op">+</span> <span class="st">'.pkl'</span>) <span class="cf">for</span> x <span class="kw">in</span> <span class="st">'abc'</span>], axis<span class="op">=</span><span class="dv">1</span>))</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm a.pkl b.pkl c.pkl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
 
-<div>
+</div>
+    {% endraw %}
 
-<table class="dataframe table table-sm table-striped">
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">save_file</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">load_file</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="s1">&#39;.pkl&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="s1">&#39;abc&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="o">!</span>rm a.pkl b.pkl c.pkl
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea "><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
   <thead>
-    <tr>
+    <tr style="text-align: right;">
       <th></th>
       <th>a</th>
       <th>b</th>
@@ -671,19 +842,54 @@ dtype: object</code></pre>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>save_file(df, <span class="st">'tmp2.csv'</span>, usecols<span class="op">=</span>[<span class="st">'a'</span>, <span class="st">'c'</span>], save_index<span class="op">=</span><span class="va">True</span>, pickle<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>load_file(<span class="st">'tmp2.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+</div></div>
 
-<div>
+</div>
 
-<table class="dataframe table table-sm table-striped">
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">save_file</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;tmp2.csv&#39;</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="n">save_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;tmp2.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
   <thead>
-    <tr>
+    <tr style="text-align: right;">
       <th></th>
       <th>index</th>
       <th>a</th>
@@ -705,20 +911,61 @@ dtype: object</code></pre>
     </tr>
   </tbody>
 </table>
+</div></div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>rm tmp*.csv
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Making-a-dictionary-and-json-with-file-names-as-keys-and-list-of-column-names-as-values.">Making a dictionary and json with file names as keys and list of column names as values.<a class="anchor-link" href="#Making-a-dictionary-and-json-with-file-names-as-keys-and-list-of-column-names-as-values."> </a></h3>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm tmp<span class="op">*</span>.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+
+    </div>
 </div>
-</section>
-<section id="making-a-dictionary-and-json-with-file-names-as-keys-and-list-of-column-names-as-values." class="level3">
-<h3 class="anchored" data-anchor-id="making-a-dictionary-and-json-with-file-names-as-keys-and-list-of-column-names-as-values.">Making a dictionary and json with file names as keys and list of column names as values.</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> <span class="bu">sorted</span>(os.listdir(<span class="st">'.'</span>)):</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">file</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>.devcontainer.json
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>.devcontainer.json
 .git
 .gitattributes
 .gitconfig
@@ -742,104 +989,324 @@ log.log
 projects
 settings.ini
 setup.py
-small_data</code></pre>
+small_data
+</pre>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_file_cols_dict(path: <span class="bu">str</span><span class="op">=</span><span class="st">'.'</span>, </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>                       path_json: <span class="bu">str</span><span class="op">=</span><span class="st">''</span>, </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                       ignore_cols: <span class="bu">list</span><span class="op">=</span>[<span class="st">'index'</span>]):</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Explores `path` and returns a dictionary of file names and their columns</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co">    for each file in `path`. Only file names that end with </span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co">    '.csv' and '.pkl' will be considered. Pickle file names</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co">    will go in the 'pickles' key of the returned dictionary.</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Csv files will see their file name saved as a key with </span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co">    a list of their column names saved as the corresponding </span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">    value.</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> {}</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> <span class="bu">sorted</span>(os.listdir(path)): </span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">file</span>.endswith(<span class="st">'.csv'</span>): </span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>            cols <span class="op">=</span> pd.read_csv(os.path.join(path, <span class="bu">file</span>), nrows<span class="op">=</span><span class="dv">0</span>).columns.tolist()</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>            d[<span class="bu">file</span>] <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> cols <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> ignore_cols]</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">file</span>.endswith(<span class="st">'.pkl'</span>): </span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>            d.setdefault(<span class="st">'pickles'</span>, []).append(<span class="bu">file</span>)</span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> path_json: </span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(path_json, <span class="st">'w'</span>) <span class="im">as</span> path_json: </span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>            json.dump(d, path_json, indent<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> d</span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="at">@call_parse</span></span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fe_dict(path: Param(<span class="st">'path to directory with files'</span>, <span class="bu">str</span>)<span class="op">=</span><span class="st">'data/features'</span>, </span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>            path_json: Param(<span class="st">'path to json for saving dict'</span>, <span class="bu">str</span>)<span class="op">=</span><span class="st">'fe_dict.json'</span>):</span>
-<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>    get_file_cols_dict(path, path_json)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
-<hr>
-</section>
-<section id="fe_dict" class="level3">
-<h3 class="anchored" data-anchor-id="fe_dict">fe_dict</h3>
-<blockquote class="blockquote">
-<pre><code> fe_dict (path:str&lt;pathtodirectorywithfiles&gt;='data/features',
-          path_json:str&lt;pathtojsonforsavingdict&gt;='fe_dict.json')</code></pre>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_file_cols_dict" class="doc_header"><code>get_file_cols_dict</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L124" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_file_cols_dict</code>(<strong><code>path</code></strong>:<code>str</code>=<em><code>'.'</code></em>, <strong><code>path_json</code></strong>:<code>str</code>=<em><code>''</code></em>, <strong><code>ignore_cols</code></strong>:<code>list</code>=<em><code>['index']</code></em>)</p>
 </blockquote>
-<hr>
-</section>
-<section id="get_file_cols_dict" class="level3">
-<h3 class="anchored" data-anchor-id="get_file_cols_dict">get_file_cols_dict</h3>
-<blockquote class="blockquote">
-<pre><code> get_file_cols_dict (path:str='.', path_json:str='',
-                     ignore_cols:list=['index'])</code></pre>
+<p>Explores <code>path</code> and returns a dictionary of file names and their columns
+for each file in <code>path</code>. Only file names that end with
+'.csv' and '.pkl' will be considered. Pickle file names
+will go in the 'pickles' key of the returned dictionary.
+Csv files will see their file name saved as a key with
+a list of their column names saved as the corresponding
+value.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="fe_dict" class="doc_header"><code>fe_dict</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L148" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>fe_dict</code>(<strong><code>path</code></strong>:"path to directory with files"=<em><code>'data/features'</code></em>, <strong><code>path_json</code></strong>:"path to json for saving dict"=<em><code>'fe_dict.json'</code></em>)</p>
 </blockquote>
-<p>Explores <code>path</code> and returns a dictionary of file names and their columns for each file in <code>path</code>. Only file names that end with ‘.csv’ and ‘.pkl’ will be considered. Pickle file names will go in the ‘pickles’ key of the returned dictionary. Csv files will see their file name saved as a key with a list of their column names saved as the corresponding value.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.DataFrame({<span class="st">'feat_1'</span>: [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>], <span class="st">'feat_2'</span>: [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>], <span class="st">'feat_3'</span>: [<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">3</span>]})</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> pd.DataFrame({<span class="st">'shift_feat_4'</span>: [<span class="dv">1</span>,<span class="dv">9</span>,<span class="dv">2</span>,<span class="dv">4</span>], <span class="st">'shift_feat_5'</span>: [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">9</span>], <span class="st">'shift_feat_6'</span>: [<span class="dv">1</span>,<span class="dv">9</span>,<span class="dv">3</span>,<span class="dv">3</span>]})</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>df3 <span class="op">=</span> pd.DataFrame({<span class="st">'feat_7'</span>: [<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">4</span>], <span class="st">'feat_8'</span>: [<span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>], <span class="st">'feat_9'</span>: [<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">3</span>,<span class="dv">3</span>]})</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>df4 <span class="op">=</span> pd.DataFrame({<span class="st">'feat_10'</span>: [<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">4</span>], <span class="st">'feat_11'</span>: [<span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>], <span class="st">'feat_12'</span>: [<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">3</span>,<span class="dv">3</span>], </span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'feat_13'</span>: [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>]})</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>df4.feat_10 <span class="op">=</span> df4.feat_10.astype(<span class="st">'int8'</span>)</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>df4.feat_13 <span class="op">=</span> df4.feat_13.astype(<span class="st">'category'</span>)</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>save_file(df1, <span class="st">'features_1.csv'</span>, pickle<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>save_file(df2, <span class="st">'shift_features_2.csv'</span>, pickle<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>save_file(df3, <span class="st">'features_3.csv'</span>, pickle<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>save_file(df4, <span class="st">'features_4.csv'</span>, save_index<span class="op">=</span><span class="va">True</span>, pickle<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>save_file(df3, <span class="st">'features_3_less_cols.csv'</span>, usecols<span class="op">=</span>[<span class="st">'feat_7'</span>], pickle<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>get_file_cols_dict(<span class="st">'.'</span>, path_json<span class="op">=</span><span class="st">'tmp_features.json'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>{'features_1.csv': ['feat_1', 'feat_2', 'feat_3'],
- 'features_3.csv': ['feat_7', 'feat_8', 'feat_9'],
- 'features_3_less_cols.csv': ['feat_7'],
- 'features_4.csv': ['feat_10', 'feat_11', 'feat_12', 'feat_13'],
- 'shift_features_2.csv': ['shift_feat_4', 'shift_feat_5', 'shift_feat_6']}</code></pre>
+
+</div>
+
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>get_file_cols_dict(<span class="st">'.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>{'features_1.csv': ['feat_1', 'feat_2', 'feat_3'],
- 'features_3.csv': ['feat_7', 'feat_8', 'feat_9'],
- 'features_3_less_cols.csv': ['feat_7'],
- 'features_4.csv': ['feat_10', 'feat_11', 'feat_12', 'feat_13'],
- 'shift_features_2.csv': ['shift_feat_4', 'shift_feat_5', 'shift_feat_6']}</code></pre>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_file_cols_dict</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> 
+                       <span class="n">path_json</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> 
+                       <span class="n">ignore_cols</span><span class="p">:</span> <span class="nb">list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;Explores `path` and returns a dictionary of file names and their columns</span>
+<span class="sd">    for each file in `path`. Only file names that end with </span>
+<span class="sd">    &#39;.csv&#39; and &#39;.pkl&#39; will be considered. Pickle file names</span>
+<span class="sd">    will go in the &#39;pickles&#39; key of the returned dictionary.</span>
+<span class="sd">    Csv files will see their file name saved as a key with </span>
+<span class="sd">    a list of their column names saved as the corresponding </span>
+<span class="sd">    value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)):</span> 
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">):</span> 
+            <span class="n">cols</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">file</span><span class="p">),</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">file</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ignore_cols</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pkl&#39;</span><span class="p">):</span> 
+            <span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;pickles&#39;</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">path_json</span><span class="p">:</span> 
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_json</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">path_json</span><span class="p">:</span> 
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">path_json</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span>
+
+<span class="nd">@call_parse</span>
+<span class="k">def</span> <span class="nf">fe_dict</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;path to directory with files&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;data/features&#39;</span><span class="p">,</span> 
+            <span class="n">path_json</span><span class="p">:</span> <span class="n">Param</span><span class="p">(</span><span class="s1">&#39;path to json for saving dict&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;fe_dict.json&#39;</span><span class="p">):</span>
+    <span class="n">get_file_cols_dict</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path_json</span><span class="p">)</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
-</section>
-<section id="loading-features" class="level3">
-<h3 class="anchored" data-anchor-id="loading-features">Loading features</h3>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;feat_1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;feat_2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;feat_3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]})</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;shift_feat_4&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;shift_feat_5&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span> <span class="s1">&#39;shift_feat_6&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]})</span>
+<span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;feat_7&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;feat_8&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;feat_9&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]})</span>
+<span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;feat_10&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;feat_11&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;feat_12&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> 
+                    <span class="s1">&#39;feat_13&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">]})</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">feat_10</span> <span class="o">=</span> <span class="n">df4</span><span class="o">.</span><span class="n">feat_10</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int8&#39;</span><span class="p">)</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">feat_13</span> <span class="o">=</span> <span class="n">df4</span><span class="o">.</span><span class="n">feat_13</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+
+<span class="n">save_file</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="s1">&#39;features_1.csv&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">save_file</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="s1">&#39;shift_features_2.csv&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">save_file</span><span class="p">(</span><span class="n">df3</span><span class="p">,</span> <span class="s1">&#39;features_3.csv&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">save_file</span><span class="p">(</span><span class="n">df4</span><span class="p">,</span> <span class="s1">&#39;features_4.csv&#39;</span><span class="p">,</span> <span class="n">save_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">save_file</span><span class="p">(</span><span class="n">df3</span><span class="p">,</span> <span class="s1">&#39;features_3_less_cols.csv&#39;</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;feat_7&#39;</span><span class="p">],</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_file_cols_dict</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">path_json</span><span class="o">=</span><span class="s1">&#39;tmp_features.json&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;features_1.csv&#39;: [&#39;feat_1&#39;, &#39;feat_2&#39;, &#39;feat_3&#39;],
+ &#39;features_3.csv&#39;: [&#39;feat_7&#39;, &#39;feat_8&#39;, &#39;feat_9&#39;],
+ &#39;features_3_less_cols.csv&#39;: [&#39;feat_7&#39;],
+ &#39;features_4.csv&#39;: [&#39;feat_10&#39;, &#39;feat_11&#39;, &#39;feat_12&#39;, &#39;feat_13&#39;],
+ &#39;shift_features_2.csv&#39;: [&#39;shift_feat_4&#39;, &#39;shift_feat_5&#39;, &#39;shift_feat_6&#39;]}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_file_cols_dict</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;features_1.csv&#39;: [&#39;feat_1&#39;, &#39;feat_2&#39;, &#39;feat_3&#39;],
+ &#39;features_3.csv&#39;: [&#39;feat_7&#39;, &#39;feat_8&#39;, &#39;feat_9&#39;],
+ &#39;features_3_less_cols.csv&#39;: [&#39;feat_7&#39;],
+ &#39;features_4.csv&#39;: [&#39;feat_10&#39;, &#39;feat_11&#39;, &#39;feat_12&#39;, &#39;feat_13&#39;],
+ &#39;shift_features_2.csv&#39;: [&#39;shift_feat_4&#39;, &#39;shift_feat_5&#39;, &#39;shift_feat_6&#39;]}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Loading-features">Loading features<a class="anchor-link" href="#Loading-features"> </a></h3>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="load_features" class="doc_header"><code>load_features</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L154" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_features</code>(<strong><code>path_features</code></strong>:<code>Union</code>[<code>list</code>, <code>str</code>], <strong><code>dict_features</code></strong>:<code>Union</code>[<code>dict</code>, <code>str</code>]=<em><code>None</code></em>, <strong><code>shift_index</code></strong>:<code>int</code>=<em><code>0</code></em>, <strong><code>reindex_with</code></strong>:<code>list like</code>=<em><code>None</code></em>, <strong><code>shift_prefix</code></strong>:<code>Union</code>[<code>str</code>, <code>bool</code>]=<em><code>'shift'</code></em>, <strong><code>load_dtypes</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>features</code></strong>:<code>list</code>=<em><code>None</code></em>, <strong><code>pickle</code></strong>:<code>bool</code>=<em><code>True</code></em>)</p>
+</blockquote>
+<p>Loads the features selected in <code>dict_features</code> into a dataframe.
+<code>dict_features</code> Must be a module that is located in the working
+directory.</p>
+<h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p>path_features: Union[list, str]
+    path to the folder that holds the features files</p>
+<p>dict_features: Union[dict, str]
+    dict or path to the json that holds the feature dictionary. Set this
+    parameter to None if you want to load all csv files, optionally
+    filtered by <code>features</code> list.</p>
+<p>shift_index: int=0
+    used to shift columns of files starting with <code>shift_prefix</code> when training
+    for prediction periods past day 1.</p>
+<p>shift_prefix: Union[str, bool]='shift'
+    The prefix of files that should have their index shifted for
+    proper lag alignment in time series prediction.
+    Set this to the boolean True to shift index of all files.</p>
+<p>reindex_with: "list like"=None
+    Use anything that works with df.reindex(reindex_with). This is used when you
+    only need rows for a subset of the orginal data.</p>
+<p>load_dtype: bool=True
+    This will use the first row for dtypes</p>
+<p>features: list=None
+    An explicit list of features that you want. Only these will be loaded
+    if provided.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Now we can easily load in our features with the correct data types</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>load_features(<span class="st">'.'</span>, <span class="st">'tmp_features.json'</span>, pickle<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
 
-<div>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 
-<table class="dataframe table table-sm table-striped">
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">load_features</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;tmp_features.json&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
   <thead>
-    <tr>
+    <tr style="text-align: right;">
       <th></th>
       <th>feat_1</th>
       <th>feat_2</th>
@@ -928,20 +1395,55 @@ small_data</code></pre>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> load_features(<span class="st">'.'</span>, <span class="st">'tmp_features.json'</span>, features<span class="op">=</span>[<span class="st">'feat_3'</span>, <span class="st">'feat_10'</span>, <span class="st">'feat_13'</span>], pickle<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>display(df)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>display(df.dtypes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+</div></div>
 
-<div>
+</div>
 
-<table class="dataframe table table-sm table-striped">
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">load_features</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;tmp_features.json&#39;</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;feat_3&#39;</span><span class="p">,</span> <span class="s1">&#39;feat_10&#39;</span><span class="p">,</span> <span class="s1">&#39;feat_13&#39;</span><span class="p">],</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea "><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
   <thead>
-    <tr>
+    <tr style="text-align: right;">
       <th></th>
       <th>feat_3</th>
       <th>feat_10</th>
@@ -975,25 +1477,73 @@ small_data</code></pre>
     </tr>
   </tbody>
 </table>
+</div></div>
+
 </div>
-</div>
-<div class="cell-output cell-output-display">
-<pre><code>feat_3        int64
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>feat_3        int64
 feat_10        int8
 feat_13    category
-dtype: object</code></pre>
+dtype: object</pre>
+</div>
+
+</div>
+
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Sometimes we need to shift the index so that our lag features are in the correct allignment.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>load_features(<span class="st">'.'</span>, <span class="st">'tmp_features.json'</span>, shift_index<span class="op">=</span><span class="dv">1</span>, pickle<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
 
-<div>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 
-<table class="dataframe table table-sm table-striped">
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">load_features</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;tmp_features.json&#39;</span><span class="p">,</span> <span class="n">shift_index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
   <thead>
-    <tr>
+    <tr style="text-align: right;">
       <th></th>
       <th>feat_1</th>
       <th>feat_2</th>
@@ -1099,19 +1649,60 @@ dtype: object</code></pre>
     </tr>
   </tbody>
 </table>
+</div></div>
+
+</div>
+
 </div>
 </div>
+
 </div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Sometimes we are loading features for a subset of the data so we only need to load the rows associated with certain indexes.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>load_features(<span class="st">'.'</span>, <span class="st">'tmp_features.json'</span>, shift_index<span class="op">=</span><span class="dv">1</span>, reindex_with<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">3</span>], pickle<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
 
-<div>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 
-<table class="dataframe table table-sm table-striped">
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">load_features</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;tmp_features.json&#39;</span><span class="p">,</span> <span class="n">shift_index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reindex_with</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
   <thead>
-    <tr>
+    <tr style="text-align: right;">
       <th></th>
       <th>feat_1</th>
       <th>feat_2</th>
@@ -1166,57 +1757,155 @@ dtype: object</code></pre>
     </tr>
   </tbody>
 </table>
+</div></div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can use a copy of the feature module, easily comment out features we don't want, and use this to load features.</p>
+
 </div>
 </div>
 </div>
-<p>We can use a copy of the feature module, easily comment out features we don’t want, and use this to load features.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>shutil.copyfile(<span class="st">'tmp_features.json'</span>, <span class="st">'tmp_features_1.json'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>'tmp_features_1.json'</code></pre>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="s1">&#39;tmp_features.json&#39;</span><span class="p">,</span> <span class="s1">&#39;tmp_features_1.json&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;tmp_features_1.json&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>open <code>tmp_features_1.json</code> and delete features</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat tmp_features_1.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>{
-"features_1.csv": [
-"feat_1",
-"feat_2",
-"feat_3"
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat tmp_features_1.json
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{
+&#34;features_1.csv&#34;: [
+&#34;feat_1&#34;,
+&#34;feat_2&#34;,
+&#34;feat_3&#34;
 ],
-"features_3.csv": [
-"feat_7",
-"feat_8",
-"feat_9"
+&#34;features_3.csv&#34;: [
+&#34;feat_7&#34;,
+&#34;feat_8&#34;,
+&#34;feat_9&#34;
 ],
-"features_3_less_cols.csv": [
-"feat_7"
+&#34;features_3_less_cols.csv&#34;: [
+&#34;feat_7&#34;
 ],
-"features_4.csv": [
-"feat_10",
-"feat_11",
-"feat_12",
-"feat_13"
+&#34;features_4.csv&#34;: [
+&#34;feat_10&#34;,
+&#34;feat_11&#34;,
+&#34;feat_12&#34;,
+&#34;feat_13&#34;
 ],
-"shift_features_2.csv": [
-"shift_feat_4",
-"shift_feat_5",
-"shift_feat_6"
+&#34;shift_features_2.csv&#34;: [
+&#34;shift_feat_4&#34;,
+&#34;shift_feat_5&#34;,
+&#34;shift_feat_6&#34;
 ]
-}</code></pre>
+}</pre>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>load_features(<span class="st">'.'</span>, <span class="st">'tmp_features_1.json'</span>, pickle<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
 
-<div>
+</div>
+</div>
 
-<table class="dataframe table table-sm table-striped">
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">load_features</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;tmp_features_1.json&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
   <thead>
-    <tr>
+    <tr style="text-align: right;">
       <th></th>
       <th>feat_1</th>
       <th>feat_2</th>
@@ -1305,211 +1994,390 @@ dtype: object</code></pre>
     </tr>
   </tbody>
 </table>
+</div></div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>rm *.csv
+<span class="o">!</span>rm tmp*.json
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Speed-and-memory-functions">Speed and memory functions<a class="anchor-link" href="#Speed-and-memory-functions"> </a></h2>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm <span class="op">*</span>.csv</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm tmp<span class="op">*</span>.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Paralel-runs">Paralel runs<a class="anchor-link" href="#Paralel-runs"> </a></h3>
 </div>
-</section>
-</section>
-<section id="speed-and-memory-functions" class="level2">
-<h2 class="anchored" data-anchor-id="speed-and-memory-functions">Speed and memory functions</h2>
-<section id="paralel-runs" class="level3">
-<h3 class="anchored" data-anchor-id="paralel-runs">Paralel runs</h3>
-<hr>
-</section>
-<section id="pool_func" class="level3">
-<h3 class="anchored" data-anchor-id="pool_func">pool_func</h3>
-<blockquote class="blockquote">
-<pre><code> pool_func (function, input_list:list, verbose=False, n_cpu=99)</code></pre>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="pool_func" class="doc_header"><code>pool_func</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L244" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pool_func</code>(<strong><code>function</code></strong>, <strong><code>input_list</code></strong>:<code>list</code>, <strong><code>verbose</code></strong>=<em><code>False</code></em>, <strong><code>n_cpu</code></strong>=<em><code>99</code></em>)</p>
 </blockquote>
-<p>Uses the Pool function from the package ‘multiprocessing’ to run <code>function</code> over the list <code>input_list</code>. The <code>function</code> should only take</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x): <span class="cf">return</span> x <span class="op">*</span> <span class="dv">5</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>pool_func(f, <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">20</span>)), <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#############################################
+<p>Uses the Pool function from the package 'multiprocessing'
+to run <code>function</code> over the list <code>input_list</code>.  The <code>function</code>
+should only take</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">5</span>
+<span class="n">pool_func</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">)),</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>#############################################
 Pooling function: 
 f
 16 of 16 cpus used
 Number of function calls:  20
-Time taken: 0.0 minutes</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<pre><code>[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95]</code></pre>
+Time taken: 0.0 minutes
+</pre>
 </div>
 </div>
-</section>
-<section id="saving-memory" class="level3">
-<h3 class="anchored" data-anchor-id="saving-memory">Saving memory</h3>
-<hr>
-</section>
-<section id="reduce_mem_usage" class="level3">
-<h3 class="anchored" data-anchor-id="reduce_mem_usage">reduce_mem_usage</h3>
-<blockquote class="blockquote">
-<pre><code> reduce_mem_usage (df, verbose=True)</code></pre>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Saving-memory">Saving memory<a class="anchor-link" href="#Saving-memory"> </a></h3>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="reduce_mem_usage" class="doc_header"><code>reduce_mem_usage</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L271" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>reduce_mem_usage</code>(<strong><code>df</code></strong>, <strong><code>verbose</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Converts numeric columns to smallest datatype that preserves information</p>
-<hr>
-</section>
-<section id="merge_by_concat" class="level3">
-<h3 class="anchored" data-anchor-id="merge_by_concat">merge_by_concat</h3>
-<blockquote class="blockquote">
-<pre><code> merge_by_concat (df1, df2, merge_on)</code></pre>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="merge_by_concat" class="doc_header"><code>merge_by_concat</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L302" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>merge_by_concat</code>(<strong><code>df1</code></strong>, <strong><code>df2</code></strong>, <strong><code>merge_on</code></strong>)</p>
 </blockquote>
-<hr>
-</section>
-<section id="sizeof_fmt" class="level3">
-<h3 class="anchored" data-anchor-id="sizeof_fmt">sizeof_fmt</h3>
-<blockquote class="blockquote">
-<pre><code> sizeof_fmt (num, suffix='B')</code></pre>
-</blockquote>
-<p>Reformats <code>num</code>, which is num bytes</p>
-<hr>
-</section>
-<section id="get_memory_usage" class="level3">
-<h3 class="anchored" data-anchor-id="get_memory_usage">get_memory_usage</h3>
-<blockquote class="blockquote">
-<pre><code> get_memory_usage ()</code></pre>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_memory_usage" class="doc_header"><code>get_memory_usage</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L311" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_memory_usage</code>()</p>
 </blockquote>
 <p>Returns RAM usage in gigabytes</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>get_memory_usage()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>0.14</code></pre>
+<h2 id="Explanation-of-code">Explanation of code<a class="anchor-link" href="#Explanation-of-code"> </a></h2><h1 id="getpid:-gets-the-process-id-number.">getpid: gets the process id number.<a class="anchor-link" href="#getpid:-gets-the-process-id-number."> </a></h1><h1 id="psutil.process-gets-that-process-with-a-certain-pid.">psutil.process gets that process with a certain pid.<a class="anchor-link" href="#psutil.process-gets-that-process-with-a-certain-pid."> </a></h1><h1 id=".memory_info()-describes-notebook-memory-usage.">.memory_info() describes notebook memory usage.<a class="anchor-link" href="#.memory_info()-describes-notebook-memory-usage."> </a></h1><h1 id="%5B0%5D-gets-the-rss-resident-state-size-of-(process-I-think)-in-bytes.">[0] gets the rss resident state size of (process I think) in bytes.<a class="anchor-link" href="#%5B0%5D-gets-the-rss-resident-state-size-of-(process-I-think)-in-bytes."> </a></h1><h1 id="/2.**30-converts-output-from-bytes-to-gigabytes">/2.**30 converts output from bytes to gigabytes<a class="anchor-link" href="#/2.**30-converts-output-from-bytes-to-gigabytes"> </a></h1>
+</div>
+
+</div>
+
 </div>
 </div>
-<hr>
-</section>
-<section id="time_taken" class="level3">
-<h3 class="anchored" data-anchor-id="time_taken">time_taken</h3>
-<blockquote class="blockquote">
-<pre><code> time_taken (start_time:float=0, time_elapsed:float=None)</code></pre>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="sizeof_fmt" class="doc_header"><code>sizeof_fmt</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L324" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sizeof_fmt</code>(<strong><code>num</code></strong>, <strong><code>suffix</code></strong>=<em><code>'B'</code></em>)</p>
 </blockquote>
-<p>Returns a string with the time elapsed from <code>start_time</code> in a nice format. If <code>time_elapsed</code> is provided, we ignore the start time.</p>
-<p><code>start_time</code> should come from by calling the time module: start_time = time.time()</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>time.sleep(<span class="dv">2</span>)</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>time_taken(start_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>'Time taken: 2 seconds'</code></pre>
+<p>Reformats <code>num</code>, which is num bytes</p>
+
 </div>
+
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>time_taken(time_elapsed<span class="op">=</span><span class="dv">3666</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>'Time taken: 1 hours 1 minutes 6 seconds'</code></pre>
+
 </div>
 </div>
 
+</div>
+    {% endraw %}
 
-</section>
-</section>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
-    }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    setTimeout(function() {
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn) {
-    const config = {
-      allowHTML: true,
-      content: contentFn,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start'
-    };
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
-    });
-  }
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
-      });
-      return popup.innerHTML;
-    });
-  }
-});
-</script>
-</div> <!-- /content -->
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_memory_usage</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
 
 
 
-</body></html>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.14</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="time_taken" class="doc_header"><code>time_taken</code><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/chrisrichardmiles/core.py#L333" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>time_taken</code>(<strong><code>start_time</code></strong>:<code>float</code>=<em><code>0</code></em>, <strong><code>time_elapsed</code></strong>:<code>float</code>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>Returns a string with the time elapsed from <code>start_time</code>
+in a nice format. If <code>time_elapsed</code> is provided, we ignore
+the start time.</p>
+<p><code>start_time</code> should come from by calling the time module:
+start_time = time.time()</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">time_taken</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;Time taken: 2 seconds&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">time_taken</span><span class="p">(</span><span class="n">time_elapsed</span><span class="o">=</span><span class="mi">3666</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;Time taken: 1 hours 1 minutes 6 seconds&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+</div>
+ 
+
