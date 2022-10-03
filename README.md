@@ -6,37 +6,21 @@ chrisrichardmiles
 - Here is the
   [documentation](https://chrisrichardmiles.github.io/chrisrichardmiles/)
   for this package.
-- [M5 - Accuracy Sales Forecasting - 77th place
-  solution](https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/m5)
-- [Optiver Realized Volatility - 91st place
-  solution](https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/optiver)
-  (code is not incorporated into the software package, but the solution
-  can still be easily reproduced by following the instructions in the
-  documentation)
 
 This package is built with [nbdev](https://nbdev.fast.ai/), so the
 source code, testing, and documentation are all built in the jupyter
 notebooks that comprise [the github
 repository](https://github.com/ChrisRichardMiles/chrisrichardmiles).
 
+## kaggle solutions
+
+- M5 - Accuracy Sales Forecasting - 77th place solution
+  - [code](https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/m5)
+  - [documentation](https://chrisrichardmiles.github.io/chrisrichardmiles/projects/m5/index_m5.html)
+- Optiver Realized Volatility - 91st place solution
+  - [code](https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/optiver)
+  - [documentation](https://chrisrichardmiles.github.io/chrisrichardmiles/projects/optiver/index_optiver.html)
+
 ## Install
 
 `pip install chrisrichardmiles`
-
-## Documentation
-
-As of 10/3/2022, the documentation at
-https://chrisrichardmiles.github.io/chrisrichardmiles/ is not displaying
-correctly. Since the documentation is created from the jupyter notebooks
-in this repository, you can still see everything that is covered in the
-docs, except that it doesn’t look as nice. If you would like to see the
-docs as they should be, run the following in the command line:
-
-    git clone https://github.com/ChrisRichardMiles/chrisrichardmiles.git
-    pip install nbdev 
-    cd chrisrichardmiles
-    nbdev_preview
-
-Then copy and paste the url that is provided.
-
-Sorry for the inconvenience.
