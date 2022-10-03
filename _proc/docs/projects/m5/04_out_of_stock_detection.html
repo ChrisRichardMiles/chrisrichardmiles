@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>chrisrichardmiles – out_of_stock_detection</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">chrisrichardmiles</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">chrisrichardmiles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../core.html" class="sidebar-item-text sidebar-link">Core</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">projects</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">m5</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/index_m5.html" class="sidebar-item-text sidebar-link">Welcome to chrisrichardmiles.m5</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/brief_eda.html" class="sidebar-item-text sidebar-link">Brief EDA</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/feature_engineering.html" class="sidebar-item-text sidebar-link">Feature engineering</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/04_out_of_stock_detection.html" class="sidebar-item-text sidebar-link active">Total sales for all series of aggregation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/training_day_by_day_models.html" class="sidebar-item-text sidebar-link">Train day-by-day models</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">optiver</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/index_optiver.html" class="sidebar-item-text sidebar-link">Optiver Realized Volatility Prediction: 91st place solution</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/opt-error-analysis.html" class="sidebar-item-text sidebar-link">Error analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">notebooks</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-book-trade-eda.html" class="sidebar-item-text sidebar-link">price features</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-eda-modified-from-host-nb.html" class="sidebar-item-text sidebar-link">Optiver Realized Volatility Prediction</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-dart-op-129a-stock-31-only.html" class="sidebar-item-text sidebar-link">opt-train-dart-op-129a-stock-31-only.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-dart.html" class="sidebar-item-text sidebar-link">opt-train-dart.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-one-at-a-time.html" class="sidebar-item-text sidebar-link">opt-train-one-at-a-time.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-tabnet-142.html" class="sidebar-item-text sidebar-link">opt-train-tabnet-142.html</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#total-sales-for-all-series-of-aggregation" id="toc-total-sales-for-all-series-of-aggregation" class="nav-link active" data-scroll-target="#total-sales-for-all-series-of-aggregation">Total sales for all series of aggregation</a>
+  <ul class="collapse">
+  <li><a href="#get_stats_df" id="toc-get_stats_df" class="nav-link" data-scroll-target="#get_stats_df">get_stats_df</a></li>
+  <li><a href="#get_series_df" id="toc-get_series_df" class="nav-link" data-scroll-target="#get_series_df">get_series_df</a></li>
+  </ul></li>
+  <li><a href="#how-many-zeros-do-series-have" id="toc-how-many-zeros-do-series-have" class="nav-link" data-scroll-target="#how-many-zeros-do-series-have">How many zeros do series have?</a></li>
+  <li><a href="#plotting-item-sales-for-different-levels-of-aggregation" id="toc-plotting-item-sales-for-different-levels-of-aggregation" class="nav-link" data-scroll-target="#plotting-item-sales-for-different-levels-of-aggregation">Plotting item sales for different levels of aggregation</a>
+  <ul class="collapse">
+  <li><a href="#plot_all_item_series" id="toc-plot_all_item_series" class="nav-link" data-scroll-target="#plot_all_item_series">plot_all_item_series</a></li>
+  <li><a href="#plot_item_series" id="toc-plot_item_series" class="nav-link" data-scroll-target="#plot_item_series">plot_item_series</a></li>
+  </ul></li>
+  <li><a href="#detecting-and-marking-out-of-stock-periods" id="toc-detecting-and-marking-out-of-stock-periods" class="nav-link" data-scroll-target="#detecting-and-marking-out-of-stock-periods">Detecting and marking out-of-stock periods</a>
+  <ul class="collapse">
+  <li><a href="#main-functions" id="toc-main-functions" class="nav-link" data-scroll-target="#main-functions">Main functions</a></li>
+  <li><a href="#mark_streaks" id="toc-mark_streaks" class="nav-link" data-scroll-target="#mark_streaks">mark_streaks</a></li>
+  <li><a href="#in" id="toc-in" class="nav-link" data-scroll-target="#in">in</a></li>
+  <li><a href="#out" id="toc-out" class="nav-link" data-scroll-target="#out">out</a></li>
+  <li><a href="#nan_zeros" id="toc-nan_zeros" class="nav-link" data-scroll-target="#nan_zeros">nan_zeros</a></li>
+  <li><a href="#fix_oos" id="toc-fix_oos" class="nav-link" data-scroll-target="#fix_oos">fix_oos</a></li>
+  <li><a href="#main-command-line-function" id="toc-main-command-line-function" class="nav-link" data-scroll-target="#main-command-line-function">Main command line function</a></li>
+  <li><a href="#make_oos_data" id="toc-make_oos_data" class="nav-link" data-scroll-target="#make_oos_data">make_oos_data</a></li>
+  <li><a href="#visualizing-out-of-stock-periods" id="toc-visualizing-out-of-stock-periods" class="nav-link" data-scroll-target="#visualizing-out-of-stock-periods">Visualizing out of stock periods</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sns.set()</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> (<span class="dv">14</span>,<span class="dv">6</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.size'</span>] <span class="op">=</span> <span class="dv">16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For fast testing for Continuous Integration</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>PATH_DATA <span class="op">=</span> <span class="st">'data'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>PATH_DATA_RAW <span class="op">=</span> <span class="st">'data/raw'</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>os.listdir(PATH_DATA_RAW)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PATH_DATA = '../../data'</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># PATH_DATA_RAW = '../../data/raw'</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># os.listdir(PATH_DATA_RAW)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['sample_submission.csv',
+ 'sell_prices.csv',
+ 'calendar.csv',
+ 'sales_train_evaluation.csv']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">################## Load data ####################</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>chunks <span class="op">=</span> pd.read_csv(os.path.join(PATH_DATA_RAW, <span class="st">'sales_train_evaluation.csv'</span>), chunksize<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_stv <span class="op">=</span> pd.concat(<span class="bu">list</span>(chunks)) <span class="co"># Safe for low RAM situation</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df_cal <span class="op">=</span> pd.read_csv(os.path.join(PATH_DATA_RAW, <span class="st">'calendar.csv'</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>df_prices <span class="op">=</span> pd.read_csv(os.path.join(PATH_DATA_RAW, <span class="st">'sell_prices.csv'</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>df_ss <span class="op">=</span> pd.read_csv(os.path.join(PATH_DATA_RAW, <span class="st">'sample_submission.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="total-sales-for-all-series-of-aggregation" class="level2">
+<h2 class="anchored" data-anchor-id="total-sales-for-all-series-of-aggregation">Total sales for all series of aggregation</h2>
+<hr>
+<section id="get_stats_df" class="level3">
+<h3 class="anchored" data-anchor-id="get_stats_df">get_stats_df</h3>
+<blockquote class="blockquote">
+<pre><code> get_stats_df (series_df)</code></pre>
+</blockquote>
+<p>Returns a dataframe that shows basic stats for all series in sereis_df.</p>
+<hr>
+</section>
+<section id="get_series_df" class="level3">
+<h3 class="anchored" data-anchor-id="get_series_df">get_series_df</h3>
+<blockquote class="blockquote">
+<pre><code> get_series_df (train_df, rollup_matrix_csr, rollup_index, df_cal=None,
+                fill_xmas=False)</code></pre>
+</blockquote>
+<p>Returns a dataframe with series for all 12 levels of aggregation. We also replace leading zeros with np.nan and if fill_xmas, replace christmas sales with average of the day before and day after christmas</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>rollup_matrix_csr, rollup_index  <span class="op">=</span> get_agg(df_stv)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>series_df <span class="op">=</span> get_series_df(df_stv, rollup_matrix_csr, rollup_index, df_cal<span class="op">=</span>df_cal, fill_xmas<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>stats_df <span class="op">=</span> get_stats_df(series_df)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>w_df <span class="op">=</span> get_df_weights(df_stv, df_cal, df_prices, rollup_index, rollup_matrix_csr, start_test<span class="op">=</span><span class="dv">1914</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/c/crm_build/w/chrisrichardmiles/projects/m5/chrisrichardmiles/m5/metric.py:118: RuntimeWarning: Mean of empty slice
+  scale = np.nanmean(np.diff(agg_series, axis=1) ** 2, axis=1)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>series_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>d_1802</th>
+      <th>d_1803</th>
+      <th>d_1804</th>
+      <th>d_1805</th>
+      <th>d_1806</th>
+      <th>d_1807</th>
+      <th>d_1808</th>
+      <th>d_1809</th>
+      <th>d_1810</th>
+      <th>d_1811</th>
+      <th>...</th>
+      <th>d_1932</th>
+      <th>d_1933</th>
+      <th>d_1934</th>
+      <th>d_1935</th>
+      <th>d_1936</th>
+      <th>d_1937</th>
+      <th>d_1938</th>
+      <th>d_1939</th>
+      <th>d_1940</th>
+      <th>d_1941</th>
+    </tr>
+    <tr>
+      <th>level</th>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <th>Total</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>53.0</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">2</th>
+      <th>CA</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>22.0</td>
+      <td>30.0</td>
+      <td>26.0</td>
+      <td>16.0</td>
+      <td>12.0</td>
+      <td>16.0</td>
+      <td>20.0</td>
+      <td>25.0</td>
+      <td>24.0</td>
+      <td>32.0</td>
+    </tr>
+    <tr>
+      <th>TX</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>12.0</td>
+      <td>12.0</td>
+      <td>11.0</td>
+    </tr>
+    <tr>
+      <th>WI</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>10.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <th>CA_1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>6.0</td>
+      <td>...</td>
+      <td>7.0</td>
+      <td>10.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>7.0</td>
+      <td>3.0</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th rowspan="5" valign="top">12</th>
+      <th>HOUSEHOLD_2_001_TX_2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_TX_3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_WI_1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_WI_2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_WI_3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>252 rows × 140 columns</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="how-many-zeros-do-series-have" class="level2">
+<h2 class="anchored" data-anchor-id="how-many-zeros-do-series-have">How many zeros do series have?</h2>
+<p>Lets first take a look at the distribution of the zeros fraction of total sales for the level 12 series.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> stats_df.loc[<span class="dv">12</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df.fraction_0.hist(bins<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of item_id x store_id in terms of proportion zeros'</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Proportion of sales days that have zero sales'</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Count of series'</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="04_out_of_stock_detection_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> stats_df.loc[<span class="dv">11</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df.fraction_0.hist(bins<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of item_id x state_id in terms of proportion zeros'</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Proportion of sales days that have zero sales'</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Count of series'</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="04_out_of_stock_detection_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> stats_df.loc[<span class="dv">10</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df.fraction_0.hist(bins<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of item_id aggregated over all stores'</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Proportion of sales days that have zero sales'</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Count of series'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="04_out_of_stock_detection_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="plotting-item-sales-for-different-levels-of-aggregation" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-item-sales-for-different-levels-of-aggregation">Plotting item sales for different levels of aggregation</h2>
+<hr>
+<section id="plot_all_item_series" class="level3">
+<h3 class="anchored" data-anchor-id="plot_all_item_series">plot_all_item_series</h3>
+<blockquote class="blockquote">
+<pre><code> plot_all_item_series (item, series_df, fillna=False, start=0, end=1941)</code></pre>
+</blockquote>
+<hr>
+</section>
+<section id="plot_item_series" class="level3">
+<h3 class="anchored" data-anchor-id="plot_item_series">plot_item_series</h3>
+<blockquote class="blockquote">
+<pre><code> plot_item_series (item, series_df, state=None, fillna=False, start=0,
+                   end=1941)</code></pre>
+</blockquote>
+<p>Plots the level 10-12 series containing the item</p>
+<p>Lets look at the top weighted items and their zero sales streaks over different aggregation levels. We will fill nan values with -20 so they stand out</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>top_weighted_items <span class="op">=</span> w_df.loc[<span class="dv">10</span>].sort_values(<span class="st">'weight'</span>, ascending<span class="op">=</span><span class="va">False</span>).index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plot_all_item_series(top_weighted_items[<span class="dv">0</span>], series_df, fillna<span class="op">=-</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="04_out_of_stock_detection_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="04_out_of_stock_detection_files/figure-html/cell-18-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="04_out_of_stock_detection_files/figure-html/cell-18-output-3.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="04_out_of_stock_detection_files/figure-html/cell-18-output-4.png" class="img-fluid"></p>
+</div>
+</div>
+<p>There are definitely streaks of zero sales that do not look natural. I</p>
+</section>
+</section>
+<section id="detecting-and-marking-out-of-stock-periods" class="level2">
+<h2 class="anchored" data-anchor-id="detecting-and-marking-out-of-stock-periods">Detecting and marking out-of-stock periods</h2>
+<section id="main-functions" class="level3">
+<h3 class="anchored" data-anchor-id="main-functions">Main functions</h3>
+<hr>
+</section>
+<section id="mark_streaks" class="level3">
+<h3 class="anchored" data-anchor-id="mark_streaks">mark_streaks</h3>
+<blockquote class="blockquote">
+<pre><code> mark_streaks (ts)</code></pre>
+</blockquote>
+<p>Returns an array of the same length as ts, except positive values are replaced by zero, and zeros are replaced by the lenth of the zero streak to which they belong.</p>
+<section id="example" class="level10">
+<p class="heading">Example</p>
+</section>
+</section>
+<section id="in" class="level3">
+<h3 class="anchored" data-anchor-id="in">in</h3>
+<p>series = np.array([np.nan,3,0,0,0,2,0,0,1,0]) mark_streaks(series)</p>
+</section>
+<section id="out" class="level3">
+<h3 class="anchored" data-anchor-id="out">out</h3>
+<p>array([nan, 0., 3., 3., 3., 0., 2., 2., 0., 1.])</p>
+<hr>
+</section>
+<section id="nan_zeros" class="level3">
+<h3 class="anchored" data-anchor-id="nan_zeros">nan_zeros</h3>
+<blockquote class="blockquote">
+<pre><code> nan_zeros (item_series, item_mean)</code></pre>
+</blockquote>
+<p>Returns item_series with streaks replaced by nans, the new average of item series, and max_streak_length, which is the highest streak count that was not replaced with nans.</p>
+<hr>
+</section>
+<section id="fix_oos" class="level3">
+<h3 class="anchored" data-anchor-id="fix_oos">fix_oos</h3>
+<blockquote class="blockquote">
+<pre><code> fix_oos (item, series_df)</code></pre>
+</blockquote>
+<p>Processes item and returns series that has np.nan where we think out of stock zeros occur</p>
+</section>
+<section id="main-command-line-function" class="level3">
+<h3 class="anchored" data-anchor-id="main-command-line-function">Main command line function</h3>
+<hr>
+</section>
+<section id="make_oos_data" class="level3">
+<h3 class="anchored" data-anchor-id="make_oos_data">make_oos_data</h3>
+<blockquote class="blockquote">
+<pre><code> make_oos_data (PATH_DATA_RAW:str&lt;Pathtorawdata&gt;='data/raw',
+                PATH_DATA_INTERIM:str&lt;Pathtointerimdata&gt;='data/interim')</code></pre>
+</blockquote>
+<p>Creates 2 csv files and stores them in the <code>PATH_DATA_INTERIM</code>.</p>
+<p>The first file is of all time series in the aggregation levels 10, 11, and 12, stored as ‘oos_series_df_level_10_11_12.csv’.</p>
+<p>The second file, ‘oos_sales_train_evaluation.csv’, has the same format as ‘sales_train_evaluation.csv’, except zero streaks that are believed to be caused by a stock-out are marked with nan.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>make_oos_data(os.path.join(PATH_DATA, <span class="st">'raw'</span>), os.path.join(PATH_DATA, <span class="st">'interim'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                             d_1802  d_1803  d_1804  d_1805  d_1806  d_1807  \
+id                                                                            
+FOODS_1_001_CA_1_evaluation     1.0     0.0     0.0     0.0     3.0     0.0   
+FOODS_1_001_CA_2_evaluation     1.0     6.0     0.0     0.0     1.0     2.0   
+
+                             d_1808  d_1809  d_1810  d_1811  ...  d_1932  \
+id                                                           ...           
+FOODS_1_001_CA_1_evaluation     0.0     0.0     0.0     2.0  ...     2.0   
+FOODS_1_001_CA_2_evaluation     2.0     0.0     0.0     0.0  ...     1.0   
+
+                             d_1933  d_1934  d_1935  d_1936  d_1937  d_1938  \
+id                                                                            
+FOODS_1_001_CA_1_evaluation     3.0     1.0     0.0     0.0     0.0     1.0   
+FOODS_1_001_CA_2_evaluation     0.0     0.0     1.0     1.0     0.0     0.0   
+
+                             d_1939  d_1940  d_1941  
+id                                                   
+FOODS_1_001_CA_1_evaluation     0.0     0.0     0.0  
+FOODS_1_001_CA_2_evaluation     1.0     2.0     0.0  
+
+[2 rows x 140 columns]
+                            id      item_id  dept_id cat_id store_id state_id  \
+0  FOODS_1_001_CA_1_evaluation  FOODS_1_001  FOODS_1  FOODS     CA_1       CA   
+1  FOODS_1_001_CA_2_evaluation  FOODS_1_001  FOODS_1  FOODS     CA_2       CA   
+
+   d_1802  d_1803  d_1804  d_1805  ...  d_1932  d_1933  d_1934  d_1935  \
+0     1.0     0.0     0.0     0.0  ...     2.0     3.0     1.0     0.0   
+1     1.0     6.0     0.0     0.0  ...     1.0     0.0     0.0     1.0   
+
+   d_1936  d_1937  d_1938  d_1939  d_1940  d_1941  
+0     0.0     0.0     1.0     0.0     0.0     0.0  
+1     1.0     0.0     0.0     1.0     2.0     0.0  
+
+[2 rows x 146 columns]</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_21690/2233498255.py:81: DeprecationWarning: `np.object` is a deprecated alias for the builtin `object`. To silence this warning, use `object` by itself. Doing this will not modify any behavior and is safe. 
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  a = accum_add_prod.accumulate(zeros, dtype=np.object)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>oos_series_df <span class="op">=</span> pd.read_csv(os.path.join(PATH_DATA, <span class="st">'interim/oos_series_df_level_10_11_12.csv'</span>)).set_index([<span class="st">'level'</span>, <span class="st">'id'</span>])</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>pd.read_csv(os.path.join(PATH_DATA, <span class="st">'interim/oos_sales_train_evaluation.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>item_id</th>
+      <th>dept_id</th>
+      <th>cat_id</th>
+      <th>store_id</th>
+      <th>state_id</th>
+      <th>d_1802</th>
+      <th>d_1803</th>
+      <th>d_1804</th>
+      <th>d_1805</th>
+      <th>...</th>
+      <th>d_1932</th>
+      <th>d_1933</th>
+      <th>d_1934</th>
+      <th>d_1935</th>
+      <th>d_1936</th>
+      <th>d_1937</th>
+      <th>d_1938</th>
+      <th>d_1939</th>
+      <th>d_1940</th>
+      <th>d_1941</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>FOODS_1_001_CA_1_evaluation</td>
+      <td>FOODS_1_001</td>
+      <td>FOODS_1</td>
+      <td>FOODS</td>
+      <td>CA_1</td>
+      <td>CA</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>FOODS_1_001_CA_2_evaluation</td>
+      <td>FOODS_1_001</td>
+      <td>FOODS_1</td>
+      <td>FOODS</td>
+      <td>CA_2</td>
+      <td>CA</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>FOODS_1_001_CA_3_evaluation</td>
+      <td>FOODS_1_001</td>
+      <td>FOODS_1</td>
+      <td>FOODS</td>
+      <td>CA_3</td>
+      <td>CA</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>FOODS_1_001_CA_4_evaluation</td>
+      <td>FOODS_1_001</td>
+      <td>FOODS_1</td>
+      <td>FOODS</td>
+      <td>CA_4</td>
+      <td>CA</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>FOODS_1_001_TX_1_evaluation</td>
+      <td>FOODS_1_001</td>
+      <td>FOODS_1</td>
+      <td>FOODS</td>
+      <td>TX_1</td>
+      <td>TX</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>HOUSEHOLD_2_001_TX_2_evaluation</td>
+      <td>HOUSEHOLD_2_001</td>
+      <td>HOUSEHOLD_2</td>
+      <td>HOUSEHOLD</td>
+      <td>TX_2</td>
+      <td>TX</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>HOUSEHOLD_2_001_TX_3_evaluation</td>
+      <td>HOUSEHOLD_2_001</td>
+      <td>HOUSEHOLD_2</td>
+      <td>HOUSEHOLD</td>
+      <td>TX_3</td>
+      <td>TX</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>HOUSEHOLD_2_001_WI_1_evaluation</td>
+      <td>HOUSEHOLD_2_001</td>
+      <td>HOUSEHOLD_2</td>
+      <td>HOUSEHOLD</td>
+      <td>WI_1</td>
+      <td>WI</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>HOUSEHOLD_2_001_WI_2_evaluation</td>
+      <td>HOUSEHOLD_2_001</td>
+      <td>HOUSEHOLD_2</td>
+      <td>HOUSEHOLD</td>
+      <td>WI_2</td>
+      <td>WI</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>HOUSEHOLD_2_001_WI_3_evaluation</td>
+      <td>HOUSEHOLD_2_001</td>
+      <td>HOUSEHOLD_2</td>
+      <td>HOUSEHOLD</td>
+      <td>WI_3</td>
+      <td>WI</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>70 rows × 146 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-out-of-stock-periods" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-out-of-stock-periods">Visualizing out of stock periods</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plot_all_item_series(top_weighted_items[<span class="dv">0</span>], oos_series_df,  fillna<span class="op">=-</span><span class="dv">50</span>, start<span class="op">=</span><span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="04_out_of_stock_detection_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="04_out_of_stock_detection_files/figure-html/cell-25-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="04_out_of_stock_detection_files/figure-html/cell-25-output-3.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="04_out_of_stock_detection_files/figure-html/cell-25-output-4.png" class="img-fluid"></p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

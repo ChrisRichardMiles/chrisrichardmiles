@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>chrisrichardmiles – opt-train-tabnet-142</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">chrisrichardmiles</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">chrisrichardmiles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../core.html" class="sidebar-item-text sidebar-link">Core</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">projects</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">m5</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/m5/index_m5.html" class="sidebar-item-text sidebar-link">Welcome to chrisrichardmiles.m5</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/m5/brief_eda.html" class="sidebar-item-text sidebar-link">Brief EDA</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/m5/feature_engineering.html" class="sidebar-item-text sidebar-link">Feature engineering</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/m5/04_out_of_stock_detection.html" class="sidebar-item-text sidebar-link">Total sales for all series of aggregation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/m5/training_day_by_day_models.html" class="sidebar-item-text sidebar-link">Train day-by-day models</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">optiver</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/optiver/index_optiver.html" class="sidebar-item-text sidebar-link">Optiver Realized Volatility Prediction: 91st place solution</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/optiver/opt-error-analysis.html" class="sidebar-item-text sidebar-link">Error analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">notebooks</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/optiver/notebooks/opt-book-trade-eda.html" class="sidebar-item-text sidebar-link">price features</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/optiver/notebooks/opt-eda-modified-from-host-nb.html" class="sidebar-item-text sidebar-link">Optiver Realized Volatility Prediction</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/optiver/notebooks/opt-train-dart-op-129a-stock-31-only.html" class="sidebar-item-text sidebar-link">opt-train-dart-op-129a-stock-31-only.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/optiver/notebooks/opt-train-dart.html" class="sidebar-item-text sidebar-link">opt-train-dart.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/optiver/notebooks/opt-train-one-at-a-time.html" class="sidebar-item-text sidebar-link">opt-train-one-at-a-time.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projects/optiver/notebooks/opt-train-tabnet-142.html" class="sidebar-item-text sidebar-link active">opt-train-tabnet-142.html</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#all_no_test</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> psutil</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">'pip install neptune-client'</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">'pip install ../input/pytorchtabnet/pytorch_tabnet-3.1.1-py3-none-any.whl'</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pytorch_tabnet.metrics <span class="im">import</span> Metric</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pytorch_tabnet.tab_model <span class="im">import</span> TabNetRegressor</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.optim <span class="im">import</span> Adam, SGD</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.optim.lr_scheduler <span class="im">import</span> ReduceLROnPlateau, CosineAnnealingWarmRestarts</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> neptune.new <span class="im">as</span> neptune</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> kaggle_secrets <span class="im">import</span> UserSecretsClient</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>user_secrets <span class="op">=</span> UserSecretsClient()</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>NEPTUNE_API_TOKEN <span class="op">=</span> user_secrets.get_secret(<span class="st">"NEPTUNE_API_TOKEN"</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> opt_utils <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>ND_NA <span class="op">=</span> <span class="dv">16</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>cfg <span class="op">=</span> {</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"script_name"</span>: <span class="st">'opt_train_tabnet_142'</span>,</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"path_features"</span>: <span class="st">'../input/generate-train-features-script-p13/p13_train.pkl'</span>, <span class="co"># Used in train mode</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"path_models"</span>: <span class="st">''</span>,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">"path_data_raw"</span>: <span class="st">'../input/optiver-realized-volatility-prediction/'</span>,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"neptune_project"</span>: <span class="st">'chrisrichardmiles/optiver'</span>,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">"neptune_description"</span>: <span class="st">'p13 encoding top columns with shake .3'</span>,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"encode_time_cols"</span>: [<span class="st">'real_vol_mean_decay_0.9_-1'</span>, <span class="st">'order_norm_momentum'</span>, <span class="st">'real_vol_mean_decay_0.85_-1'</span>, <span class="st">'real_vol_mean_decay_0.99_1'</span>, <span class="st">'real_vol_mean_decay_0.95_1'</span>, <span class="st">'abs_price_wap_diff_mean_decay_flip'</span>, <span class="st">'abs_price_wap_diff_mean_decay'</span>, <span class="st">'order_norm_sum'</span>, <span class="st">'real_vol_mean_decay_0.85_-1_2'</span>, <span class="st">'spread_mean_decay_flip_95'</span>, <span class="st">'real_vol_mean_decay_0.99_-1'</span>, <span class="st">'real_vol_mean_decay_0.75_-1'</span>, <span class="st">'spread_mean'</span>, <span class="st">'order_count_sum'</span>, <span class="st">'bid_price_diff_count_unique'</span>, <span class="st">'spread_momentum'</span>, <span class="st">'size_mean'</span>, <span class="st">'real_vol_mean_decay_0.95_-1'</span>, <span class="st">'order_norm_mean_decay'</span>, <span class="st">'spread_2_mean_decay_95'</span>, <span class="st">'order_size_mean'</span>, <span class="st">'spread_mean_decay_95'</span>, </span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'spread_pct_momentum'</span>], </span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"encode_stock_cols"</span>: [<span class="st">'real_vol_mean_decay_0.9_-1'</span>, <span class="st">'order_norm_momentum'</span>, <span class="st">'real_vol_mean_decay_0.85_-1'</span>, <span class="st">'real_vol_mean_decay_0.99_1'</span>, <span class="st">'real_vol_mean_decay_0.95_1'</span>, <span class="st">'abs_price_wap_diff_mean_decay_flip'</span>, <span class="st">'abs_price_wap_diff_mean_decay'</span>, <span class="st">'order_norm_sum'</span>, <span class="st">'real_vol_mean_decay_0.85_-1_2'</span>, <span class="st">'spread_mean_decay_flip_95'</span>, <span class="st">'real_vol_mean_decay_0.99_-1'</span>, <span class="st">'real_vol_mean_decay_0.75_-1'</span>, <span class="st">'spread_mean'</span>, <span class="st">'order_count_sum'</span>, <span class="st">'bid_price_diff_count_unique'</span>, <span class="st">'spread_momentum'</span>, <span class="st">'size_mean'</span>, <span class="st">'real_vol_mean_decay_0.95_-1'</span>, <span class="st">'order_norm_mean_decay'</span>, <span class="st">'spread_2_mean_decay_95'</span>, <span class="st">'order_size_mean'</span>, <span class="st">'spread_mean_decay_95'</span>,</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'spread_pct_momentum'</span>], </span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="st">"drop_cols"</span>: [<span class="st">'row_id'</span>, <span class="st">'time_id'</span>, <span class="st">'stock_id'</span>, <span class="st">'target'</span>] <span class="op">+</span> [<span class="st">'real_momentum_0.55_-1'</span>, <span class="st">'wap_2_last-first'</span>, <span class="st">'sum_bid_ask_momentum'</span>, <span class="st">'abs_log_return_momentum'</span>, <span class="st">'order_size_sqaure_weighted_sum'</span>, <span class="st">'size_mean_decay_95'</span>, <span class="st">'size_norm_momentum_95'</span>, <span class="st">'size_norm_momentum'</span>, <span class="st">'size_spread_mean_decay_flip_95'</span>, <span class="st">'log_return_2_realized_volatility'</span>, <span class="st">'abs_price_wap_diff_2_std'</span>, <span class="st">'sum_bid_ask_mean'</span>, <span class="st">'real_momentum_0.85_-1'</span>, <span class="st">'real_vol_mean_decay_0.55_-1'</span>, <span class="st">'abs_price_wap_diff_amax'</span>, <span class="st">'size_mean_decay'</span>, <span class="st">'real_vol_mean_decay_0.9_-1_2'</span>, <span class="st">'abs_price_wap_diff_2_mean'</span>, <span class="st">'real_momentum_0.65_-1_2'</span>, <span class="st">'price_wap_diff_2_max_sub_min'</span>, <span class="st">'real_vol_mean_decay_0.75_1'</span>, <span class="st">'real_vol_min_5'</span>, <span class="st">'real_vol_mean_decay_0.95_-1_2'</span>, <span class="st">'real_vol_min_6'</span>, <span class="st">'size_spread_mean'</span>, <span class="st">'size_spread_mean_decay_95'</span>, <span class="st">'real_vol_mean_decay_0.75_1_2'</span>, <span class="st">'sum_bid_ask_std'</span>, <span class="st">'price_wap_diff_mean_decay'</span>, <span class="st">'wap_2_real_vol'</span>, <span class="st">'abs_price_wap_diff_2_mean_decay'</span>, <span class="st">'size_momentum_95'</span>, <span class="st">'real_momentum_0.65_-1'</span>, <span class="st">'size_spread_momentum_95'</span>, <span class="st">'real_vol_min_2'</span>, <span class="st">'sum_bid_ask_mean_decay_flip'</span>, <span class="st">'real_vol_mean_decay_0.65_1'</span>, <span class="st">'size_spread_mean_decay_flip'</span>, <span class="st">'real_momentum_0.75_-1_2'</span>, <span class="st">'abs_price_wap_diff_2_max_sub_min'</span>, <span class="st">'price_wap_diff_momentum'</span>, <span class="st">'real_momentum_0.55_-1_2'</span>, <span class="st">'real_momentum_0.45_-1_2'</span>, <span class="st">'spread_pct_std'</span>, <span class="st">'abs_price_wap_diff_max_sub_min'</span>, <span class="st">'real_momentum_0.95_-1'</span>, <span class="st">'real_vol_min_7'</span>, <span class="st">'real_vol_min_4_2'</span>, <span class="st">'real_vol_mean_decay_0.99_1_2'</span>, <span class="st">'spread_2_sum'</span>, <span class="st">'sum_bid_ask_mean_decay'</span>, <span class="st">'real_vol_mean_decay_0.55_1'</span>, <span class="st">'real_vol_mean_decay_0.55_1_2'</span>, <span class="st">'real_vol_mean_decay_0.9_1_2'</span>, <span class="st">'real_vol_mean_decay_0.65_1_2'</span>, <span class="st">'real_vol_mean_decay_0.45_1_2'</span>, <span class="st">'wap_2_std'</span>, <span class="st">'price_wap_diff_max_sub_min'</span>, <span class="st">'real_momentum_0.85_-1_2'</span>, <span class="st">'real_momentum_0.45_-1'</span>, <span class="st">'price_wap_diff_2_mean_decay_flip'</span>, <span class="st">'size_norm_mean_decay_flip_95'</span>, <span class="st">'price_wap_diff_mean_decay_flip'</span>, <span class="st">'real_momentum_0.99_-1'</span>, <span class="st">'sum_bid_ask_max_sub_min'</span>, <span class="st">'real_vol_mean_decay_0.95_1_2'</span>, <span class="st">'real_vol_min_4'</span>, <span class="st">'real_vol_min_8'</span>, <span class="st">'real_vol_min_2_2'</span>, <span class="st">'real_momentum_0.99_-1_2'</span>, <span class="st">'real_momentum_0.95_-1_2'</span>, <span class="st">'log_return_mean_decay_flip'</span>, <span class="st">'real_vol_mean_decay_0.85_1_2'</span>, <span class="st">'price_wap_diff_2_std'</span>, <span class="st">'log_return_realized_volatility'</span>, <span class="st">'abs_log_return_2_momentum'</span>, <span class="st">'log_return_2_mean_decay_flip'</span>, <span class="st">'log_return_std'</span>, <span class="st">'log_return_2_std'</span>, <span class="st">'real_momentum_0.75_-1'</span>, <span class="st">'real_vol_mean_decay_0.45_-1_2'</span>, <span class="st">'abs_price_wap_diff_2_momentum'</span>, <span class="st">'real_momentum_0.9_-1_2'</span>, <span class="st">'real_vol_mean_decay_0.9_1'</span>, <span class="st">'price_wap_diff_2_mean_decay'</span>, <span class="st">'real_vol_min_9_2'</span>, <span class="st">'real_vol_mean_decay_0.99_-1_2'</span>, <span class="st">'wap_2_max_sub_min'</span>, <span class="st">'real_momentum_0.9_-1'</span>, <span class="st">'dummy3'</span>, <span class="st">'abs_price_wap_diff_2_mean_decay_flip'</span>, </span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                                                               <span class="st">'abs_log_return_2_std'</span>],</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">"encode_funcs"</span>: [<span class="st">'mean'</span>, <span class="st">'std'</span>], </span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    <span class="st">"shake"</span>: <span class="va">False</span>, </span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="st">"shake_std"</span>: <span class="fl">.3</span>, </span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="st">"prefix"</span>: <span class="st">''</span>,</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rerun"</span>: <span class="va">True</span>,</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    <span class="st">"neptune_run_name"</span>: <span class="st">''</span>,</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'cfg.json'</span>, <span class="st">'w'</span>) <span class="im">as</span> f: </span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    json.dump(cfg, f)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>cfg[<span class="st">'tabnet_params'</span>] <span class="op">=</span> {</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>        <span class="st">'cat_emb_dim'</span>: <span class="dv">1</span>,</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>        <span class="st">'n_d'</span>: ND_NA,</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>        <span class="st">'n_a'</span>: ND_NA,</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>        <span class="st">'n_steps'</span>: <span class="dv">2</span>,</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>        <span class="st">'gamma'</span>: <span class="dv">2</span>,</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>        <span class="st">'n_independent'</span>: <span class="dv">2</span>,</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>        <span class="st">'n_shared'</span>: <span class="dv">2</span>,</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>        <span class="st">'lambda_sparse'</span>: <span class="dv">0</span>,</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>        <span class="st">'optimizer_fn'</span>: Adam,</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>        <span class="st">'optimizer_params'</span>: {<span class="st">'lr'</span>: <span class="fl">0.02</span>},</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>        <span class="st">'mask_type'</span>: <span class="st">'entmax'</span>,</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>        <span class="st">'scheduler_params'</span>: {</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>            <span class="st">'T_0'</span>: <span class="dv">200</span>,</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>            <span class="st">'T_mult'</span>: <span class="dv">1</span>,</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>            <span class="st">'eta_min'</span>: <span class="fl">0.0001</span>,</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>            <span class="st">'last_epoch'</span>: <span class="op">-</span><span class="dv">1</span>,</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>            <span class="st">'verbose'</span>: <span class="va">False</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>        <span class="st">'scheduler_fn'</span>: CosineAnnealingWarmRestarts,</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>        <span class="st">'seed'</span>: <span class="dv">42</span>,</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>        <span class="st">'verbose'</span>: <span class="dv">10</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> RMSPELoss(y_pred, y_true):</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> torch.sqrt(torch.mean(((y_true <span class="op">-</span> y_pred) <span class="op">/</span> y_true) <span class="op">**</span> <span class="dv">2</span> )).clone()</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RMSPE(Metric):</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._name <span class="op">=</span> <span class="st">"rmspe"</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._maximize <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__call__</span>(<span class="va">self</span>, y_true, y_score):</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.sqrt(np.mean(np.square((y_true <span class="op">-</span> y_score) <span class="op">/</span> y_true)))</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>gpu_info <span class="op">=</span> <span class="op">!</span>nvidia<span class="op">-</span>smi</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>gpu_info <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>.join(gpu_info)</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gpu_info)</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(psutil.cpu_count())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<style type="text/css">
+.datatable table.frame { margin-bottom: 0; }
+.datatable table.frame thead { border-bottom: none; }
+.datatable table.frame tr.coltypes td {  color: #FFFFFF;  line-height: 6px;  padding: 0 0.5em;}
+.datatable .bool    { background: #DDDD99; }
+.datatable .object  { background: #565656; }
+.datatable .int     { background: #5D9E5D; }
+.datatable .float   { background: #4040CC; }
+.datatable .str     { background: #CC4040; }
+.datatable .time    { background: #40CC40; }
+.datatable .row_index {  background: var(--jp-border-color3);  border-right: 1px solid var(--jp-border-color0);  color: var(--jp-ui-font-color3);  font-size: 9px;}
+.datatable .frame tbody td { text-align: left; }
+.datatable .frame tr.coltypes .row_index {  background: var(--jp-border-color0);}
+.datatable th:nth-child(2) { padding-left: 12px; }
+.datatable .hellipsis {  color: var(--jp-cell-editor-border-color);}
+.datatable .vellipsis {  background: var(--jp-layout-color0);  color: var(--jp-cell-editor-border-color);}
+.datatable .na {  color: var(--jp-cell-editor-border-color);  font-size: 80%;}
+.datatable .sp {  opacity: 0.25;}
+.datatable .footer { font-size: 9px; }
+.datatable .frame_dimensions {  background: var(--jp-border-color3);  border-top: 1px solid var(--jp-border-color0);  color: var(--jp-ui-font-color3);  display: inline-block;  opacity: 0.6;  padding: 1px 10px 1px 5px;}
+</style>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Wed Sep 22 07:11:45 2021       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 450.119.04   Driver Version: 450.119.04   CUDA Version: 11.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla P100-PCIE...  Off  | 00000000:00:04.0 Off |                    0 |
+| N/A   34C    P0    26W / 250W |      0MiB / 16280MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main(): </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    train <span class="op">=</span> pd.read_pickle(cfg[<span class="st">'path_features'</span>])</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    train.replace([np.inf, <span class="op">-</span>np.inf], np.nan,inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    train <span class="op">=</span> train.fillna(train.mean())</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    train <span class="op">=</span> encode_cols(train, cfg[<span class="st">"encode_time_cols"</span>], funcs<span class="op">=</span>cfg[<span class="st">'encode_funcs'</span>], on<span class="op">=</span><span class="st">'time_id'</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Saving encoded stock columns != 'stock_id']</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    drop_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> cfg[<span class="st">'drop_cols'</span>] <span class="cf">if</span> c <span class="op">!=</span> <span class="st">'stock_id'</span>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> train.drop(drop_cols, axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> train[<span class="st">'target'</span>]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># dict_eval_logs = [] # For experimentation tracking</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># booster_summaries = [] # For experimentation tracking</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    oof_predictions <span class="op">=</span> np.zeros(x.shape[<span class="dv">0</span>]) <span class="co"># Create out of folds array</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    scores <span class="op">=</span> [] <span class="co"># Keep track of scores for each fold and all oof at the end</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    best_iterations <span class="op">=</span> []</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    training_best_scores <span class="op">=</span> []</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    valid_best_scores <span class="op">=</span> [] <span class="co"># Same as scores in this script, but would be different with nested cv</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    best_score_diffs <span class="op">=</span> []</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    rmspe_logs <span class="op">=</span> []</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    loss_logs <span class="op">=</span> []</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    feature_importances <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#     stats = pd.DataFrame()</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#     explain_matrices = []</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#     masks_ = []</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> fold <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        trn_ind <span class="op">=</span> x.fold <span class="op">!=</span> fold</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        val_ind <span class="op">=</span> x.fold <span class="op">==</span> fold</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'Training fold </span><span class="sc">{</span>fold<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        x_train, x_val <span class="op">=</span> x[trn_ind].drop(<span class="st">'fold'</span>, axis<span class="op">=</span><span class="dv">1</span>), x[val_ind].drop(<span class="st">'fold'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        y_train, y_val <span class="op">=</span> y[trn_ind].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), y[val_ind].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>        x_train <span class="op">=</span> encode_cols(x_train, </span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>                              cfg[<span class="st">'encode_stock_cols'</span>], </span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>                              funcs<span class="op">=</span>cfg[<span class="st">'encode_funcs'</span>], </span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>                              shake<span class="op">=</span>cfg[<span class="st">'shake'</span>], </span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>                              shake_std<span class="op">=</span>cfg[<span class="st">'shake_std'</span>]).drop(<span class="st">'stock_id'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> fold <span class="op">==</span> <span class="dv">0</span>: feature_importances[<span class="st">"feature"</span>] <span class="op">=</span> x_train.columns.tolist()</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>        x_train <span class="op">=</span> x_train.values</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>        n_train_cols <span class="op">=</span> x_train.shape[<span class="dv">1</span>]</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>        x_val <span class="op">=</span> encode_cols(x_val, </span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>                            cfg[<span class="st">'encode_stock_cols'</span>], </span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>                            funcs<span class="op">=</span>cfg[<span class="st">'encode_funcs'</span>]).drop(<span class="st">'stock_id'</span>, axis<span class="op">=</span><span class="dv">1</span>).values</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        clf <span class="op">=</span>  TabNetRegressor(<span class="op">**</span>cfg[<span class="st">'tabnet_params'</span>])</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>        clf.fit(</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>          x_train, y_train,</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>          eval_set<span class="op">=</span>[(x_val, y_val)],</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>          max_epochs <span class="op">=</span> <span class="dv">400</span>,</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>          patience <span class="op">=</span> <span class="dv">50</span>,</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>          batch_size <span class="op">=</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">12</span>, </span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>          virtual_batch_size <span class="op">=</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">10</span>,</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>          num_workers <span class="op">=</span> <span class="dv">4</span>,</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>          drop_last <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>          eval_metric<span class="op">=</span>[RMSPE],</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>          loss_fn<span class="op">=</span>RMSPELoss</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>        clf.save_model(os.path.join(cfg[<span class="st">'path_models'</span>], <span class="ss">f'</span><span class="sc">{</span>cfg[<span class="st">"prefix"</span>]<span class="sc">}</span><span class="ss">tab_fold_</span><span class="sc">{</span>fold<span class="sc">}</span><span class="ss">'</span>))</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>        y_pred <span class="op">=</span> clf.predict(x_val).flatten()</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>        oof_predictions[val_ind] <span class="op">=</span> y_pred</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>        scores.append(<span class="bu">round</span>(rmspe(y_val.flatten(), y_pred), <span class="dv">3</span>))</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="co">#         explain_matrix, masks = clf.explain(x_val)</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="co">#         explain_matrices.append(explain_matrix)</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="co">#         masks_.append(masks[0])</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="co">#         masks_.append(masks[1])</span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>        feature_importances[<span class="ss">f"fold_</span><span class="sc">{</span>fold<span class="sc">}</span><span class="ss">"</span>] <span class="op">=</span> clf.feature_importances_</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="co">#         stats[f'fold{fold+1}_train_rmspe']=clf.history['loss']</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="co">#         stats[f'fold{fold+1}_val_rmspe']=clf.history['val_0_rmspe']</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>        <span class="co"># clf_ =  TabNetRegressor(**tabnet_params)</span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>        <span class="co"># clf_.load_model('./tab_fold_0.zip')</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>        best_iterations.append(clf.best_epoch)</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>        train_score <span class="op">=</span> clf.history[<span class="st">'loss'</span>][clf.best_epoch]</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>        valid_score <span class="op">=</span> clf.best_cost</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>        training_best_scores.append(<span class="bu">round</span>(train_score, <span class="dv">3</span>))</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>        valid_best_scores.append(<span class="bu">round</span>(valid_score, <span class="dv">3</span>))</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>        best_score_diffs.append(<span class="bu">round</span>(valid_score <span class="op">-</span> train_score, <span class="dv">3</span>))</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>        rmspe_logs.append(clf.history[<span class="st">'val_0_rmspe'</span>])</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>        loss_logs.append(clf.history[<span class="st">'loss'</span>])</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>    rmspe_score <span class="op">=</span> <span class="bu">round</span>(rmspe(y, oof_predictions), <span class="dv">3</span>)</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Our out of folds RMSPE is </span><span class="sc">{</span>rmspe_score<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Our cv fold scores are </span><span class="sc">{</span>scores<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>    np.save(<span class="st">'oof_predictions'</span>, oof_predictions)</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>    run <span class="op">=</span> neptune.init(</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>            project<span class="op">=</span>cfg[<span class="st">'neptune_project'</span>],</span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>            api_token<span class="op">=</span>NEPTUNE_API_TOKEN,</span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>            name<span class="op">=</span>cfg[<span class="st">'neptune_run_name'</span>],    </span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>            description<span class="op">=</span>cfg[<span class="st">'neptune_description'</span>],</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>            tags<span class="op">=</span>[cfg[<span class="st">'path_features'</span>], cfg[<span class="st">'prefix'</span>]],</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>            source_files<span class="op">=</span>[<span class="st">'cfg.json'</span>],</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>    run[<span class="st">'cfg'</span>] <span class="op">=</span> cfg</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>    cfg[<span class="st">'feat_file'</span>] <span class="op">=</span> <span class="st">'enc_'</span> <span class="op">+</span> os.path.split(cfg[<span class="st">'path_features'</span>])[<span class="dv">1</span>]</span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>    run[<span class="st">'RMSPE'</span>] <span class="op">=</span> rmspe_score</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>    run[<span class="st">'RMSPE_oof_scores'</span>] <span class="op">=</span> scores</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>    run[<span class="st">'RMSPE_cv_std'</span>] <span class="op">=</span> np.std(scores)</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>    run[<span class="st">'best_iterations'</span>] <span class="op">=</span> best_iterations</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>    run[<span class="st">'oof_predictions'</span>] <span class="op">=</span> oof_predictions</span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>    best_iterations_mean <span class="op">=</span> <span class="bu">int</span>(np.mean(best_iterations))</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>    run[<span class="st">'best_iterations_mean'</span>] <span class="op">=</span> best_iterations_mean</span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>    run[<span class="st">'training_best_scores'</span>] <span class="op">=</span> training_best_scores</span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>    run[<span class="st">'valid_best_scores'</span>] <span class="op">=</span> valid_best_scores</span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>    run[<span class="st">'best_score_diffs'</span>] <span class="op">=</span> best_score_diffs</span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>    run[<span class="st">'best_score_diffs_mean'</span>] <span class="op">=</span> <span class="bu">round</span>(np.mean(best_score_diffs), <span class="dv">3</span>)</span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Feature importance</span></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>    cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">list</span>(feature_importances) <span class="cf">if</span> c.startswith(<span class="st">'fold_'</span>)]</span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>    feature_importances[<span class="st">'mean_importance'</span>] <span class="op">=</span> feature_importances[cols].mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>    feature_importances.sort_values(by<span class="op">=</span><span class="st">'mean_importance'</span>, ascending<span class="op">=</span><span class="va">False</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>    sns.barplot(y<span class="op">=</span>feature_importances[<span class="st">'feature'</span>][:<span class="dv">25</span>],x<span class="op">=</span>feature_importances[<span class="st">'mean_importance'</span>][:<span class="dv">25</span>], palette<span class="op">=</span><span class="st">'inferno'</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">'Mean Feature Importance by Folds'</span>)</span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>    run[<span class="st">'feature_importance'</span>].upload(fig)</span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Logs for each folds model</span></span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> fold <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> val <span class="kw">in</span> rmspe_logs[fold]:</span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>            run[<span class="ss">f'eval_logs/</span><span class="sc">{</span>fold<span class="sc">}</span><span class="ss">_rmspe'</span>].log(val)</span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> val <span class="kw">in</span> loss_logs[fold]:</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>            run[<span class="ss">f'eval_logs/</span><span class="sc">{</span>fold<span class="sc">}</span><span class="ss">_loss'</span>].log(val)</span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>        run[<span class="ss">f'models/fold_</span><span class="sc">{</span>fold<span class="sc">}</span><span class="ss">/model_params'</span>].upload(<span class="st">'./model_params.json'</span>)</span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>        run[<span class="ss">f'models/fold_</span><span class="sc">{</span>fold<span class="sc">}</span><span class="ss">/network'</span>].upload(<span class="st">'./network.pt'</span>)</span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>    run.stop()</span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if cfg['rerun']: </span></span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     print(f'retraining model with all data for {best_iterations} iterations')</span></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     params = cfg['lgb_params'].copy()</span></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     params['early_stopping_rounds'] = 0 # No valid set to stop with</span></span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     x_train = x.drop(['fold'], axis=1)</span></span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     x_train = encode_cols(x_train, </span></span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>    <span class="co">#                           cfg['encode_stock_cols'], </span></span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>    <span class="co">#                           funcs=cfg['encode_funcs'], </span></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>    <span class="co">#                           shake=cfg['shake'], </span></span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>    <span class="co">#                           shake_std=cfg['shake_std']).drop('stock_id', axis=1)</span></span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     y_train = y</span></span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     assert(n_train_cols == x_train.shape[1])</span></span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     train_weights = 1 / np.square(y_train) # Root mean squared percentage error weights</span></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     train_dataset = lgb.Dataset(x_train, y_train, weight=train_weights)</span></span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     for fold, best_iter in enumerate(best_iterations): </span></span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a>    <span class="co">#         params['n_estimators'] = int(best_iter) # lgbm needs int here</span></span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a>    <span class="co">#         model = lgb.train(params = params, </span></span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>    <span class="co">#                           train_set = train_dataset)</span></span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a>    <span class="co">#         model.save_model(os.path.join(cfg['path_models'], f'{cfg["prefix"]}rerun_lgb_{fold}.txt'))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>: </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    main()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Training fold 0
+Device used : cuda
+epoch 0  | loss: 34.84265| val_0_rmspe: 3.97562 |  0:00:09s
+epoch 10 | loss: 0.25115 | val_0_rmspe: 0.64807 |  0:01:45s
+epoch 20 | loss: 0.24029 | val_0_rmspe: 0.22786 |  0:03:22s
+epoch 30 | loss: 0.22001 | val_0_rmspe: 0.22581 |  0:05:01s
+epoch 40 | loss: 0.22145 | val_0_rmspe: 0.22225 |  0:06:38s
+epoch 50 | loss: 0.2176  | val_0_rmspe: 0.22428 |  0:08:17s
+epoch 60 | loss: 0.21214 | val_0_rmspe: 0.23971 |  0:09:52s
+epoch 70 | loss: 0.2109  | val_0_rmspe: 0.21874 |  0:11:28s
+epoch 80 | loss: 0.21048 | val_0_rmspe: 0.21648 |  0:13:05s
+epoch 90 | loss: 0.2065  | val_0_rmspe: 0.22274 |  0:14:39s
+epoch 100| loss: 0.20502 | val_0_rmspe: 0.22282 |  0:16:12s
+epoch 110| loss: 0.20462 | val_0_rmspe: 0.2217  |  0:17:45s
+epoch 120| loss: 0.20281 | val_0_rmspe: 0.21807 |  0:19:19s
+epoch 130| loss: 0.20293 | val_0_rmspe: 0.21796 |  0:20:53s
+
+Early stopping occurred at epoch 135 with best_epoch = 85 and best_val_0_rmspe = 0.21598
+Best weights from best epoch are automatically used!
+Successfully saved model at tab_fold_0.zip
+Training fold 1
+Device used : cuda
+epoch 0  | loss: 28.85411| val_0_rmspe: 2.52175 |  0:00:09s
+epoch 10 | loss: 0.27012 | val_0_rmspe: 1.12129 |  0:01:48s
+epoch 20 | loss: 0.40789 | val_0_rmspe: 0.44142 |  0:03:28s
+epoch 30 | loss: 0.21607 | val_0_rmspe: 0.22727 |  0:05:07s
+epoch 40 | loss: 0.21843 | val_0_rmspe: 0.24677 |  0:06:46s
+epoch 50 | loss: 0.21108 | val_0_rmspe: 0.22993 |  0:08:26s
+epoch 60 | loss: 0.20979 | val_0_rmspe: 0.22135 |  0:10:05s
+epoch 70 | loss: 0.20701 | val_0_rmspe: 0.22407 |  0:11:44s
+epoch 80 | loss: 0.20625 | val_0_rmspe: 0.22319 |  0:13:22s
+epoch 90 | loss: 0.20381 | val_0_rmspe: 0.23268 |  0:15:04s
+epoch 100| loss: 0.2021  | val_0_rmspe: 0.23506 |  0:16:43s
+epoch 110| loss: 0.20113 | val_0_rmspe: 0.22683 |  0:18:22s
+epoch 120| loss: 0.20124 | val_0_rmspe: 0.23338 |  0:20:02s
+
+Early stopping occurred at epoch 128 with best_epoch = 78 and best_val_0_rmspe = 0.22053
+Best weights from best epoch are automatically used!
+Successfully saved model at tab_fold_1.zip
+Training fold 2
+Device used : cuda
+epoch 0  | loss: 50.4229 | val_0_rmspe: 5.23441 |  0:00:08s
+epoch 10 | loss: 0.27655 | val_0_rmspe: 0.79095 |  0:01:37s
+epoch 20 | loss: 0.30464 | val_0_rmspe: 0.34668 |  0:03:05s
+epoch 30 | loss: 0.24451 | val_0_rmspe: 0.24319 |  0:04:34s
+epoch 40 | loss: 0.26945 | val_0_rmspe: 0.25431 |  0:06:02s
+epoch 50 | loss: 0.25402 | val_0_rmspe: 0.24095 |  0:07:29s
+epoch 60 | loss: 0.24599 | val_0_rmspe: 0.23744 |  0:08:59s
+epoch 70 | loss: 0.23164 | val_0_rmspe: 0.23012 |  0:10:28s
+epoch 80 | loss: 0.21893 | val_0_rmspe: 0.21354 |  0:11:55s
+epoch 90 | loss: 0.21603 | val_0_rmspe: 0.21312 |  0:13:23s
+epoch 100| loss: 0.21227 | val_0_rmspe: 0.21308 |  0:14:51s
+epoch 110| loss: 0.21155 | val_0_rmspe: 0.2135  |  0:16:19s
+epoch 120| loss: 0.20886 | val_0_rmspe: 0.21186 |  0:17:47s
+epoch 130| loss: 0.20745 | val_0_rmspe: 0.21268 |  0:19:15s
+epoch 140| loss: 0.20618 | val_0_rmspe: 0.21459 |  0:20:43s
+epoch 150| loss: 0.20497 | val_0_rmspe: 0.21554 |  0:22:11s
+epoch 160| loss: 0.20448 | val_0_rmspe: 0.21365 |  0:23:39s
+epoch 170| loss: 0.20284 | val_0_rmspe: 0.21464 |  0:25:06s
+
+Early stopping occurred at epoch 172 with best_epoch = 122 and best_val_0_rmspe = 0.21161
+Best weights from best epoch are automatically used!
+Successfully saved model at tab_fold_2.zip
+Training fold 3
+Device used : cuda
+epoch 0  | loss: 56.02314| val_0_rmspe: 10.22007|  0:00:08s
+epoch 10 | loss: 0.43983 | val_0_rmspe: 0.8568  |  0:01:37s
+epoch 20 | loss: 0.22995 | val_0_rmspe: 0.21907 |  0:03:05s
+epoch 30 | loss: 0.21569 | val_0_rmspe: 0.21242 |  0:04:34s
+epoch 40 | loss: 0.21423 | val_0_rmspe: 0.21458 |  0:06:02s
+epoch 50 | loss: 0.21082 | val_0_rmspe: 0.20932 |  0:07:31s
+epoch 60 | loss: 0.20849 | val_0_rmspe: 0.21884 |  0:08:58s
+epoch 70 | loss: 0.20578 | val_0_rmspe: 0.21442 |  0:10:26s
+epoch 80 | loss: 0.20617 | val_0_rmspe: 0.21196 |  0:11:55s
+epoch 90 | loss: 0.20397 | val_0_rmspe: 0.20988 |  0:13:22s
+epoch 100| loss: 0.20236 | val_0_rmspe: 0.21301 |  0:14:50s
+epoch 110| loss: 0.2     | val_0_rmspe: 0.21585 |  0:16:19s
+
+Early stopping occurred at epoch 115 with best_epoch = 65 and best_val_0_rmspe = 0.20921
+Best weights from best epoch are automatically used!
+Successfully saved model at tab_fold_3.zip
+Training fold 4
+Device used : cuda
+epoch 0  | loss: 38.22281| val_0_rmspe: 2.98199 |  0:00:09s
+epoch 10 | loss: 0.43127 | val_0_rmspe: 0.84528 |  0:01:39s
+epoch 20 | loss: 0.23322 | val_0_rmspe: 0.22677 |  0:03:08s
+epoch 30 | loss: 0.30976 | val_0_rmspe: 0.23742 |  0:04:39s
+epoch 40 | loss: 0.2227  | val_0_rmspe: 0.22571 |  0:06:10s
+epoch 50 | loss: 0.21846 | val_0_rmspe: 0.21939 |  0:07:38s
+epoch 60 | loss: 0.21502 | val_0_rmspe: 0.21909 |  0:09:07s
+epoch 70 | loss: 0.21122 | val_0_rmspe: 0.21164 |  0:10:36s
+epoch 80 | loss: 0.20849 | val_0_rmspe: 0.20901 |  0:12:06s
+epoch 90 | loss: 0.20691 | val_0_rmspe: 0.20908 |  0:13:34s
+epoch 100| loss: 0.20505 | val_0_rmspe: 0.20844 |  0:15:05s
+epoch 110| loss: 0.20261 | val_0_rmspe: 0.21361 |  0:16:35s
+epoch 120| loss: 0.20074 | val_0_rmspe: 0.21291 |  0:18:03s
+epoch 130| loss: 0.19878 | val_0_rmspe: 0.21502 |  0:19:31s
+epoch 140| loss: 0.19704 | val_0_rmspe: 0.21522 |  0:20:59s
+epoch 150| loss: 0.19538 | val_0_rmspe: 0.21667 |  0:22:27s
+
+Early stopping occurred at epoch 151 with best_epoch = 101 and best_val_0_rmspe = 0.20763
+Best weights from best epoch are automatically used!
+Successfully saved model at tab_fold_4.zip
+Our out of folds RMSPE is 0.213
+Our cv fold scores are [0.216, 0.221, 0.212, 0.209, 0.208]
+https://app.neptune.ai/chrisrichardmiles/optiver/e/OP-142
+Remember to stop your run once you’ve finished logging your metadata (https://docs.neptune.ai/api-reference/run#stop). It will be stopped automatically only when the notebook kernel/interactive console is terminated.
+Shutting down background jobs, please wait a moment...
+Done!</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Waiting for the remaining 1481 operations to synchronize with Neptune. Do not kill this process.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>All 1481 operations synced, thanks for waiting!</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-train-tabnet-142_files/figure-html/cell-4-output-4.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import shutil</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># shutil.copy('../input/tmp3zip/model_params.json', 'model_params.json')</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># shutil.copy('../input/tmp3zip/network.pt', 'network.pt')</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># z = zipfile.ZipFile('tmp.zip', 'w')</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># z.write('model_params.json')</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># z.write('network.pt')</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># z.close()</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># tmp.load_model('tmp.zip')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

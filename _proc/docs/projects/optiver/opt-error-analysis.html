@@ -1,0 +1,2310 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>../../chrisrichardmiles - Error analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="../../chrisrichardmiles - Error analysis">
+<meta property="og:description" content="Adding the ratio of the volume of shares traded to the average total bid_size and ask_size because I think it could be important">
+<meta property="og:site-name" content="../../chrisrichardmiles">
+<meta name="twitter:title" content="../../chrisrichardmiles - Error analysis">
+<meta name="twitter:description" content="Adding the ratio of the volume of shares traded to the average total bid_size and ask_size because I think it could be important">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">chrisrichardmiles</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Error analysis</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">chrisrichardmiles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../core.html" class="sidebar-item-text sidebar-link">Core</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">projects</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">m5</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/index_m5.html" class="sidebar-item-text sidebar-link">Welcome to chrisrichardmiles.m5</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/brief_eda.html" class="sidebar-item-text sidebar-link">Brief EDA</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/feature_engineering.html" class="sidebar-item-text sidebar-link">Feature engineering</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/04_out_of_stock_detection.html" class="sidebar-item-text sidebar-link">Total sales for all series of aggregation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/training_day_by_day_models.html" class="sidebar-item-text sidebar-link">Train day-by-day models</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">optiver</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/index_optiver.html" class="sidebar-item-text sidebar-link">Optiver Realized Volatility Prediction: 91st place solution</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/opt-error-analysis.html" class="sidebar-item-text sidebar-link active">Error analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">notebooks</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-book-trade-eda.html" class="sidebar-item-text sidebar-link">price features</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-eda-modified-from-host-nb.html" class="sidebar-item-text sidebar-link">Optiver Realized Volatility Prediction</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-dart-op-129a-stock-31-only.html" class="sidebar-item-text sidebar-link">opt-train-dart-op-129a-stock-31-only.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-dart.html" class="sidebar-item-text sidebar-link">opt-train-dart.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-one-at-a-time.html" class="sidebar-item-text sidebar-link">opt-train-one-at-a-time.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-tabnet-142.html" class="sidebar-item-text sidebar-link">opt-train-tabnet-142.html</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#summary-of-findings" id="toc-summary-of-findings" class="nav-link active" data-scroll-target="#summary-of-findings">Summary of findings</a></li>
+  <li><a href="#feature-correlation-with-the-target" id="toc-feature-correlation-with-the-target" class="nav-link" data-scroll-target="#feature-correlation-with-the-target">Feature correlation with the target</a></li>
+  <li><a href="#error-distribution" id="toc-error-distribution" class="nav-link" data-scroll-target="#error-distribution">Error distribution</a>
+  <ul class="collapse">
+  <li><a href="#what-is-the-general-distribution-of-errors-are-they-low-or-high-variance" id="toc-what-is-the-general-distribution-of-errors-are-they-low-or-high-variance" class="nav-link" data-scroll-target="#what-is-the-general-distribution-of-errors-are-they-low-or-high-variance">What is the general distribution of errors? Are they low or high variance?</a></li>
+  </ul></li>
+  <li><a href="#comparing-stock_id-and-time_id-group-error-distribution" id="toc-comparing-stock_id-and-time_id-group-error-distribution" class="nav-link" data-scroll-target="#comparing-stock_id-and-time_id-group-error-distribution">Comparing stock_id and time_id group error distribution</a></li>
+  <li><a href="#a-further-look-at-the-worst-time_ids-plotting-realized-volatility-target-and-prediction-for-all-stocks" id="toc-a-further-look-at-the-worst-time_ids-plotting-realized-volatility-target-and-prediction-for-all-stocks" class="nav-link" data-scroll-target="#a-further-look-at-the-worst-time_ids-plotting-realized-volatility-target-and-prediction-for-all-stocks">A further look at the worst time_ids: plotting realized volatility, target, and prediction for all stocks</a>
+  <ul class="collapse">
+  <li><a href="#plot-that-finally-brings-some-understanding-of-the-large-errors" id="toc-plot-that-finally-brings-some-understanding-of-the-large-errors" class="nav-link" data-scroll-target="#plot-that-finally-brings-some-understanding-of-the-large-errors">Plot that finally brings some understanding of the large errors</a></li>
+  </ul></li>
+  <li><a href="#looking-at-rows-with-the-highest-error-testing-hypothesis-that-a-small-target-is-the-culprit" id="toc-looking-at-rows-with-the-highest-error-testing-hypothesis-that-a-small-target-is-the-culprit" class="nav-link" data-scroll-target="#looking-at-rows-with-the-highest-error-testing-hypothesis-that-a-small-target-is-the-culprit">Looking at rows with the highest error, testing hypothesis that a small target is the culprit</a></li>
+  <li><a href="#looking-for-signals-of-low-volatility" id="toc-looking-for-signals-of-low-volatility" class="nav-link" data-scroll-target="#looking-for-signals-of-low-volatility">Looking for signals of low volatility</a>
+  <ul class="collapse">
+  <li><a href="#plotting-rows-with-a-large-absolute-error" id="toc-plotting-rows-with-a-large-absolute-error" class="nav-link" data-scroll-target="#plotting-rows-with-a-large-absolute-error">Plotting rows with a large absolute error</a></li>
+  <li><a href="#plotting-top-3-instances-for-each-of-the-top-5-worst-scoring-time_ids" id="toc-plotting-top-3-instances-for-each-of-the-top-5-worst-scoring-time_ids" class="nav-link" data-scroll-target="#plotting-top-3-instances-for-each-of-the-top-5-worst-scoring-time_ids">Plotting top 3 instances for each of the top 5 worst scoring time_ids</a></li>
+  <li><a href="#plotting-rows-with-low-volatiltiy-during-the-10-minutes-of-input-data-for-reference" id="toc-plotting-rows-with-low-volatiltiy-during-the-10-minutes-of-input-data-for-reference" class="nav-link" data-scroll-target="#plotting-rows-with-low-volatiltiy-during-the-10-minutes-of-input-data-for-reference">Plotting rows with low volatiltiy during the 10 minutes of input data for reference</a></li>
+  <li><a href="#plotting-the-worst-scoring-rows-of-stock-31-the-worst-scoring-stock" id="toc-plotting-the-worst-scoring-rows-of-stock-31-the-worst-scoring-stock" class="nav-link" data-scroll-target="#plotting-the-worst-scoring-rows-of-stock-31-the-worst-scoring-stock">Plotting the worst scoring rows of stock 31, the worst scoring stock</a></li>
+  <li><a href="#plotting-the-first-10-rows-of-stock-31-to-compare-to-the-worst-scoring-rows" id="toc-plotting-the-first-10-rows-of-stock-31-to-compare-to-the-worst-scoring-rows" class="nav-link" data-scroll-target="#plotting-the-first-10-rows-of-stock-31-to-compare-to-the-worst-scoring-rows">Plotting the first 10 rows of stock 31 to compare to the worst scoring rows</a></li>
+  <li><a href="#plotting-random-rows-with-average-measured-realized_volatitliy" id="toc-plotting-random-rows-with-average-measured-realized_volatitliy" class="nav-link" data-scroll-target="#plotting-random-rows-with-average-measured-realized_volatitliy">Plotting random rows with average measured realized_volatitliy</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Error analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="summary-of-findings" class="level2">
+<h2 class="anchored" data-anchor-id="summary-of-findings">Summary of findings</h2>
+<ul>
+<li>About 20 percent of the rows account for 75 percent of the total error.</li>
+<li><strong>Worst scores due to bad stocks or bad time_ids?</strong> When comparing errors aggregated over stocks and errors aggregated over time_ids, the time_ids show a much higher variance than stock_ids. This could be due to fast changing shocks to the market, imposed on all stocks at once. We could possibly detect these shocks if they occur in the last minute or two of the input data window.</li>
+<li>The worst scoring time_id is 25504 and the worst scoring stock is stock_31.</li>
+<li>The worst scoring rows are usually due to an extremely low target, since the target is used as a divisor in the competition metric, the rmspe. From the plots I have made, I cannot see any clear signals that could warn me of an extremely low target.</li>
+<li>Action to take: Look for aggregations across time_ids that could possibly help our models detect periods of low targets.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#all_no_test</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lightgbm <span class="im">as</span> lgb</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> opt_utils <span class="im">as</span> opt</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> opt_utils <span class="im">import</span> <span class="op">*</span> </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>DATA_RAW <span class="op">=</span> <span class="st">'input/'</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>MODEL <span class="op">=</span> <span class="st">'dart_model'</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>TRAIN <span class="op">=</span> <span class="st">'dart_model/enc_p13_train.pkl'</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rdf(train): </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Adds squared percentage error for each row for our training data."""</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    train[<span class="st">'spe'</span>] <span class="op">=</span> ((train[<span class="st">'target'</span>] <span class="op">-</span> train[<span class="st">'pred'</span>]) <span class="op">/</span> train[<span class="st">'target'</span>]) <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt((train[<span class="st">'spe'</span>].<span class="bu">sum</span>()) <span class="op">/</span> train.shape[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> pd.read_pickle(TRAIN)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>oof_preds <span class="op">=</span> np.load(os.path.join(MODEL, <span class="st">'oof_predictions.npy'</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'pred'</span>] <span class="op">=</span> oof_preds</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'spe'</span>] <span class="op">=</span> ((train[<span class="st">'target'</span>] <span class="op">-</span> train[<span class="st">'pred'</span>]) <span class="op">/</span> train[<span class="st">'target'</span>]) <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'raw_error'</span>] <span class="op">=</span> train[<span class="st">'pred'</span>] <span class="op">-</span> train[<span class="st">'target'</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'rv'</span>] <span class="op">=</span> train[<span class="st">'log_return_realized_volatility'</span>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rdf(train))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>train.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.21259060811686517</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/c/miniconda3/envs/opt_nb/lib/python3.7/site-packages/ipykernel_launcher.py:4: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead.  To get a de-fragmented frame, use `newframe = frame.copy()`
+  after removing the cwd from sys.path.
+/home/c/miniconda3/envs/opt_nb/lib/python3.7/site-packages/ipykernel_launcher.py:5: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead.  To get a de-fragmented frame, use `newframe = frame.copy()`
+  """
+/home/c/miniconda3/envs/opt_nb/lib/python3.7/site-packages/ipykernel_launcher.py:6: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead.  To get a de-fragmented frame, use `newframe = frame.copy()`
+  </code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>row_id</th>
+      <th>stock_id</th>
+      <th>time_id</th>
+      <th>target</th>
+      <th>fold</th>
+      <th>log_return_max_sub_min</th>
+      <th>log_return_std</th>
+      <th>log_return_realized_volatility</th>
+      <th>log_return_mean_decay</th>
+      <th>log_return_mean_decay_flip</th>
+      <th>...</th>
+      <th>stock_id_order_size_mean_mean</th>
+      <th>stock_id_order_size_mean_std</th>
+      <th>stock_id_spread_mean_decay_95_mean</th>
+      <th>stock_id_spread_mean_decay_95_std</th>
+      <th>stock_id_spread_pct_momentum_mean</th>
+      <th>stock_id_spread_pct_momentum_std</th>
+      <th>pred</th>
+      <th>spe</th>
+      <th>raw_error</th>
+      <th>rv</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0-5</td>
+      <td>0</td>
+      <td>5</td>
+      <td>0.004136</td>
+      <td>1.0</td>
+      <td>0.001945</td>
+      <td>0.000184</td>
+      <td>0.004499</td>
+      <td>0.000002</td>
+      <td>1.640986e-05</td>
+      <td>...</td>
+      <td>30.978695</td>
+      <td>9.120817</td>
+      <td>0.000964</td>
+      <td>0.000868</td>
+      <td>0.973997</td>
+      <td>0.251807</td>
+      <td>0.003911</td>
+      <td>0.002965</td>
+      <td>-0.000225</td>
+      <td>0.004499</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0-11</td>
+      <td>0</td>
+      <td>11</td>
+      <td>0.001445</td>
+      <td>0.0</td>
+      <td>0.000872</td>
+      <td>0.000049</td>
+      <td>0.001204</td>
+      <td>-0.000002</td>
+      <td>1.816128e-08</td>
+      <td>...</td>
+      <td>30.978695</td>
+      <td>9.120817</td>
+      <td>0.000964</td>
+      <td>0.000868</td>
+      <td>0.973997</td>
+      <td>0.251807</td>
+      <td>0.001534</td>
+      <td>0.003801</td>
+      <td>0.000089</td>
+      <td>0.001204</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0-16</td>
+      <td>0</td>
+      <td>16</td>
+      <td>0.002168</td>
+      <td>4.0</td>
+      <td>0.001583</td>
+      <td>0.000097</td>
+      <td>0.002369</td>
+      <td>-0.000006</td>
+      <td>4.263426e-06</td>
+      <td>...</td>
+      <td>30.978695</td>
+      <td>9.120817</td>
+      <td>0.000964</td>
+      <td>0.000868</td>
+      <td>0.973997</td>
+      <td>0.251807</td>
+      <td>0.002236</td>
+      <td>0.000988</td>
+      <td>0.000068</td>
+      <td>0.002369</td>
+    </tr>
+  </tbody>
+</table>
+<p>3 rows × 372 columns</p>
+</div>
+</div>
+</div>
+<p>Adding the ratio of the volume of shares traded to the average total bid_size and ask_size because I think it could be important</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'ratio'</span>] <span class="op">=</span> train.size_sum <span class="op">/</span> train.sum_bid_ask_mean</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>train[[<span class="st">'ratio'</span>]].corrwith(train[<span class="st">'target'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/c/miniconda3/envs/opt_nb/lib/python3.7/site-packages/ipykernel_launcher.py:1: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead.  To get a de-fragmented frame, use `newframe = frame.copy()`
+  """Entry point for launching an IPython kernel.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>ratio    0.022022
+dtype: float64</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>top_err <span class="op">=</span> train.sort_values(<span class="st">'spe'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>top_err[:<span class="dv">100</span>].raw_error.hist()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'top error histogram'</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>top_err[:<span class="dv">100</span>][<span class="st">'target'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>0.0008222269300000001</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>train.columns.tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['row_id',
+ 'stock_id',
+ 'time_id',
+ 'target',
+ 'fold',
+ 'log_return_max_sub_min',
+ 'log_return_std',
+ 'log_return_realized_volatility',
+ 'log_return_mean_decay',
+ 'log_return_mean_decay_flip',
+ 'is_pos_return_std',
+ 'is_pos_return_mean_decay',
+ 'is_pos_return_mean_decay_flip',
+ 'is_neg_return_std',
+ 'is_neg_return_mean_decay',
+ 'is_neg_return_mean_decay_flip',
+ 'abs_log_return_max_sub_min',
+ 'abs_log_return_std',
+ 'abs_log_return_sum',
+ 'abs_log_return_mean_decay',
+ 'abs_log_return_mean_decay_flip',
+ 'log_return_2_max_sub_min',
+ 'log_return_2_std',
+ 'log_return_2_realized_volatility',
+ 'log_return_2_mean_decay',
+ 'log_return_2_mean_decay_flip',
+ 'is_pos_return_2_std',
+ 'is_pos_return_2_mean_decay',
+ 'is_pos_return_2_mean_decay_flip',
+ 'is_neg_return_2_std',
+ 'is_neg_return_2_mean_decay',
+ 'is_neg_return_2_mean_decay_flip',
+ 'abs_log_return_2_max_sub_min',
+ 'abs_log_return_2_std',
+ 'abs_log_return_2_sum',
+ 'abs_log_return_2_mean_decay',
+ 'abs_log_return_2_mean_decay_flip',
+ 'sum_bid_max_sub_min',
+ 'sum_bid_std',
+ 'sum_bid_sum',
+ 'sum_bid_mean_decay',
+ 'sum_bid_mean_decay_flip',
+ 'sum_ask_max_sub_min',
+ 'sum_ask_std',
+ 'sum_ask_sum',
+ 'sum_ask_mean_decay',
+ 'sum_ask_mean_decay_flip',
+ 'size_spread_max_sub_min',
+ 'size_spread_std',
+ 'size_spread_mean',
+ 'size_spread_mean_decay',
+ 'size_spread_mean_decay_flip',
+ 'size_spread_mean_decay_95',
+ 'size_spread_mean_decay_flip_95',
+ 'sum_bid_ask_max_sub_min',
+ 'sum_bid_ask_std',
+ 'sum_bid_ask_mean',
+ 'sum_bid_ask_mean_decay',
+ 'sum_bid_ask_mean_decay_flip',
+ 'size_max_sub_min',
+ 'size_std',
+ 'size_mean',
+ 'size_sum',
+ 'size_mean_decay',
+ 'size_mean_decay_flip',
+ 'size_mean_decay_95',
+ 'size_mean_decay_flip_95',
+ 'size_norm_max_sub_min',
+ 'size_norm_std',
+ 'size_norm_mean',
+ 'size_norm_sum',
+ 'size_norm_mean_decay',
+ 'size_norm_mean_decay_flip',
+ 'size_norm_mean_decay_95',
+ 'size_norm_mean_decay_flip_95',
+ 'order_norm_max_sub_min',
+ 'order_norm_std',
+ 'order_norm_mean',
+ 'order_norm_sum',
+ 'order_norm_mean_decay',
+ 'order_norm_mean_decay_flip',
+ 'order_norm_mean_decay_95',
+ 'order_norm_mean_decay_flip_95',
+ 'wap_max_sub_min',
+ 'wap_std',
+ 'wap_first',
+ 'wap_last',
+ 'wap_2_max_sub_min',
+ 'wap_2_std',
+ 'wap_2_first',
+ 'wap_2_last',
+ 'price_wap_diff_max_sub_min',
+ 'price_wap_diff_std',
+ 'price_wap_diff_mean',
+ 'price_wap_diff_amin',
+ 'price_wap_diff_amax',
+ 'price_wap_diff_mean_decay',
+ 'price_wap_diff_mean_decay_flip',
+ 'price_wap_diff_2_max_sub_min',
+ 'price_wap_diff_2_std',
+ 'price_wap_diff_2_mean',
+ 'price_wap_diff_2_amin',
+ 'price_wap_diff_2_amax',
+ 'price_wap_diff_2_mean_decay',
+ 'price_wap_diff_2_mean_decay_flip',
+ 'abs_price_wap_diff_max_sub_min',
+ 'abs_price_wap_diff_std',
+ 'abs_price_wap_diff_mean',
+ 'abs_price_wap_diff_amin',
+ 'abs_price_wap_diff_amax',
+ 'abs_price_wap_diff_mean_decay',
+ 'abs_price_wap_diff_mean_decay_flip',
+ 'abs_price_wap_diff_2_max_sub_min',
+ 'abs_price_wap_diff_2_std',
+ 'abs_price_wap_diff_2_mean',
+ 'abs_price_wap_diff_2_amin',
+ 'abs_price_wap_diff_2_amax',
+ 'abs_price_wap_diff_2_mean_decay',
+ 'abs_price_wap_diff_2_mean_decay_flip',
+ 'spread_max_sub_min',
+ 'spread_std',
+ 'spread_mean',
+ 'spread_sum',
+ 'spread_mean_decay',
+ 'spread_mean_decay_flip',
+ 'spread_mean_decay_95',
+ 'spread_mean_decay_flip_95',
+ 'spread_2_max_sub_min',
+ 'spread_2_std',
+ 'spread_2_mean',
+ 'spread_2_sum',
+ 'spread_2_mean_decay',
+ 'spread_2_mean_decay_flip',
+ 'spread_2_mean_decay_95',
+ 'spread_2_mean_decay_flip_95',
+ 'spread_pct_max_sub_min',
+ 'spread_pct_std',
+ 'spread_pct_mean',
+ 'spread_pct_mean_decay',
+ 'spread_pct_mean_decay_flip',
+ 'spread_2_pct_max_sub_min',
+ 'spread_2_pct_std',
+ 'spread_2_pct_mean',
+ 'spread_2_pct_mean_decay',
+ 'spread_2_pct_mean_decay_flip',
+ 'order_count_sum',
+ 'order_size_sqaure_weighted_sum',
+ 'bid_price_diff_count_unique',
+ 'ask_price_diff_count_unique',
+ 'mean_squares',
+ 'order_size_mean',
+ 'order_size_var_norm',
+ 'ratio_sales_ask_bid_size',
+ 'real_vol_min_1',
+ 'real_vol_min_2',
+ 'real_vol_min_3',
+ 'real_vol_min_4',
+ 'real_vol_min_5',
+ 'real_vol_min_6',
+ 'real_vol_min_7',
+ 'real_vol_min_8',
+ 'real_vol_min_9',
+ 'real_vol_min_10',
+ 'real_vol_mean_decay_0.99_1',
+ 'real_vol_mean_decay_0.99_-1',
+ 'real_vol_mean_decay_0.95_1',
+ 'real_vol_mean_decay_0.95_-1',
+ 'real_vol_mean_decay_0.9_1',
+ 'real_vol_mean_decay_0.9_-1',
+ 'real_vol_mean_decay_0.85_1',
+ 'real_vol_mean_decay_0.85_-1',
+ 'real_vol_mean_decay_0.75_1',
+ 'real_vol_mean_decay_0.75_-1',
+ 'real_vol_mean_decay_0.65_1',
+ 'real_vol_mean_decay_0.65_-1',
+ 'real_vol_mean_decay_0.55_1',
+ 'real_vol_mean_decay_0.55_-1',
+ 'real_vol_mean_decay_0.45_1',
+ 'real_vol_mean_decay_0.45_-1',
+ 'real_vol_min_1_2',
+ 'real_vol_min_2_2',
+ 'real_vol_min_3_2',
+ 'real_vol_min_4_2',
+ 'real_vol_min_5_2',
+ 'real_vol_min_6_2',
+ 'real_vol_min_7_2',
+ 'real_vol_min_8_2',
+ 'real_vol_min_9_2',
+ 'real_vol_min_10_2',
+ 'real_vol_mean_decay_0.99_1_2',
+ 'real_vol_mean_decay_0.99_-1_2',
+ 'real_vol_mean_decay_0.95_1_2',
+ 'real_vol_mean_decay_0.95_-1_2',
+ 'real_vol_mean_decay_0.9_1_2',
+ 'real_vol_mean_decay_0.9_-1_2',
+ 'real_vol_mean_decay_0.85_1_2',
+ 'real_vol_mean_decay_0.85_-1_2',
+ 'real_vol_mean_decay_0.75_1_2',
+ 'real_vol_mean_decay_0.75_-1_2',
+ 'real_vol_mean_decay_0.65_1_2',
+ 'real_vol_mean_decay_0.65_-1_2',
+ 'real_vol_mean_decay_0.55_1_2',
+ 'real_vol_mean_decay_0.55_-1_2',
+ 'real_vol_mean_decay_0.45_1_2',
+ 'real_vol_mean_decay_0.45_-1_2',
+ 'log_return_momentum',
+ 'is_pos_return_momentum',
+ 'is_neg_return_momentum',
+ 'abs_log_return_momentum',
+ 'log_return_2_momentum',
+ 'is_pos_return_2_momentum',
+ 'is_neg_return_2_momentum',
+ 'abs_log_return_2_momentum',
+ 'sum_bid_momentum',
+ 'sum_ask_momentum',
+ 'size_spread_momentum',
+ 'size_spread_momentum_95',
+ 'sum_bid_ask_momentum',
+ 'size_momentum',
+ 'size_momentum_95',
+ 'size_norm_momentum',
+ 'size_norm_momentum_95',
+ 'order_norm_momentum',
+ 'order_norm_momentum_95',
+ 'price_wap_diff_momentum',
+ 'price_wap_diff_2_momentum',
+ 'abs_price_wap_diff_momentum',
+ 'abs_price_wap_diff_2_momentum',
+ 'spread_momentum',
+ 'spread_momentum_95',
+ 'spread_2_momentum',
+ 'spread_2_momentum_95',
+ 'spread_pct_momentum',
+ 'spread_2_pct_momentum',
+ 'real_momentum_0.99_-1',
+ 'real_momentum_0.95_-1',
+ 'real_momentum_0.9_-1',
+ 'real_momentum_0.85_-1',
+ 'real_momentum_0.75_-1',
+ 'real_momentum_0.65_-1',
+ 'real_momentum_0.55_-1',
+ 'real_momentum_0.45_-1',
+ 'real_momentum_0.99_-1_2',
+ 'real_momentum_0.95_-1_2',
+ 'real_momentum_0.9_-1_2',
+ 'real_momentum_0.85_-1_2',
+ 'real_momentum_0.75_-1_2',
+ 'real_momentum_0.65_-1_2',
+ 'real_momentum_0.55_-1_2',
+ 'real_momentum_0.45_-1_2',
+ 'wap_last-first',
+ 'wap_2_last-first',
+ 'bid_price1_real_vol',
+ 'ask_price1_real_vol',
+ 'bid_size1_real_vol',
+ 'sum_bid_real_vol',
+ 'sum_ask_real_vol',
+ 'spread_pct_real_vol',
+ 'spread_2_pct_real_vol',
+ 'spread_real_vol',
+ 'spread_2_real_vol',
+ 'size_spread_real_vol',
+ 'bid_ask_ratio_real_vol',
+ 'total_bid_ask_ratio_real_vol',
+ 'sum_bid_ask_real_vol',
+ 'size_real_vol',
+ 'price_real_vol',
+ 'wap_2_real_vol',
+ 'dummy1',
+ 'dummy2',
+ 'dummy3',
+ 'real_vol_ratio_5_10',
+ 'time_id_real_vol_ratio_5_10_mean',
+ 'time_id_real_vol_ratio_5_10_std',
+ 'time_id_real_vol_mean_decay_0.9_-1_mean',
+ 'time_id_real_vol_mean_decay_0.9_-1_std',
+ 'time_id_order_norm_momentum_mean',
+ 'time_id_order_norm_momentum_std',
+ 'time_id_real_vol_mean_decay_0.85_-1_mean',
+ 'time_id_real_vol_mean_decay_0.85_-1_std',
+ 'time_id_real_vol_mean_decay_0.99_1_mean',
+ 'time_id_real_vol_mean_decay_0.99_1_std',
+ 'time_id_real_vol_mean_decay_0.95_1_mean',
+ 'time_id_real_vol_mean_decay_0.95_1_std',
+ 'time_id_abs_price_wap_diff_mean_decay_flip_mean',
+ 'time_id_abs_price_wap_diff_mean_decay_flip_std',
+ 'time_id_abs_price_wap_diff_mean_decay_mean',
+ 'time_id_abs_price_wap_diff_mean_decay_std',
+ 'time_id_order_norm_sum_mean',
+ 'time_id_order_norm_sum_std',
+ 'time_id_real_vol_mean_decay_0.85_-1_2_mean',
+ 'time_id_real_vol_mean_decay_0.85_-1_2_std',
+ 'time_id_spread_mean_decay_flip_95_mean',
+ 'time_id_spread_mean_decay_flip_95_std',
+ 'time_id_real_vol_mean_decay_0.99_-1_mean',
+ 'time_id_real_vol_mean_decay_0.99_-1_std',
+ 'time_id_real_vol_mean_decay_0.75_-1_mean',
+ 'time_id_real_vol_mean_decay_0.75_-1_std',
+ 'time_id_spread_mean_mean',
+ 'time_id_spread_mean_std',
+ 'time_id_order_count_sum_mean',
+ 'time_id_order_count_sum_std',
+ 'time_id_bid_price_diff_count_unique_mean',
+ 'time_id_bid_price_diff_count_unique_std',
+ 'time_id_spread_momentum_mean',
+ 'time_id_spread_momentum_std',
+ 'time_id_size_mean_mean',
+ 'time_id_size_mean_std',
+ 'time_id_real_vol_mean_decay_0.95_-1_mean',
+ 'time_id_real_vol_mean_decay_0.95_-1_std',
+ 'time_id_order_norm_mean_decay_mean',
+ 'time_id_order_norm_mean_decay_std',
+ 'time_id_spread_2_mean_decay_95_mean',
+ 'time_id_spread_2_mean_decay_95_std',
+ 'time_id_order_size_mean_mean',
+ 'time_id_order_size_mean_std',
+ 'time_id_spread_mean_decay_95_mean',
+ 'time_id_spread_mean_decay_95_std',
+ 'time_id_spread_pct_momentum_mean',
+ 'time_id_spread_pct_momentum_std',
+ 'stock_id_real_vol_ratio_5_10_mean',
+ 'stock_id_real_vol_ratio_5_10_std',
+ 'stock_id_real_vol_mean_decay_0.9_-1_mean',
+ 'stock_id_real_vol_mean_decay_0.9_-1_std',
+ 'stock_id_order_norm_momentum_mean',
+ 'stock_id_order_norm_momentum_std',
+ 'stock_id_real_vol_mean_decay_0.85_-1_mean',
+ 'stock_id_real_vol_mean_decay_0.85_-1_std',
+ 'stock_id_real_vol_mean_decay_0.99_1_mean',
+ 'stock_id_real_vol_mean_decay_0.99_1_std',
+ 'stock_id_real_vol_mean_decay_0.95_1_mean',
+ 'stock_id_real_vol_mean_decay_0.95_1_std',
+ 'stock_id_abs_price_wap_diff_mean_decay_flip_mean',
+ 'stock_id_abs_price_wap_diff_mean_decay_flip_std',
+ 'stock_id_abs_price_wap_diff_mean_decay_mean',
+ 'stock_id_abs_price_wap_diff_mean_decay_std',
+ 'stock_id_order_norm_sum_mean',
+ 'stock_id_order_norm_sum_std',
+ 'stock_id_real_vol_mean_decay_0.85_-1_2_mean',
+ 'stock_id_real_vol_mean_decay_0.85_-1_2_std',
+ 'stock_id_spread_mean_decay_flip_95_mean',
+ 'stock_id_spread_mean_decay_flip_95_std',
+ 'stock_id_real_vol_mean_decay_0.99_-1_mean',
+ 'stock_id_real_vol_mean_decay_0.99_-1_std',
+ 'stock_id_real_vol_mean_decay_0.75_-1_mean',
+ 'stock_id_real_vol_mean_decay_0.75_-1_std',
+ 'stock_id_spread_mean_mean',
+ 'stock_id_spread_mean_std',
+ 'stock_id_order_count_sum_mean',
+ 'stock_id_order_count_sum_std',
+ 'stock_id_bid_price_diff_count_unique_mean',
+ 'stock_id_bid_price_diff_count_unique_std',
+ 'stock_id_spread_momentum_mean',
+ 'stock_id_spread_momentum_std',
+ 'stock_id_size_mean_mean',
+ 'stock_id_size_mean_std',
+ 'stock_id_real_vol_mean_decay_0.95_-1_mean',
+ 'stock_id_real_vol_mean_decay_0.95_-1_std',
+ 'stock_id_order_norm_mean_decay_mean',
+ 'stock_id_order_norm_mean_decay_std',
+ 'stock_id_spread_2_mean_decay_95_mean',
+ 'stock_id_spread_2_mean_decay_95_std',
+ 'stock_id_order_size_mean_mean',
+ 'stock_id_order_size_mean_std',
+ 'stock_id_spread_mean_decay_95_mean',
+ 'stock_id_spread_mean_decay_95_std',
+ 'stock_id_spread_pct_momentum_mean',
+ 'stock_id_spread_pct_momentum_std',
+ 'pred',
+ 'spe',
+ 'raw_error',
+ 'rv',
+ 'ratio']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>train[[<span class="st">'ratio'</span>, <span class="st">'target'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ratio</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ratio</th>
+      <td>1.000000</td>
+      <td>0.022022</td>
+    </tr>
+    <tr>
+      <th>target</th>
+      <td>0.022022</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>top_err[:<span class="dv">100</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>row_id</th>
+      <th>stock_id</th>
+      <th>time_id</th>
+      <th>target</th>
+      <th>fold</th>
+      <th>log_return_max_sub_min</th>
+      <th>log_return_std</th>
+      <th>log_return_realized_volatility</th>
+      <th>log_return_mean_decay</th>
+      <th>log_return_mean_decay_flip</th>
+      <th>...</th>
+      <th>stock_id_order_size_mean_std</th>
+      <th>stock_id_spread_mean_decay_95_mean</th>
+      <th>stock_id_spread_mean_decay_95_std</th>
+      <th>stock_id_spread_pct_momentum_mean</th>
+      <th>stock_id_spread_pct_momentum_std</th>
+      <th>pred</th>
+      <th>spe</th>
+      <th>raw_error</th>
+      <th>rv</th>
+      <th>ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>110278</th>
+      <td>31-25504</td>
+      <td>31</td>
+      <td>25504</td>
+      <td>0.000139</td>
+      <td>1.0</td>
+      <td>0.002713</td>
+      <td>0.000144</td>
+      <td>0.003528</td>
+      <td>-1.915218e-06</td>
+      <td>1.643631e-06</td>
+      <td>...</td>
+      <td>396.636807</td>
+      <td>0.001207</td>
+      <td>0.000324</td>
+      <td>0.998620</td>
+      <td>0.015354</td>
+      <td>0.002351</td>
+      <td>253.353148</td>
+      <td>0.002212</td>
+      <td>0.003528</td>
+      <td>283529.781250</td>
+    </tr>
+    <tr>
+      <th>108254</th>
+      <td>31-8534</td>
+      <td>31</td>
+      <td>8534</td>
+      <td>0.000105</td>
+      <td>3.0</td>
+      <td>0.002760</td>
+      <td>0.000081</td>
+      <td>0.001986</td>
+      <td>2.102843e-06</td>
+      <td>5.847572e-07</td>
+      <td>...</td>
+      <td>396.636807</td>
+      <td>0.001207</td>
+      <td>0.000324</td>
+      <td>0.998620</td>
+      <td>0.015354</td>
+      <td>0.000859</td>
+      <td>51.307601</td>
+      <td>0.000754</td>
+      <td>0.001986</td>
+      <td>111114.992188</td>
+    </tr>
+    <tr>
+      <th>110479</th>
+      <td>31-27174</td>
+      <td>31</td>
+      <td>27174</td>
+      <td>0.000123</td>
+      <td>1.0</td>
+      <td>0.002623</td>
+      <td>0.000109</td>
+      <td>0.002662</td>
+      <td>-2.080473e-06</td>
+      <td>1.383185e-05</td>
+      <td>...</td>
+      <td>396.636807</td>
+      <td>0.001207</td>
+      <td>0.000324</td>
+      <td>0.998620</td>
+      <td>0.015354</td>
+      <td>0.000958</td>
+      <td>45.948679</td>
+      <td>0.000835</td>
+      <td>0.002662</td>
+      <td>60701.390625</td>
+    </tr>
+    <tr>
+      <th>275261</th>
+      <td>81-28319</td>
+      <td>81</td>
+      <td>28319</td>
+      <td>0.000389</td>
+      <td>0.0</td>
+      <td>0.002005</td>
+      <td>0.000123</td>
+      <td>0.003025</td>
+      <td>-2.650691e-06</td>
+      <td>-2.003285e-05</td>
+      <td>...</td>
+      <td>34.043645</td>
+      <td>0.000658</td>
+      <td>0.000316</td>
+      <td>0.974421</td>
+      <td>0.216022</td>
+      <td>0.002968</td>
+      <td>43.877539</td>
+      <td>0.002579</td>
+      <td>0.003025</td>
+      <td>407105.843750</td>
+    </tr>
+    <tr>
+      <th>107425</th>
+      <td>31-1544</td>
+      <td>31</td>
+      <td>1544</td>
+      <td>0.000289</td>
+      <td>2.0</td>
+      <td>0.001773</td>
+      <td>0.000086</td>
+      <td>0.002103</td>
+      <td>5.815194e-07</td>
+      <td>1.080874e-05</td>
+      <td>...</td>
+      <td>396.636807</td>
+      <td>0.001207</td>
+      <td>0.000324</td>
+      <td>0.998620</td>
+      <td>0.015354</td>
+      <td>0.001548</td>
+      <td>18.923841</td>
+      <td>0.001259</td>
+      <td>0.002103</td>
+      <td>172874.531250</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>351567</th>
+      <td>103-25687</td>
+      <td>103</td>
+      <td>25687</td>
+      <td>0.001166</td>
+      <td>0.0</td>
+      <td>0.002422</td>
+      <td>0.000152</td>
+      <td>0.003708</td>
+      <td>-1.011342e-06</td>
+      <td>-1.920315e-06</td>
+      <td>...</td>
+      <td>9.959292</td>
+      <td>0.001149</td>
+      <td>0.000948</td>
+      <td>0.977414</td>
+      <td>0.233322</td>
+      <td>0.002908</td>
+      <td>2.235902</td>
+      <td>0.001743</td>
+      <td>0.003708</td>
+      <td>42375.414062</td>
+    </tr>
+    <tr>
+      <th>256160</th>
+      <td>75-28745</td>
+      <td>75</td>
+      <td>28745</td>
+      <td>0.002029</td>
+      <td>2.0</td>
+      <td>0.003652</td>
+      <td>0.000250</td>
+      <td>0.006107</td>
+      <td>5.880733e-06</td>
+      <td>-1.244763e-06</td>
+      <td>...</td>
+      <td>12.042979</td>
+      <td>0.001547</td>
+      <td>0.001127</td>
+      <td>0.983532</td>
+      <td>0.244317</td>
+      <td>0.005063</td>
+      <td>2.235394</td>
+      <td>0.003034</td>
+      <td>0.006107</td>
+      <td>60402.402344</td>
+    </tr>
+    <tr>
+      <th>106640</th>
+      <td>30-27127</td>
+      <td>30</td>
+      <td>27127</td>
+      <td>0.001587</td>
+      <td>0.0</td>
+      <td>0.002852</td>
+      <td>0.000170</td>
+      <td>0.004155</td>
+      <td>1.102896e-05</td>
+      <td>1.145801e-05</td>
+      <td>...</td>
+      <td>11.495466</td>
+      <td>0.000872</td>
+      <td>0.000876</td>
+      <td>0.975616</td>
+      <td>0.257962</td>
+      <td>0.003954</td>
+      <td>2.222999</td>
+      <td>0.002366</td>
+      <td>0.004155</td>
+      <td>23441.160156</td>
+    </tr>
+    <tr>
+      <th>281618</th>
+      <td>83-17058</td>
+      <td>83</td>
+      <td>17058</td>
+      <td>0.001092</td>
+      <td>0.0</td>
+      <td>0.001838</td>
+      <td>0.000102</td>
+      <td>0.002504</td>
+      <td>1.111177e-06</td>
+      <td>-1.198854e-05</td>
+      <td>...</td>
+      <td>13.773025</td>
+      <td>0.000984</td>
+      <td>0.000752</td>
+      <td>0.980698</td>
+      <td>0.237261</td>
+      <td>0.002710</td>
+      <td>2.192483</td>
+      <td>0.001617</td>
+      <td>0.002504</td>
+      <td>46389.765625</td>
+    </tr>
+    <tr>
+      <th>132478</th>
+      <td>37-18628</td>
+      <td>37</td>
+      <td>18628</td>
+      <td>0.001349</td>
+      <td>3.0</td>
+      <td>0.002163</td>
+      <td>0.000221</td>
+      <td>0.005413</td>
+      <td>4.068129e-06</td>
+      <td>6.385957e-07</td>
+      <td>...</td>
+      <td>7.233090</td>
+      <td>0.001578</td>
+      <td>0.000928</td>
+      <td>0.989780</td>
+      <td>0.250437</td>
+      <td>0.003342</td>
+      <td>2.185381</td>
+      <td>0.001994</td>
+      <td>0.005413</td>
+      <td>15415.371094</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 373 columns</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>top_err[:<span class="dv">100</span>][[<span class="st">'ratio'</span>, <span class="st">'target'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ratio</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ratio</th>
+      <td>1.000000</td>
+      <td>0.218161</td>
+    </tr>
+    <tr>
+      <th>target</th>
+      <td>0.218161</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="feature-correlation-with-the-target" class="level2">
+<h2 class="anchored" data-anchor-id="feature-correlation-with-the-target">Feature correlation with the target</h2>
+<p>Lets see how well all the columns correlate with the target. All columns except ‘target’ and ‘pred’ are features that can be used for training</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>train.corrwith(train[<span class="st">'target'</span>]).<span class="bu">abs</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>)[:<span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>target                            1.000000
+pred                              0.922224
+real_vol_mean_decay_0.85_-1       0.885936
+real_vol_mean_decay_0.75_-1       0.885581
+real_vol_mean_decay_0.9_-1        0.884346
+real_vol_mean_decay_0.95_-1       0.881675
+real_vol_mean_decay_0.65_-1       0.880945
+real_vol_mean_decay_0.99_-1       0.878880
+real_vol_mean_decay_0.99_1        0.877295
+real_vol_mean_decay_0.85_-1_2     0.876040
+real_vol_mean_decay_0.75_-1_2     0.875160
+real_vol_mean_decay_0.9_-1_2      0.874569
+log_return_realized_volatility    0.873777
+rv                                0.873777
+log_return_std                    0.873740
+real_vol_mean_decay_0.95_1        0.873627
+real_vol_mean_decay_0.55_-1       0.873266
+real_vol_mean_decay_0.95_-1_2     0.871917
+real_vol_mean_decay_0.65_-1_2     0.869714
+real_vol_mean_decay_0.99_-1_2     0.869073
+dtype: float64</code></pre>
+</div>
+</div>
+</section>
+<section id="error-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="error-distribution">Error distribution</h2>
+<section id="what-is-the-general-distribution-of-errors-are-they-low-or-high-variance" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-the-general-distribution-of-errors-are-they-low-or-high-variance">What is the general distribution of errors? Are they low or high variance?</h3>
+<p>If They have high variance, with a few very large errors, we may be able to identify some way of easily reducing these errors, which would have a large impact on our overall score.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(train[<span class="st">'spe'</span>])</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'squared percentage error kernel density plot'</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>What the heck. This looks like I have one or a few large errors and most near zero.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'spe'</span>].hist()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'squared percentage error histogram'</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Lets see the highest and lowest scoreing rows. They will show that there are a small amount of rows that are greatly increasing the error.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'spe'</span>].sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>110278    2.533531e+02
+108254    5.130760e+01
+110479    4.594868e+01
+275261    4.387754e+01
+107425    1.892384e+01
+              ...     
+15927     1.529692e-12
+335831    1.403667e-12
+346117    1.188800e-12
+277792    4.652826e-14
+259398    8.194316e-16
+Name: spe, Length: 428932, dtype: float64</code></pre>
+</div>
+</div>
+<p>Lets look at the cumulative sum of errors to see how spread out the errors are.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> train[<span class="st">'spe'</span>].sort_values().cumsum().reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df.index <span class="op">/=</span> df.index.values[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">/=</span> df.<span class="bu">max</span>()</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>df.plot()</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Cumulative sum of sorted errors'</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'fraction of rows'</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'fraction of error'</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>It looks like the last 20% of the rows carry about 75% of the error.</p>
+</section>
+</section>
+<section id="comparing-stock_id-and-time_id-group-error-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-stock_id-and-time_id-group-error-distribution">Comparing stock_id and time_id group error distribution</h2>
+<p>Lets see if the error is balanced accross stock_ids and time_ids.</p>
+<section id="stock_id" class="level4">
+<h4 class="anchored" data-anchor-id="stock_id">Stock_id</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Errors by stock_id sorted in descending order'</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>stock <span class="op">=</span> train.groupby(<span class="st">'stock_id'</span>)[<span class="st">'spe'</span>].<span class="bu">sum</span>()</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>stock.sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Errors by stock_id sorted in descending order</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>stock_id
+31     1092.696514
+37      329.793868
+18      311.135581
+33      296.696029
+88      287.739433
+          ...     
+84      104.070718
+96      102.221548
+14      100.687571
+124      98.935379
+56       87.401965
+Name: spe, Length: 112, dtype: float64</code></pre>
+</div>
+</div>
+<p>I was expecting the minimum to be much much lower compared to the maximum spe stock_id. The worst offender, stock_id 31 is only about 3 times worse than the second at 380 and gradually goes down to around 100 for the lowest stock. So stock 31 needs a little special attention, but we need to look at all stocks erros. I am guessing that the time_id aggregations won’t be as balanced.</p>
+<p>I am curious to see how the correlation between the target and log_return_realized_volatility (the most standard predictor) compares between the best and worst scoring stock.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>train[train.stock_id <span class="op">==</span> <span class="dv">31</span>][[<span class="st">'log_return_realized_volatility'</span>, <span class="st">'target'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>log_return_realized_volatility</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>log_return_realized_volatility</th>
+      <td>1.000000</td>
+      <td>0.820801</td>
+    </tr>
+    <tr>
+      <th>target</th>
+      <td>0.820801</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>train[train.stock_id <span class="op">==</span> <span class="dv">56</span>][[<span class="st">'log_return_realized_volatility'</span>, <span class="st">'target'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>log_return_realized_volatility</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>log_return_realized_volatility</th>
+      <td>1.000000</td>
+      <td>0.901207</td>
+    </tr>
+    <tr>
+      <th>target</th>
+      <td>0.901207</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>It turns out that the worst performing stock has a lower correlation.</p>
+</section>
+<section id="time_id" class="level4">
+<h4 class="anchored" data-anchor-id="time_id">Time_id</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Errors by time_id sorted in descending order'</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> train.groupby(<span class="st">'time_id'</span>)[<span class="st">'spe'</span>].<span class="bu">sum</span>()</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>worst_times <span class="op">=</span> time.sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>worst_times</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Errors by time_id sorted in descending order</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>time_id
+25504    258.750772
+24034     69.625326
+8534      58.088269
+20439     53.063871
+27174     49.766181
+            ...    
+11499      1.334917
+17337      1.296191
+22893      1.153656
+32082      1.127673
+4432       1.029422
+Name: spe, Length: 3830, dtype: float64</code></pre>
+</div>
+</div>
+<p>I was correct about time_id group score being more spread than stock_id. The worst time id is about 250 times as bad as the best scoring time_id.</p>
+<p>I am curious to see how the correlation between the target and log_return_realized_volatility (the most standard predictor) compares between the best and worst scoring time_id.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">25504</span>][[<span class="st">'log_return_realized_volatility'</span>, <span class="st">'target'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>log_return_realized_volatility</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>log_return_realized_volatility</th>
+      <td>1.000000</td>
+      <td>0.828771</td>
+    </tr>
+    <tr>
+      <th>target</th>
+      <td>0.828771</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">4432</span>][[<span class="st">'log_return_realized_volatility'</span>, <span class="st">'target'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>log_return_realized_volatility</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>log_return_realized_volatility</th>
+      <td>1.000000</td>
+      <td>0.896323</td>
+    </tr>
+    <tr>
+      <th>target</th>
+      <td>0.896323</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Similar to stock_id, the best time_id group has a higher correlation.</p>
+</section>
+</section>
+<section id="a-further-look-at-the-worst-time_ids-plotting-realized-volatility-target-and-prediction-for-all-stocks" class="level2">
+<h2 class="anchored" data-anchor-id="a-further-look-at-the-worst-time_ids-plotting-realized-volatility-target-and-prediction-for-all-stocks">A further look at the worst time_ids: plotting realized volatility, target, and prediction for all stocks</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>top_5_worst_times <span class="op">=</span> worst_times[:<span class="dv">5</span>].index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There is a great imbalance here, with the top time_id accruing about 200 times the error of the bottom. If we can identify the reason for these errors in the hardest hit time ids, we have the best chance to improve our models.</p>
+<p>I am suspecting that either the first 10 minute window is low volatitliy, followed by a second 10 minute window with high volatility, or vica versa. For the top time_id, 25504, lets see how the realized volatility compares to the average of the first 10 minutes, and then how the target compares to the average target.</p>
+<p>Lets normalize the target and realized volatility of the the first 10 minutes. This way we put the variables on the same scale that is used when calculating correlation between variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>tar_mean <span class="op">=</span> train[<span class="st">'target'</span>].mean()</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>rv_mean <span class="op">=</span> train.log_return_realized_volatility.mean()</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>tar_std <span class="op">=</span> train[<span class="st">'target'</span>].std()</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>rv_std <span class="op">=</span> train.log_return_realized_volatility.std()</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'norm_real_vol'</span>] <span class="op">=</span> (train.log_return_realized_volatility <span class="op">-</span> rv_mean) <span class="op">/</span> rv_std</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'norm_target'</span>] <span class="op">=</span> (train.target <span class="op">-</span> tar_mean) <span class="op">/</span> tar_std</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lets look at the top 3 worst scoring time_ids, and then the best scoring time_ids.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">20</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">25504</span>][[<span class="st">'norm_real_vol'</span>, <span class="st">'norm_target'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Worst scoring time_id, 25504 normalized target and realized variance'</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">27174</span>][[<span class="st">'norm_real_vol'</span>, <span class="st">'norm_target'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'2nd worst scoring time_id, 27174 normalized target and realized variance'</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">24034</span>][[<span class="st">'norm_real_vol'</span>, <span class="st">'norm_target'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">2</span>])</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_title(<span class="st">'3rd worst scoring time_id, 24034 normalized target and realized variance'</span>)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">20</span>))</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">29850</span>][[<span class="st">'norm_real_vol'</span>, <span class="st">'norm_target'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Best scoring time_id, 29850 normalized target and realized variance'</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">4432</span>][[<span class="st">'norm_real_vol'</span>, <span class="st">'norm_target'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'2nd best scoring time_id, 4432 normalized target and realized variance'</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">21116</span>][[<span class="st">'norm_real_vol'</span>, <span class="st">'norm_target'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">2</span>])</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_title(<span class="st">'3rd best scoring time_id, 21116 normalized target and realized variance'</span>)</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>I am a bit confused. The 3rd worst scoring time_id looks really bad, but the first 2 look almost like best scoring time_ids. Maybe there is something I can’t see yet that is hurting my model. Lets plot the same plots again, along with our predictions. We will have to scale the predictions with the the same mean and std of the target to put them on the same scale.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'norm_pred'</span>] <span class="op">=</span> (train.pred <span class="op">-</span> tar_mean) <span class="op">/</span> tar_std</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">20</span>))</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">25504</span>][[<span class="st">'norm_real_vol'</span>, <span class="st">'norm_target'</span>, <span class="st">'norm_pred'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Worst scoring time_id, 25504 normalized target and realized variance'</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">27174</span>][[<span class="st">'norm_real_vol'</span>, <span class="st">'norm_target'</span>, <span class="st">'norm_pred'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'2nd worst scoring time_id, 27174 normalized target and realized variance'</span>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">24034</span>][[<span class="st">'norm_real_vol'</span>, <span class="st">'norm_target'</span>, <span class="st">'norm_pred'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">2</span>])</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_title(<span class="st">'3rd worst scoring time_id, 24034 normalized target and realized variance'</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-27-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">20</span>))</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">29850</span>][[<span class="st">'norm_real_vol'</span>, <span class="st">'norm_target'</span>, <span class="st">'norm_pred'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Best scoring time_id, 29850 normalized target and realized variance'</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">4432</span>][[<span class="st">'norm_real_vol'</span>, <span class="st">'norm_target'</span>, <span class="st">'norm_pred'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'2nd best scoring time_id, 4432 normalized target and realized variance'</span>)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">21116</span>][[<span class="st">'norm_real_vol'</span>, <span class="st">'norm_target'</span>, <span class="st">'norm_pred'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">2</span>])</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_title(<span class="st">'3rd best scoring time_id, 21116 normalized target and realized variance'</span>)</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>I am still confused about the third worst time_id. It looks like the predictions follow the first 10 minute volatility, and should be far off. Maybe I am missing something by normalizing. Lets just look at the raw values of preds and the target, along with the error plotted underneath for reference.</p>
+<section id="plot-that-finally-brings-some-understanding-of-the-large-errors" class="level3">
+<h3 class="anchored" data-anchor-id="plot-that-finally-brings-some-understanding-of-the-large-errors">Plot that finally brings some understanding of the large errors</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">6</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">35</span>))</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">25504</span>][[<span class="st">'target'</span>, <span class="st">'pred'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Worst scoring time_id, 25504 normalized target and realized variance'</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">25504</span>][[<span class="st">'spe'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">27174</span>][[<span class="st">'target'</span>, <span class="st">'pred'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">2</span>])</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_title(<span class="st">'2nd worst scoring time_id, 27174 normalized target and realized variance'</span>)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">27174</span>][[<span class="st">'spe'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">3</span>])</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">24034</span>][[<span class="st">'target'</span>, <span class="st">'pred'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">4</span>])</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">4</span>].set_title(<span class="st">'3rd worst scoring time_id, 24034 normalized target and realized variance'</span>)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>train[train.time_id <span class="op">==</span> <span class="dv">24034</span>][[<span class="st">'spe'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">5</span>])</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>key takeaway</strong>: the largest errors are caused when the target is small because the errors are divided by the target in the metric calculation. The top two worst scoring time_ids both have a single prediction with an extremely low target, while the 3rd worst time_id has a generally low target for all stocks.</p>
+</section>
+</section>
+<section id="looking-at-rows-with-the-highest-error-testing-hypothesis-that-a-small-target-is-the-culprit" class="level2">
+<h2 class="anchored" data-anchor-id="looking-at-rows-with-the-highest-error-testing-hypothesis-that-a-small-target-is-the-culprit">Looking at rows with the highest error, testing hypothesis that a small target is the culprit</h2>
+<p>Lets start with the top 50 errors</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>))</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>top <span class="op">=</span> train.sort_values(<span class="st">'spe'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">50</span>).reset_index()</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>top[[<span class="st">'target'</span>, <span class="st">'pred'</span>, <span class="st">'log_return_realized_volatility'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'Top 25 squared percentage errors'</span>)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>top[[<span class="st">'spe'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'spe'</span>)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-30-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>It definitely seems that the largest errors are coming from overpredicting the target, along with an especially small target. I think overprediction could be the only times when we have a large penalty from the metric. Lets look at the largest losses where we underpredict.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> train[train.pred <span class="op">&lt;</span> train.target]</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>df.sort_values(<span class="st">'spe'</span>, ascending<span class="op">=</span><span class="va">False</span>)[[<span class="st">'pred'</span>, <span class="st">'target'</span>, <span class="st">'spe'</span>]].head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>pred</th>
+      <th>target</th>
+      <th>spe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>202001</th>
+      <td>0.002458</td>
+      <td>0.069165</td>
+      <td>0.930183</td>
+    </tr>
+    <tr>
+      <th>378265</th>
+      <td>0.001178</td>
+      <td>0.019343</td>
+      <td>0.881915</td>
+    </tr>
+    <tr>
+      <th>78772</th>
+      <td>0.001295</td>
+      <td>0.019935</td>
+      <td>0.874268</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The largest spe is less than .92. For reference, if we predicted 0 for all targets our average spe and overall metric would be 1. Given that the underpredicted errors gave spe penalties in the 5,6, and 7 range at the high end (highest about 200) with relatively small absolute error, and these underpredictions give a max penalty less than 1, I am certain that overpredicting especially small targets is the largest source of error.</p>
+</section>
+<section id="looking-for-signals-of-low-volatility" class="level2">
+<h2 class="anchored" data-anchor-id="looking-for-signals-of-low-volatility">Looking for signals of low volatility</h2>
+<p>Lets look at some of the book and trade data for the top losses. Maybe we can find some features that show that we are about to enter a low volatility period, even if the previous 10 minutes was high.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_percentile(df, col): </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Adds `{col}_percentile` to compare where each row ranks in terms of `col`."""</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">type</span>(col) <span class="op">==</span> <span class="bu">list</span>: </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> c <span class="kw">in</span> col: df <span class="op">=</span> add_percentile(df, c)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: </span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>        df[col <span class="op">+</span> <span class="st">'_percentile'</span>] <span class="op">=</span> (df[col].rank(pct<span class="op">=</span><span class="va">True</span>) <span class="op">*</span> <span class="dv">100</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>add_percentile(train, [<span class="st">'pred'</span>, <span class="st">'target'</span>, <span class="st">'log_return_realized_volatility'</span>])</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>top_spe <span class="op">=</span> train.sort_values(<span class="st">'spe'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>top_spe.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>row_id</th>
+      <th>stock_id</th>
+      <th>time_id</th>
+      <th>target</th>
+      <th>fold</th>
+      <th>log_return_max_sub_min</th>
+      <th>log_return_std</th>
+      <th>log_return_realized_volatility</th>
+      <th>log_return_mean_decay</th>
+      <th>log_return_mean_decay_flip</th>
+      <th>...</th>
+      <th>spe</th>
+      <th>raw_error</th>
+      <th>rv</th>
+      <th>ratio</th>
+      <th>norm_real_vol</th>
+      <th>norm_target</th>
+      <th>norm_pred</th>
+      <th>pred_percentile</th>
+      <th>target_percentile</th>
+      <th>log_return_realized_volatility_percentile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>110278</th>
+      <td>31-25504</td>
+      <td>31</td>
+      <td>25504</td>
+      <td>0.000139</td>
+      <td>1.0</td>
+      <td>0.002713</td>
+      <td>0.000144</td>
+      <td>0.003528</td>
+      <td>-1.915218e-06</td>
+      <td>1.643631e-06</td>
+      <td>...</td>
+      <td>253.353148</td>
+      <td>0.002212</td>
+      <td>0.003528</td>
+      <td>283529.781250</td>
+      <td>-0.196735</td>
+      <td>-1.274253</td>
+      <td>-0.520822</td>
+      <td>37</td>
+      <td>0</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <th>108254</th>
+      <td>31-8534</td>
+      <td>31</td>
+      <td>8534</td>
+      <td>0.000105</td>
+      <td>3.0</td>
+      <td>0.002760</td>
+      <td>0.000081</td>
+      <td>0.001986</td>
+      <td>2.102843e-06</td>
+      <td>5.847572e-07</td>
+      <td>...</td>
+      <td>51.307601</td>
+      <td>0.000754</td>
+      <td>0.001986</td>
+      <td>111114.992188</td>
+      <td>-0.626816</td>
+      <td>-1.285737</td>
+      <td>-1.028943</td>
+      <td>1</td>
+      <td>0</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>110479</th>
+      <td>31-27174</td>
+      <td>31</td>
+      <td>27174</td>
+      <td>0.000123</td>
+      <td>1.0</td>
+      <td>0.002623</td>
+      <td>0.000109</td>
+      <td>0.002662</td>
+      <td>-2.080473e-06</td>
+      <td>1.383185e-05</td>
+      <td>...</td>
+      <td>45.948679</td>
+      <td>0.000835</td>
+      <td>0.002662</td>
+      <td>60701.390625</td>
+      <td>-0.438237</td>
+      <td>-1.279647</td>
+      <td>-0.995348</td>
+      <td>2</td>
+      <td>0</td>
+      <td>39</td>
+    </tr>
+    <tr>
+      <th>275261</th>
+      <td>81-28319</td>
+      <td>81</td>
+      <td>28319</td>
+      <td>0.000389</td>
+      <td>0.0</td>
+      <td>0.002005</td>
+      <td>0.000123</td>
+      <td>0.003025</td>
+      <td>-2.650691e-06</td>
+      <td>-2.003285e-05</td>
+      <td>...</td>
+      <td>43.877539</td>
+      <td>0.002579</td>
+      <td>0.003025</td>
+      <td>407105.843750</td>
+      <td>-0.336934</td>
+      <td>-1.189000</td>
+      <td>-0.310741</td>
+      <td>52</td>
+      <td>0</td>
+      <td>47</td>
+    </tr>
+    <tr>
+      <th>107425</th>
+      <td>31-1544</td>
+      <td>31</td>
+      <td>1544</td>
+      <td>0.000289</td>
+      <td>2.0</td>
+      <td>0.001773</td>
+      <td>0.000086</td>
+      <td>0.002103</td>
+      <td>5.815194e-07</td>
+      <td>1.080874e-05</td>
+      <td>...</td>
+      <td>18.923841</td>
+      <td>0.001259</td>
+      <td>0.002103</td>
+      <td>172874.531250</td>
+      <td>-0.594068</td>
+      <td>-1.223036</td>
+      <td>-0.794324</td>
+      <td>13</td>
+      <td>0</td>
+      <td>25</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 379 columns</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_book(stock_id, time_id, train<span class="op">=</span>train): </span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Plots book and trade data for single stock and time combination. </span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">    This is to try and tease out indicators for especially large errors."""</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    mask <span class="op">=</span> (train.stock_id <span class="op">==</span> stock_id) <span class="op">&amp;</span> (train.time_id <span class="op">==</span> time_id)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    target, pred, spe, realized_volatitlity, pred_percentile, target_percentile, <span class="op">\</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    realized_volatitlity_percentile, size_sum, ratio <span class="op">\</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">=</span> train.loc[mask, [<span class="st">'target'</span>, <span class="st">'pred'</span>, <span class="st">'spe'</span>, </span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>                           <span class="st">'log_return_realized_volatility'</span>,</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>                           <span class="st">'pred_percentile'</span>, </span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>                           <span class="st">'target_percentile'</span>, </span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>                           <span class="st">'log_return_realized_volatility_percentile'</span>, </span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>                           <span class="st">'size_sum'</span>, </span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>                           <span class="st">'ratio'</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>                          ]].values[<span class="dv">0</span>].<span class="bu">round</span>(<span class="dv">5</span>)</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>    bt <span class="op">=</span> load_bt(DATA_RAW, stock_id, <span class="st">'train'</span>)</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>    bt[<span class="st">'wap'</span>] <span class="op">=</span> (bt[<span class="st">'bid_price1'</span>] <span class="op">*</span> bt[<span class="st">'ask_size1'</span>] <span class="op">+</span> bt[<span class="st">'ask_price1'</span>] <span class="op">*</span> bt[<span class="st">'bid_size1'</span>]) <span class="op">/\</span></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>                          (bt[<span class="st">'bid_size1'</span>] <span class="op">+</span> bt[<span class="st">'ask_size1'</span>])</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>    bt[<span class="st">'total_bid_size'</span>] <span class="op">=</span> bt[<span class="st">'bid_size1'</span>] <span class="op">+</span> bt[<span class="st">'bid_size2'</span>]</span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>    bt[<span class="st">'total_ask_size'</span>] <span class="op">=</span> bt[<span class="st">'ask_size1'</span>] <span class="op">+</span> bt[<span class="st">'ask_size2'</span>]</span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>    book <span class="op">=</span> bt[bt.time_id <span class="op">==</span> time_id].set_index(<span class="st">'seconds_in_bucket'</span>)</span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>    fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">15</span>))</span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a>    cmap <span class="op">=</span> {<span class="st">'ask_price1'</span>: <span class="st">'yellow'</span>, </span>
+<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">'ask_price2'</span>: <span class="st">'khaki'</span>,</span>
+<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">'ask_size1'</span>: <span class="st">'yellow'</span>, </span>
+<span id="cb45-28"><a href="#cb45-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">'ask_size2'</span>: <span class="st">'khaki'</span>,</span>
+<span id="cb45-29"><a href="#cb45-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">'bid_price1'</span>: <span class="st">'blue'</span>, </span>
+<span id="cb45-30"><a href="#cb45-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">'bid_price2'</span>: <span class="st">'lightblue'</span>, </span>
+<span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a>            <span class="st">'bid_size1'</span>: <span class="st">'blue'</span>, </span>
+<span id="cb45-32"><a href="#cb45-32" aria-hidden="true" tabindex="-1"></a>            <span class="st">'bid_size2'</span>: <span class="st">'lightblue'</span>,</span>
+<span id="cb45-33"><a href="#cb45-33" aria-hidden="true" tabindex="-1"></a>            <span class="st">'total_ask_size'</span>: <span class="st">'yellow'</span>, </span>
+<span id="cb45-34"><a href="#cb45-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">'total_bid_size'</span>: <span class="st">'blue'</span>, </span>
+<span id="cb45-35"><a href="#cb45-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">'wap'</span>: <span class="st">'green'</span>, </span>
+<span id="cb45-36"><a href="#cb45-36" aria-hidden="true" tabindex="-1"></a>            <span class="st">'size'</span>: <span class="st">'red'</span>, </span>
+<span id="cb45-37"><a href="#cb45-37" aria-hidden="true" tabindex="-1"></a>            <span class="st">'price'</span>: <span class="st">'red'</span>, </span>
+<span id="cb45-38"><a href="#cb45-38" aria-hidden="true" tabindex="-1"></a>           }</span>
+<span id="cb45-39"><a href="#cb45-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb45-40"><a href="#cb45-40" aria-hidden="true" tabindex="-1"></a>    book[[<span class="st">'ask_price2'</span>, <span class="st">'ask_price1'</span>, <span class="st">'bid_price1'</span>,  <span class="st">'bid_price2'</span>, <span class="st">'wap'</span>, <span class="st">'price'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">0</span>], color<span class="op">=</span>cmap)</span>
+<span id="cb45-41"><a href="#cb45-41" aria-hidden="true" tabindex="-1"></a>    book[[<span class="st">'bid_size1'</span>, <span class="st">'ask_size1'</span>, <span class="st">'bid_size2'</span>,<span class="st">'ask_size2'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">1</span>], color<span class="op">=</span>cmap)</span>
+<span id="cb45-42"><a href="#cb45-42" aria-hidden="true" tabindex="-1"></a>    book[[<span class="st">'total_bid_size'</span>, <span class="st">'total_ask_size'</span>]].plot(ax<span class="op">=</span>axes[<span class="dv">2</span>], color<span class="op">=</span>cmap)</span>
+<span id="cb45-43"><a href="#cb45-43" aria-hidden="true" tabindex="-1"></a>    book[[<span class="st">'size'</span>]].plot(marker<span class="op">=</span><span class="st">'o'</span>, ax<span class="op">=</span>axes[<span class="dv">1</span>], color<span class="op">=</span>cmap)</span>
+<span id="cb45-44"><a href="#cb45-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-45"><a href="#cb45-45" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb45-46"><a href="#cb45-46" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_title(<span class="st">'Price info'</span>)</span>
+<span id="cb45-47"><a href="#cb45-47" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_title(<span class="st">'Size info'</span>)</span>
+<span id="cb45-48"><a href="#cb45-48" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">2</span>].set_title(<span class="st">'Total size info'</span>)</span>
+<span id="cb45-49"><a href="#cb45-49" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb45-50"><a href="#cb45-50" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb45-51"><a href="#cb45-51" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">2</span>].legend(loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb45-52"><a href="#cb45-52" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb45-53"><a href="#cb45-53" aria-hidden="true" tabindex="-1"></a>    fig.suptitle(<span class="ss">f'</span><span class="ch">\</span></span>
+<span id="cb45-54"><a href="#cb45-54" aria-hidden="true" tabindex="-1"></a><span class="ss">        Stock: </span><span class="sc">{</span>stock_id<span class="sc">}</span><span class="ss">         missing seconds: </span><span class="sc">{</span><span class="dv">600</span> <span class="op">-</span> <span class="bu">len</span>(book)<span class="sc">}</span><span class="ch">\n\</span></span>
+<span id="cb45-55"><a href="#cb45-55" aria-hidden="true" tabindex="-1"></a><span class="ss">        Time_id: </span><span class="sc">{</span>time_id<span class="sc">}</span><span class="ch">\n\</span></span>
+<span id="cb45-56"><a href="#cb45-56" aria-hidden="true" tabindex="-1"></a><span class="ss">        spe: </span><span class="sc">{</span>spe<span class="sc">}</span><span class="ss"> </span><span class="ch">\n\</span></span>
+<span id="cb45-57"><a href="#cb45-57" aria-hidden="true" tabindex="-1"></a><span class="ss">        target: </span><span class="sc">{</span>target<span class="sc">}</span><span class="ss"> </span><span class="ch">\n\</span></span>
+<span id="cb45-58"><a href="#cb45-58" aria-hidden="true" tabindex="-1"></a><span class="ss">        pred: </span><span class="sc">{</span>pred<span class="sc">}</span><span class="ss"> </span><span class="ch">\n\</span></span>
+<span id="cb45-59"><a href="#cb45-59" aria-hidden="true" tabindex="-1"></a><span class="ss">        realized_volatitlity: </span><span class="sc">{</span>realized_volatitlity<span class="sc">}</span><span class="ss">,</span><span class="ch">\n\n\</span></span>
+<span id="cb45-60"><a href="#cb45-60" aria-hidden="true" tabindex="-1"></a><span class="ss">        error: </span><span class="sc">{</span><span class="bu">round</span>(pred <span class="op">-</span> target, <span class="dv">5</span>)<span class="sc">}</span><span class="ss"> </span><span class="ch">\n\</span></span>
+<span id="cb45-61"><a href="#cb45-61" aria-hidden="true" tabindex="-1"></a><span class="ss">        target_percentile: </span><span class="sc">{</span>target_percentile<span class="sc">}</span><span class="ss"> </span><span class="ch">\n\</span></span>
+<span id="cb45-62"><a href="#cb45-62" aria-hidden="true" tabindex="-1"></a><span class="ss">        pred_percentile: </span><span class="sc">{</span>pred_percentile<span class="sc">}</span><span class="ss"> </span><span class="ch">\n\</span></span>
+<span id="cb45-63"><a href="#cb45-63" aria-hidden="true" tabindex="-1"></a><span class="ss">        realized_volatitlity_percentile: </span><span class="sc">{</span>realized_volatitlity_percentile<span class="sc">}</span><span class="ss">           total sales: </span><span class="sc">{</span>size_sum<span class="sc">}</span><span class="ss">         ratio: </span><span class="sc">{</span>ratio<span class="sc">}</span><span class="ch">\n</span><span class="ss">'</span>)</span>
+<span id="cb45-64"><a href="#cb45-64" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb45-65"><a href="#cb45-65" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'d'</span>] <span class="op">=</span> train[<span class="st">'pred'</span>] <span class="op">-</span> train[<span class="st">'target'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="plotting-rows-with-a-large-absolute-error" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-rows-with-a-large-absolute-error">Plotting rows with a large absolute error</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> stock_id, time_id <span class="kw">in</span> train.sort_values(<span class="st">'d'</span>, ascending<span class="op">=</span><span class="va">False</span>)[[<span class="st">'stock_id'</span>, <span class="st">'time_id'</span>]].values[: <span class="dv">10</span>]: </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    plot_book(stock_id, time_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-36-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-36-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-36-output-3.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-36-output-4.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-36-output-5.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-36-output-6.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-36-output-7.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-36-output-8.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-36-output-9.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-36-output-10.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mean_decay(x, decay<span class="op">=</span><span class="fl">.9</span>, step<span class="op">=-</span><span class="dv">1</span>, axis<span class="op">=</span><span class="dv">0</span>): </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Returns sum with exponential decay, step = -1</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co">    for the end of the array to matter the most."""</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    weights <span class="op">=</span> np.power(decay, np.arange(x.shape[axis])[::step]).astype(np.float32)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(weights <span class="op">*</span> x, axis<span class="op">=</span>axis) <span class="op">/</span> weights.<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plotting-top-3-instances-for-each-of-the-top-5-worst-scoring-time_ids" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-top-3-instances-for-each-of-the-top-5-worst-scoring-time_ids">Plotting top 3 instances for each of the top 5 worst scoring time_ids</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> top_5_worst_times: </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    tmp <span class="op">=</span> train[train.time_id <span class="op">==</span> t].sort_values(<span class="st">'spe'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> stock_id, time_id <span class="kw">in</span> tmp[[<span class="st">'stock_id'</span>, <span class="st">'time_id'</span>]].values[: <span class="dv">3</span>]: </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>        plot_book(stock_id, time_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-3.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-4.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-5.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-6.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-7.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-8.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-9.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-10.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-11.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-12.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-13.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-14.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-38-output-15.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Lets look at the most penalized instances and see if we can see a pattern.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>low <span class="op">=</span> train.sort_values(<span class="st">'log_return_realized_volatility'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plotting-rows-with-low-volatiltiy-during-the-10-minutes-of-input-data-for-reference" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-rows-with-low-volatiltiy-during-the-10-minutes-of-input-data-for-reference">Plotting rows with low volatiltiy during the 10 minutes of input data for reference</h3>
+<p>Lets see what the lowest volatility instances look like before looking at the instances where we went from high volatility to a low target</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> stock_id, time_id <span class="kw">in</span> low[[<span class="st">'stock_id'</span>, <span class="st">'time_id'</span>]].values[: <span class="dv">10</span>]: </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    plot_book(stock_id, time_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-40-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-40-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-40-output-3.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-40-output-4.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-40-output-5.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-40-output-6.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-40-output-7.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-40-output-8.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-40-output-9.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-40-output-10.png" class="img-fluid"></p>
+</div>
+</div>
+<p>They all have a very low ratio of sales to ask and bid size</p>
+</section>
+<section id="plotting-the-worst-scoring-rows-of-stock-31-the-worst-scoring-stock" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-worst-scoring-rows-of-stock-31-the-worst-scoring-stock">Plotting the worst scoring rows of stock 31, the worst scoring stock</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> stock_id, time_id <span class="kw">in</span> top_spe[top_spe.stock_id <span class="op">!=</span> <span class="dv">31</span>][[<span class="st">'stock_id'</span>, <span class="st">'time_id'</span>]].values[: <span class="dv">10</span>]: </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    plot_book(stock_id, time_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-41-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-41-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-41-output-3.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-41-output-4.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-41-output-5.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-41-output-6.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-41-output-7.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-41-output-8.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-41-output-9.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-41-output-10.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="plotting-the-first-10-rows-of-stock-31-to-compare-to-the-worst-scoring-rows" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-first-10-rows-of-stock-31-to-compare-to-the-worst-scoring-rows">Plotting the first 10 rows of stock 31 to compare to the worst scoring rows</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> stock_id, time_id <span class="kw">in</span> train[train.stock_id <span class="op">==</span> <span class="dv">31</span>][[<span class="st">'stock_id'</span>, <span class="st">'time_id'</span>]].values[: <span class="dv">10</span>]: </span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    plot_book(stock_id, time_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-42-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-42-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-42-output-3.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-42-output-4.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-42-output-5.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-42-output-6.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-42-output-7.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-42-output-8.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-42-output-9.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-42-output-10.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="plotting-random-rows-with-average-measured-realized_volatitliy" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-random-rows-with-average-measured-realized_volatitliy">Plotting random rows with average measured realized_volatitliy</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>comp <span class="op">=</span> train[(train.log_return_realized_volatility_percentile <span class="op">&lt;</span> <span class="dv">60</span>) <span class="op">&amp;</span> (train.log_return_realized_volatility_percentile <span class="op">&gt;</span> <span class="dv">40</span>)]</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> stock_id, time_id <span class="kw">in</span> comp[[<span class="st">'stock_id'</span>, <span class="st">'time_id'</span>]].values[:<span class="dv">10</span>]: </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    plot_book(stock_id, time_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-43-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-43-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-43-output-3.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-43-output-4.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-43-output-5.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-43-output-6.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-43-output-7.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-43-output-8.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-43-output-9.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opt-error-analysis_files/figure-html/cell-43-output-10.png" class="img-fluid"></p>
+</div>
+</div>
+<p>I can’t see any obvious patterns in these plots that I could use to create different features than I already have.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
