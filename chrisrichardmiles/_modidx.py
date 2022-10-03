@@ -3,7 +3,7 @@
 d = { 'settings': { 'branch': 'master',
                 'doc_baseurl': '/chrisrichardmiles/',
                 'doc_host': 'https://chrisrichardmiles.github.io',
-                'git_url': 'https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/',
+                'git_url': 'https://github.com/chrisrichardmiles/chrisrichardmiles/',
                 'lib_path': 'chrisrichardmiles'},
   'syms': { 'chrisrichardmiles.core': { 'chrisrichardmiles.core.cli_download_kaggle_data': ( 'core.html#cli_download_kaggle_data',
                                                                                              'chrisrichardmiles/core.py'),

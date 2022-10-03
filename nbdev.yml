@@ -1,9 +1,9 @@
 project:
-  output-dir: docs
+  output-dir: _docs
 
 website:
   title: "chrisrichardmiles"
   site-url: "https://chrisrichardmiles.github.io/chrisrichardmiles/"
   description: "A software package built to share my kaggle solutions and other code."
   repo-branch: master
-  repo-url: "https://github.com/chrisrichardmiles/chrisrichardmiles/tree/master/"
+  repo-url: "https://github.com/chrisrichardmiles/chrisrichardmiles/"
