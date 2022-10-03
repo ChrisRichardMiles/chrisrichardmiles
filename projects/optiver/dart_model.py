@@ -64,7 +64,7 @@ def early_stopping_dart(dart_dict: dict, stopping_rounds: int=None, model_file: 
 cfg = {
     "script_name": 'dart_model',
     "path_features": 'p13_train.pkl', # Used in train mode
-    "path_models": 'dart_model',
+    "path_models": 'dart_model_folder',
     "path_data_raw": 'input/',
     "neptune_project": 'chrisrichardmiles/optiver',
     "neptune_description": 'p13 encoding top columns with shake .3 using dart with custom early stopping',

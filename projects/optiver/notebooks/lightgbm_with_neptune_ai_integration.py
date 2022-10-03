@@ -4,7 +4,7 @@ import json ######## all the awesome stuff during training, but without
 import pandas as pd # using up your neptune tracking time. To use neptune,
 import numpy as np # you need a free account, the api_token from neptune.ai
 import lightgbm as lgb # put into kaggle secrets in the "Add-ons" dropdown 
-from lightgbm.callback import # at the top. 
+# from lightgbm.callback import # at the top. 
 from opt_utils import rmspe
 # opt_utils is my own module 
 os.system('pip install neptune-client')
