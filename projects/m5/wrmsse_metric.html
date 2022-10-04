@@ -1,0 +1,2407 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="The weighted root mean scaled squared error">
+
+<title>../../chrisrichardmiles - WRMSSE metric implementation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="../../chrisrichardmiles - WRMSSE metric implementation">
+<meta property="og:description" content="The weighted root mean scaled squared error">
+<meta property="og:site-name" content="../../chrisrichardmiles">
+<meta name="twitter:title" content="../../chrisrichardmiles - WRMSSE metric implementation">
+<meta name="twitter:description" content="The weighted root mean scaled squared error">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">chrisrichardmiles</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">WRMSSE metric implementation</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">chrisrichardmiles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../core.html" class="sidebar-item-text sidebar-link">Core</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">projects</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">m5</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/index_m5.html" class="sidebar-item-text sidebar-link">Welcome to chrisrichardmiles.m5</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/brief_eda.html" class="sidebar-item-text sidebar-link">Brief EDA</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/feature_engineering.html" class="sidebar-item-text sidebar-link">Feature engineering</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/04_out_of_stock_detection.html" class="sidebar-item-text sidebar-link">Total sales for all series of aggregation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/training_day_by_day_models.html" class="sidebar-item-text sidebar-link">Train day-by-day models</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">optiver</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/index_optiver.html" class="sidebar-item-text sidebar-link">Optiver Realized Volatility Prediction: 91st place solution</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/opt-error-analysis.html" class="sidebar-item-text sidebar-link">Error analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">notebooks</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-book-trade-eda.html" class="sidebar-item-text sidebar-link">price features</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-eda-modified-from-host-nb.html" class="sidebar-item-text sidebar-link">Optiver Realized Volatility Prediction</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-dart-op-129a-stock-31-only.html" class="sidebar-item-text sidebar-link">opt-train-dart-op-129a-stock-31-only.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-dart.html" class="sidebar-item-text sidebar-link">opt-train-dart.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-one-at-a-time.html" class="sidebar-item-text sidebar-link">opt-train-one-at-a-time.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-tabnet-142.html" class="sidebar-item-text sidebar-link">opt-train-tabnet-142.html</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#building-from-the-math-up" id="toc-building-from-the-math-up" class="nav-link active" data-scroll-target="#building-from-the-math-up">Building from the math up</a>
+  <ul class="collapse">
+  <li><a href="#rmsse-of-each-series" id="toc-rmsse-of-each-series" class="nav-link" data-scroll-target="#rmsse-of-each-series">RMSSE of each series</a></li>
+  <li><a href="#wrmsse" id="toc-wrmsse" class="nav-link" data-scroll-target="#wrmsse">WRMSSE</a></li>
+  <li><a href="#generating-all-series-weights-and-scaling-factors" id="toc-generating-all-series-weights-and-scaling-factors" class="nav-link" data-scroll-target="#generating-all-series-weights-and-scaling-factors">Generating all series, weights, and scaling factors</a></li>
+  <li><a href="#get_agg" id="toc-get_agg" class="nav-link" data-scroll-target="#get_agg">get_agg</a></li>
+  <li><a href="#get_df_weights" id="toc-get_df_weights" class="nav-link" data-scroll-target="#get_df_weights">get_df_weights</a></li>
+  <li><a href="#sample-scoring" id="toc-sample-scoring" class="nav-link" data-scroll-target="#sample-scoring">Sample scoring</a></li>
+  <li><a href="#saving-scores" id="toc-saving-scores" class="nav-link" data-scroll-target="#saving-scores">Saving scores</a></li>
+  <li><a href="#combine_cols" id="toc-combine_cols" class="nav-link" data-scroll-target="#combine_cols">combine_cols</a></li>
+  <li><a href="#append_df_unique_id" id="toc-append_df_unique_id" class="nav-link" data-scroll-target="#append_df_unique_id">append_df_unique_id</a></li>
+  <li><a href="#visualizing-results" id="toc-visualizing-results" class="nav-link" data-scroll-target="#visualizing-results">Visualizing results</a></li>
+  <li><a href="#saving-predictions-for-competition-scoring" id="toc-saving-predictions-for-competition-scoring" class="nav-link" data-scroll-target="#saving-predictions-for-competition-scoring">Saving predictions for competition scoring</a></li>
+  </ul></li>
+  <li><a href="#main-object" id="toc-main-object" class="nav-link" data-scroll-target="#main-object">Main object</a>
+  <ul class="collapse">
+  <li><a href="#wrmsse-1" id="toc-wrmsse-1" class="nav-link" data-scroll-target="#wrmsse-1">WRMSSE</a></li>
+  </ul></li>
+  <li><a href="#using-weights-for-custom-objective-functions-and-metrics" id="toc-using-weights-for-custom-objective-functions-and-metrics" class="nav-link" data-scroll-target="#using-weights-for-custom-objective-functions-and-metrics">Using weights for custom objective functions and metrics</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">WRMSSE metric implementation</h1>
+</div>
+
+<div>
+  <div class="description">
+    The weighted root mean scaled squared error
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For fast testing for Continuous Integration</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>PATH_DATA <span class="op">=</span> <span class="st">'small_data'</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>PATH_DATA_RAW <span class="op">=</span> <span class="st">'small_data/raw'</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>os.listdir(PATH_DATA_RAW)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['sample_submission.csv',
+ 'sell_prices.csv',
+ 'calendar.csv',
+ 'sales_train_evaluation.csv']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>PATH_DATA <span class="op">=</span> <span class="st">'data'</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>PATH_DATA_RAW <span class="op">=</span> <span class="st">'data/raw'</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>os.listdir(PATH_DATA_RAW)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>chunks <span class="op">=</span> pd.read_csv(os.path.join(PATH_DATA_RAW, <span class="st">'sales_train_evaluation.csv'</span>), chunksize<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_stv <span class="op">=</span> pd.concat(<span class="bu">list</span>(chunks)) <span class="co"># Safe for low RAM situation</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df_cal <span class="op">=</span> pd.read_csv(os.path.join(PATH_DATA_RAW, <span class="st">'calendar.csv'</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df_prices <span class="op">=</span> pd.read_csv(os.path.join(PATH_DATA_RAW, <span class="st">'sell_prices.csv'</span>))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df_ss <span class="op">=</span> pd.read_csv(os.path.join(PATH_DATA_RAW, <span class="st">'sample_submission.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We need to implement the competition metric so that we can validate our prediction methods over different time periods. This notebook documents the intution and code needed to build the <a href="https://chrisrichardmiles.github.io/chrisrichardmiles/projects/m5/wrmsse_metric.html#wrmsse"><code>WRMSSE</code></a> object. You may want to jump to it and see how to use it, but here are the main purposes of the object:</p>
+<ol type="1">
+<li>Score predictions with the competition metric</li>
+<li>Save and analyse scores for different models and validation sets</li>
+<li>Save the weights and scales used by the competition metric to create custom objective functions</li>
+</ol>
+<section id="building-from-the-math-up" class="level2">
+<h2 class="anchored" data-anchor-id="building-from-the-math-up">Building from the math up</h2>
+<section id="rmsse-of-each-series" class="level3">
+<h3 class="anchored" data-anchor-id="rmsse-of-each-series">RMSSE of each series</h3>
+<p><span class="math display">\[
+\mathrm{RMSSE} = \sqrt{
+\frac{1}{h} \frac{\sum_{t = n + 1}^{n + h}(Y_t - \hat{Y}_t)^2}{\frac{1}{n - 1}\sum_{t = 2}^{n}(Y_t - Y_{t - 1})^2}
+}.
+\]</span></p>
+<p><span class="math inline">\(Y_t\)</span> is the actual value at <span class="math inline">\(t\)</span>, <span class="math inline">\(\hat{Y}_t\)</span> the forecasted value, <span class="math inline">\(n\)</span> the number of time series values, and, <span class="math inline">\(h\)</span> the forecasting horizon.</p>
+<p><strong>Things to notice</strong> * The bottom of the numerator sums over all training days through <span class="math inline">\(n\)</span>, the last day before the forecast horizon. Its purpose is to normalize the errors of the series by scaling them by the average day-to-day difference in sales. This means that the RMSSE scores of any two series can be compared fairly, since both are scaled by their own volatility. * The top of the numerator sums over the 28 days of the forecast horizon, starting on day <span class="math inline">\(n\)</span> + 1 * A prediction model that predicted the previous days sales should get a score of around 1.</p>
+<p>The metric in this competition sort of compares the models performance to a naive model that always predicts that the next day will be the same as the current day:</p>
+</section>
+<section id="wrmsse" class="level3">
+<h3 class="anchored" data-anchor-id="wrmsse">WRMSSE</h3>
+<p><span class="math display">\[
+\mathrm{WRMSSE} = \sum_{i=1}^{42,840} W_i \times \mathrm{RMSSE_i}
+\]</span></p>
+<p><span class="math display">\[
+W_i = \frac{\sum_{j = n - 28}^{n - 1} volume\_series_i}  {\sum_{j = n - 28}^{n - 1} volume\_all\_series\_in\_level}
+\]</span></p>
+<p>The weight of each series will be computed based on the last 28 observations of the training sample of the dataset, i.e., the cumulative actual dollar sales that each series displayed in that particular period (sum of units sold multiplied by their respective price). Each of the 12 levels of aggregation is comprised of series whose weights add up to 1, and every product appears once in each level.</p>
+<p>To simplify notation, I like to write the WRMSSE like this:</p>
+<p><span class="math display">\[
+WRMSSE = \sum_{i=1}^{42,840} \left(W_i \times \sqrt{\frac{\frac{1}{28}\sum_{j=1}^{28}{(D_j)^2}}{S_i}}\right)
+\]</span> * <span class="math inline">\(W_i\)</span>: the weight of the ith series * <span class="math inline">\(S_i\)</span>: the scaling factor of the ith series * <span class="math inline">\(D_j\)</span>: The difference between sales and predicted sales for the ith series on day j</p>
+<p>which further simplifies to this: <span class="math display">\[
+WRMSSE = \sum_{i=1}^{42,840} \frac{W_i}{\sqrt{S_i}} \times \sqrt{\frac{1}{28}\sum_{j=1}^{28}{(D_j)^2}}
+\]</span></p>
+</section>
+<section id="generating-all-series-weights-and-scaling-factors" class="level3">
+<h3 class="anchored" data-anchor-id="generating-all-series-weights-and-scaling-factors">Generating all series, weights, and scaling factors</h3>
+<p>To build a WRMSSE scoring object, we will need to create tools that can apply this caclulation as efficiently as possible. We will develop a sparse aggregation matrix, created with a one-hot-encoding style, that serves to compute the aggregations for all 42840 series from the bottme level 30490 series. After the aggregation matrix, we will develop methods to compute the weights W and the scaling factor S for all series. We will then combine our tools to create a WRMSSE object, capable of scoring predictions for any 28 validation period of known data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">################## Variables ####################</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We will work through an example of calculating </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the WRMSSE by level, and overall. Then we will </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>START_TEST <span class="op">=</span> <span class="dv">1914</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># END_TRAIN = START_TEST - 1 # last training day</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="aggregation-matrix" class="level4">
+<h4 class="anchored" data-anchor-id="aggregation-matrix">Aggregation matrix</h4>
+<p>We know we can compute all the aggregated series by using matrix multiplication with the correctly designed aggregation matrix. Our daily sales have the shape (number_items, prediction_horizon). Our agg matrix will need to have the shape (number_series, number_items) so that we can execute the matrix multiplication agg x sales.</p>
+<p>We need a list of the aggregating features that will align with our weights and scales so that our matrices will match up. Level 1 does not need a column to group by.</p>
+<p>For each sereis of each level of the WRMSSE, we will use pandas get_dummies function on the corresponding column or columns.</p>
+<hr>
+<p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/blob/master/chrisrichardmiles/m5/metric.py#L22" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+</section>
+<section id="get_agg" class="level3">
+<h3 class="anchored" data-anchor-id="get_agg">get_agg</h3>
+<blockquote class="blockquote">
+<pre><code> get_agg (df_stv)</code></pre>
+</blockquote>
+<p>Gets a sparse aggregaion matrix and index to align weights and scales.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>agg_matrix_csr, agg_index <span class="op">=</span> get_agg(df_stv)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>display(agg_index[:<span class="dv">5</span>])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of series per each level'</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>agg_index.get_level_values(<span class="dv">0</span>).value_counts(sort<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>MultiIndex([(1, 'Total'),
+            (2,    'CA'),
+            (2,    'TX'),
+            (2,    'WI'),
+            (3,  'CA_1')],
+           names=['level', 'id'])</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of series per each level</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>1      1
+2      3
+3     10
+4      3
+5      7
+6      9
+7     21
+8     30
+9     70
+10     7
+11    21
+12    70
+Name: level, dtype: int64</code></pre>
+</div>
+</div>
+<section id="weights-and-scales" class="level4">
+<h4 class="anchored" data-anchor-id="weights-and-scales">Weights and scales</h4>
+<hr>
+<p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/blob/master/chrisrichardmiles/m5/metric.py#L50" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+</section>
+<section id="get_df_weights" class="level3">
+<h3 class="anchored" data-anchor-id="get_df_weights">get_df_weights</h3>
+<blockquote class="blockquote">
+<pre><code> get_df_weights (df_stv, df_cal, df_prices, agg_index, agg_matrix_csr,
+                 start_test=1914)</code></pre>
+</blockquote>
+<p>Returns the weight, scale, and scaled weight of all series, in a dataframe aligned with the agg_index, created in get_agg()</p>
+<section id="weights-steps" class="level5">
+<h5 class="anchored" data-anchor-id="weights-steps">Weights steps</h5>
+<p>We need to convert the sales data into dollar sales data so that we can correctly weight each series. To begin, we consider only the last 28 days of data before START_TEST. We then put the data into “long” format so we can merge the calendar and price information.</p>
+<p>Now we will get the total dollar sales for each item/store combination. Be sure to set sort=False so that our index stays in the proper order. We don’t need df anymore</p>
+<p>We want to build a weight, scales, and scaled weight columns that are aligned with agg_index. We will divide dollar_sales by the total dollar sales to get the weight W for each series. We don’t need dollar_sales anymore.</p>
+</section>
+<section id="scaling-factor-steps" class="level5">
+<h5 class="anchored" data-anchor-id="scaling-factor-steps">Scaling factor steps</h5>
+<p>We also need to calculate each series scaling factor S, which is the denominator in the WRMSSE cacluation. It can be pulled out of the square root and combined with the series weight to make a single weight W/sqrt(S), simplifying our calculations a bit.</p>
+<p>S is the average squared difference of day to daily sales for a series, excluding leading zeros, for all training days leading up to START_TEST.</p>
+<p>Aggregate all series, and replace leading zeros with np.nan so that we can do numpy calculations that will ignore the np.nan.</p>
+<p>Now we can finish our weights and scales dataframe by adding scale and scaled_weight columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_weights <span class="op">=</span> get_df_weights(df_stv, df_cal, df_prices, agg_index, agg_matrix_csr, start_test<span class="op">=</span><span class="dv">1914</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>display(df_weights)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"All weights add to 1 for each level"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>df_weights.groupby(level<span class="op">=</span><span class="dv">0</span>)[<span class="st">'weight'</span>].<span class="bu">sum</span>().to_frame()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_4101/3272591645.py:70: RuntimeWarning: Mean of empty slice
+  scale = np.nanmean(np.diff(agg_series, axis=1) ** 2, axis=1)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>weight</th>
+      <th>scale</th>
+      <th>scaled_weight</th>
+    </tr>
+    <tr>
+      <th>level</th>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <th>Total</th>
+      <td>1.000000</td>
+      <td>0.068950</td>
+      <td>0.068950</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">2</th>
+      <th>CA</th>
+      <td>0.530249</td>
+      <td>0.099428</td>
+      <td>0.052722</td>
+    </tr>
+    <tr>
+      <th>TX</th>
+      <td>0.186410</td>
+      <td>0.213903</td>
+      <td>0.039874</td>
+    </tr>
+    <tr>
+      <th>WI</th>
+      <td>0.283341</td>
+      <td>0.126487</td>
+      <td>0.035839</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <th>CA_1</th>
+      <td>0.119939</td>
+      <td>0.304138</td>
+      <td>0.036478</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th rowspan="5" valign="top">12</th>
+      <th>HOUSEHOLD_2_001_TX_2</th>
+      <td>0.006322</td>
+      <td>0.921271</td>
+      <td>0.005825</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_TX_3</th>
+      <td>0.007903</td>
+      <td>1.450575</td>
+      <td>0.011464</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_WI_1</th>
+      <td>0.011064</td>
+      <td>1.792239</td>
+      <td>0.019829</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_WI_2</th>
+      <td>0.009483</td>
+      <td>2.225395</td>
+      <td>0.021104</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_WI_3</th>
+      <td>0.007903</td>
+      <td>2.257263</td>
+      <td>0.017839</td>
+    </tr>
+  </tbody>
+</table>
+<p>252 rows × 3 columns</p>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>All weights add to 1 for each level</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>weight</th>
+    </tr>
+    <tr>
+      <th>level</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sample-scoring" class="level3">
+<h3 class="anchored" data-anchor-id="sample-scoring">Sample scoring</h3>
+<p>Lets code a simple example using the last month as predicted sales</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>actuals <span class="op">=</span> df_stv.iloc[:, <span class="op">-</span><span class="dv">28</span>:].values</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> df_stv.iloc[:, <span class="op">-</span><span class="dv">28</span> <span class="op">*</span> <span class="dv">2</span>: <span class="op">-</span><span class="dv">28</span>].values </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>base_errors <span class="op">=</span> actuals <span class="op">-</span> preds</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> agg_matrix_csr <span class="op">*</span> base_errors</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> np.sqrt(np.mean((errors)<span class="op">**</span><span class="dv">2</span>, axis<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>wrmsse_by_series <span class="op">=</span> rmse <span class="op">*</span> df_weights.scaled_weight</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>df_scores <span class="op">=</span> pd.DataFrame(wrmsse_by_series).rename(</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                mapper<span class="op">=</span>{<span class="st">'scaled_weight'</span>: <span class="st">'WRMSSE'</span>}, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>wrmsse <span class="op">=</span> np.<span class="bu">sum</span>(wrmsse_by_series) <span class="op">/</span> <span class="dv">12</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wrmsse)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Scores for all series'</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>display(df_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.8866951218462568
+Scores for all series</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>WRMSSE</th>
+    </tr>
+    <tr>
+      <th>level</th>
+      <th>id</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <th>Total</th>
+      <td>0.690365</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">2</th>
+      <th>CA</th>
+      <td>0.382785</td>
+    </tr>
+    <tr>
+      <th>TX</th>
+      <td>0.180849</td>
+    </tr>
+    <tr>
+      <th>WI</th>
+      <td>0.207100</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <th>CA_1</th>
+      <td>0.124278</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th rowspan="5" valign="top">12</th>
+      <th>HOUSEHOLD_2_001_TX_2</th>
+      <td>0.003651</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_TX_3</th>
+      <td>0.007505</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_WI_1</th>
+      <td>0.012429</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_WI_2</th>
+      <td>0.011965</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_WI_3</th>
+      <td>0.012155</td>
+    </tr>
+  </tbody>
+</table>
+<p>252 rows × 1 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="saving-scores" class="level3">
+<h3 class="anchored" data-anchor-id="saving-scores">Saving scores</h3>
+<p>Instead of saving the scores for each series, I will only save scores for each level, and the total score.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>model_name <span class="op">=</span> <span class="st">'last_month_sales'</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>start_test <span class="op">=</span> <span class="dv">1914</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># level_scores</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>level_scores <span class="op">=</span> df_scores.groupby(level<span class="op">=</span><span class="dv">0</span>).<span class="bu">sum</span>()</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>level_scores.loc[<span class="dv">13</span>] <span class="op">=</span> level_scores.mean()</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>level_scores[<span class="st">'model_name'</span>] <span class="op">=</span> model_name</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>level_scores[<span class="st">'start_test'</span>] <span class="op">=</span> start_test</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>level_scores.reset_index(inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>level_scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>level</th>
+      <th>WRMSSE</th>
+      <th>model_name</th>
+      <th>start_test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0.690365</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>0.770734</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>0.894521</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>0.841782</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0.918068</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>0.858148</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>0.947597</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>0.936827</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>0.958316</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>0.918068</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>11</td>
+      <td>0.947597</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>12</td>
+      <td>0.958316</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>13</td>
+      <td>0.886695</td>
+      <td>last_month_sales</td>
+      <td>1914</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<section id="keeping-track-of-model-validation-set-scores." class="level4">
+<h4 class="anchored" data-anchor-id="keeping-track-of-model-validation-set-scores.">Keeping track of model / validation set scores.</h4>
+<p>I need to be able to keep track of the scores for each model / validation set combination. To make organizing scores easier, I want to combine the columns ‘model_name’, ‘level’, ‘start_test’ into a single column’id’ so I can store the scores with a single column as a unique identifier. I will also want to reverse this process later.</p>
+<hr>
+<p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/blob/master/chrisrichardmiles/m5/metric.py#L126" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+</section>
+<section id="combine_cols" class="level3">
+<h3 class="anchored" data-anchor-id="combine_cols">combine_cols</h3>
+<blockquote class="blockquote">
+<pre><code> combine_cols (df, cols:list, sep='__', name='id', reverse=False)</code></pre>
+</blockquote>
+<p>Returns a copy of <code>df</code> with <code>cols</code> combined into a single coloumn <code>name</code>, separated by <code>sep</code>, or with the <code>name</code> column expanded into <code>cols</code> if <code>reverse</code> is True.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cols, sep, name <span class="op">=</span> [<span class="st">'model_name'</span>, <span class="st">'level'</span>, <span class="st">'start_test'</span>], <span class="st">'__'</span>, <span class="st">'id'</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'level_scores with columns combined'</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>level_scores <span class="op">=</span> combine_cols(level_scores, cols, sep, name)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>display(level_scores.head(<span class="dv">3</span>))</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'reversed'</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>df_r <span class="op">=</span> combine_cols(level_scores, cols, sep, name, reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>display(df_r.head(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>level_scores with columns combined</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>WRMSSE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>last_month_sales__1__1914</td>
+      <td>0.690365</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>last_month_sales__2__1914</td>
+      <td>0.770734</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>last_month_sales__3__1914</td>
+      <td>0.894521</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>reversed</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>model_name</th>
+      <th>level</th>
+      <th>start_test</th>
+      <th>WRMSSE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>last_month_sales</td>
+      <td>1</td>
+      <td>1914</td>
+      <td>0.690365</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>last_month_sales</td>
+      <td>2</td>
+      <td>1914</td>
+      <td>0.770734</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>last_month_sales</td>
+      <td>3</td>
+      <td>1914</td>
+      <td>0.894521</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<section id="what-if-the-model-validation-combo-already-exists" class="level4">
+<h4 class="anchored" data-anchor-id="what-if-the-model-validation-combo-already-exists">What if the model / validation combo already exists</h4>
+<p>I want to be able to append my scores to a dataframe so that I will not override previously logged scores, nor will I have copies. I will need a function that ensures I don’t have any problems.</p>
+<hr>
+<p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/blob/master/chrisrichardmiles/m5/metric.py#L140" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+</section>
+<section id="append_df_unique_id" class="level3">
+<h3 class="anchored" data-anchor-id="append_df_unique_id">append_df_unique_id</h3>
+<blockquote class="blockquote">
+<pre><code> append_df_unique_id (df, df_new, id_col='id')</code></pre>
+</blockquote>
+<p>Returns a copy of df with df_new appended to it with ’(n)_’ prepended to the id_col if the new column value is already in the original df. This is used to track scores and ensure there are not copies of a unique identifier.</p>
+<p><code>id_col</code> should be of string type.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tmp <span class="op">=</span> level_scores.head(<span class="dv">3</span>).copy()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> tmp.copy()</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>): </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> append_df_unique_id(df, tmp, id_col<span class="op">=</span><span class="st">'id'</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'No copies, no overrides'</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>display(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>No copies, no overrides</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>WRMSSE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>last_month_sales__1__1914</td>
+      <td>0.690365</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>last_month_sales__2__1914</td>
+      <td>0.770734</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>last_month_sales__3__1914</td>
+      <td>0.894521</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(1)_last_month_sales__1__1914</td>
+      <td>0.690365</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>(1)_last_month_sales__2__1914</td>
+      <td>0.770734</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>(1)_last_month_sales__3__1914</td>
+      <td>0.894521</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2)_last_month_sales__1__1914</td>
+      <td>0.690365</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>(2)_last_month_sales__2__1914</td>
+      <td>0.770734</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>(2)_last_month_sales__3__1914</td>
+      <td>0.894521</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(3)_last_month_sales__1__1914</td>
+      <td>0.690365</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>(3)_last_month_sales__2__1914</td>
+      <td>0.770734</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>(3)_last_month_sales__3__1914</td>
+      <td>0.894521</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-results" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-results">Visualizing results</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>model_name <span class="op">=</span> <span class="st">'all_ones'</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>level_scores <span class="op">=</span> df_scores.groupby(level<span class="op">=</span><span class="dv">0</span>).<span class="bu">sum</span>()</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span>level_scores.index, y<span class="op">=</span>level_scores[<span class="st">'WRMSSE'</span>])</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>plt.axhline(level_scores.mean()[<span class="dv">0</span>], color<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span><span class="fl">.5</span>, ls<span class="op">=</span><span class="st">':'</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>name_and_days <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>model_name<span class="sc">}</span><span class="ss"> day </span><span class="sc">{</span>START_TEST<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>START_TEST <span class="op">+</span> <span class="dv">27</span><span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>title <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>name_and_days<span class="sc">}</span><span class="ss"> WRMSSE total: </span><span class="sc">{</span><span class="bu">round</span>(level_scores.mean()[<span class="dv">0</span>], <span class="dv">4</span>)<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>plt.title(title, fontsize<span class="op">=</span><span class="dv">20</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">12</span>): </span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    ax.text(i, level_scores[<span class="st">'WRMSSE'</span>][i<span class="op">+</span><span class="dv">1</span>], </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>            <span class="bu">str</span>(<span class="bu">round</span>(level_scores[<span class="st">'WRMSSE'</span>][i<span class="op">+</span><span class="dv">1</span>], <span class="dv">4</span>)), </span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>            color<span class="op">=</span><span class="st">'black'</span>, ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="02_WRMSSE_metric_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="saving-predictions-for-competition-scoring" class="level3">
+<h3 class="anchored" data-anchor-id="saving-predictions-for-competition-scoring">Saving predictions for competition scoring</h3>
+<p>The host wants predictions submitted in a format like the sample submission file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The id column needs a _validation or _evaluation tag'</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>display(df_ss.head())</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>display(df_ss.tail())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The id column needs a _validation or _evaluation tag</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>F1</th>
+      <th>F2</th>
+      <th>F3</th>
+      <th>F4</th>
+      <th>F5</th>
+      <th>F6</th>
+      <th>F7</th>
+      <th>F8</th>
+      <th>F9</th>
+      <th>...</th>
+      <th>F19</th>
+      <th>F20</th>
+      <th>F21</th>
+      <th>F22</th>
+      <th>F23</th>
+      <th>F24</th>
+      <th>F25</th>
+      <th>F26</th>
+      <th>F27</th>
+      <th>F28</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>HOBBIES_1_001_CA_1_validation</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>HOBBIES_2_001_CA_1_validation</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>HOUSEHOLD_1_001_CA_1_validation</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>HOUSEHOLD_2_001_CA_1_validation</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>FOODS_1_001_CA_1_validation</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 29 columns</p>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>F1</th>
+      <th>F2</th>
+      <th>F3</th>
+      <th>F4</th>
+      <th>F5</th>
+      <th>F6</th>
+      <th>F7</th>
+      <th>F8</th>
+      <th>F9</th>
+      <th>...</th>
+      <th>F19</th>
+      <th>F20</th>
+      <th>F21</th>
+      <th>F22</th>
+      <th>F23</th>
+      <th>F24</th>
+      <th>F25</th>
+      <th>F26</th>
+      <th>F27</th>
+      <th>F28</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>135</th>
+      <td>HOUSEHOLD_1_001_WI_3_evaluation</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>136</th>
+      <td>HOUSEHOLD_2_001_WI_3_evaluation</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>137</th>
+      <td>FOODS_1_001_WI_3_evaluation</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>138</th>
+      <td>FOODS_2_001_WI_3_evaluation</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>139</th>
+      <td>FOODS_3_001_WI_3_evaluation</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 29 columns</p>
+</div>
+</div>
+</div>
+<p><strong>Example</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df_preds <span class="op">=</span> pd.DataFrame(preds, index<span class="op">=</span>df_scores.loc[<span class="dv">12</span>].index).reset_index()</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>test<span class="op">=</span><span class="va">False</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> test: df_preds[<span class="st">'id'</span>] <span class="op">=</span> df_preds[<span class="st">'id'</span>] <span class="op">+</span> <span class="st">'_validation'</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: df_preds[<span class="st">'id'</span>] <span class="op">=</span> df_preds[<span class="st">'id'</span>] <span class="op">+</span> <span class="st">'_evaluation'</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>df_sub <span class="op">=</span> df_ss[[<span class="st">'id'</span>]].merge(df_preds, on<span class="op">=</span><span class="st">'id'</span>, how<span class="op">=</span><span class="st">'left'</span>).fillna(<span class="dv">0</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>file_name <span class="op">=</span> <span class="st">'sub_'</span> <span class="op">+</span> model_name <span class="op">+</span> <span class="st">'.csv'</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>df_sub.to_csv(file_name, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pd.read_csv(file_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>...</th>
+      <th>18</th>
+      <th>19</th>
+      <th>20</th>
+      <th>21</th>
+      <th>22</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
+      <th>27</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>HOBBIES_1_001_CA_1_validation</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>HOBBIES_2_001_CA_1_validation</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>HOUSEHOLD_1_001_CA_1_validation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>HOUSEHOLD_2_001_CA_1_validation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>FOODS_1_001_CA_1_validation</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>135</th>
+      <td>HOUSEHOLD_1_001_WI_3_evaluation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>136</th>
+      <td>HOUSEHOLD_2_001_WI_3_evaluation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>137</th>
+      <td>FOODS_1_001_WI_3_evaluation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>138</th>
+      <td>FOODS_2_001_WI_3_evaluation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>139</th>
+      <td>FOODS_3_001_WI_3_evaluation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>140 rows × 29 columns</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm {file_name}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="main-object" class="level2">
+<h2 class="anchored" data-anchor-id="main-object">Main object</h2>
+<hr>
+<p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/blob/master/chrisrichardmiles/m5/metric.py#L164" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="wrmsse-1" class="level3">
+<h3 class="anchored" data-anchor-id="wrmsse-1">WRMSSE</h3>
+<blockquote class="blockquote">
+<pre><code> WRMSSE (PATH_DATA_RAW:str='data/raw', start_test:int=1914,
+         horizon:int=28, df_stv_trunc:pandas.core.frame.DataFrame=None)</code></pre>
+</blockquote>
+<p>The main object that will hold data, weights and scales which are associated with the forecast horizon starting on <code>start_test</code>, extending horizon <code>days</code>.</p>
+<p><strong>Example use of the WRMSSE evaluator</strong> * <strong>Test period</strong>: Days 1914 - 1941, same as the competition validation period, so the we should get the same score here as we do if we submit the same predictions to kaggle (confirmed). * <strong>Predicton model</strong>: simlple baseline of predicting sales to be the same as the previous 28 days.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>start_test <span class="op">=</span> <span class="dv">1914</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>e <span class="op">=</span> WRMSSE(PATH_DATA_RAW, start_test<span class="op">=</span>start_test)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>e.add_total_scaled_weight()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_4101/3272591645.py:70: RuntimeWarning: Mean of empty slice
+  scale = np.nanmean(np.diff(agg_series, axis=1) ** 2, axis=1)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>e.w_12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>weight</th>
+      <th>scale</th>
+      <th>scaled_weight</th>
+      <th>total_scaled_weight</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>FOODS_1_001_CA_1_evaluation</th>
+      <td>0.017258</td>
+      <td>0.639995</td>
+      <td>0.011045</td>
+      <td>0.289121</td>
+    </tr>
+    <tr>
+      <th>FOODS_1_001_CA_2_evaluation</th>
+      <td>0.016212</td>
+      <td>0.357398</td>
+      <td>0.005794</td>
+      <td>0.272530</td>
+    </tr>
+    <tr>
+      <th>FOODS_1_001_CA_3_evaluation</th>
+      <td>0.012551</td>
+      <td>0.299844</td>
+      <td>0.003763</td>
+      <td>0.268578</td>
+    </tr>
+    <tr>
+      <th>FOODS_1_001_CA_4_evaluation</th>
+      <td>0.004707</td>
+      <td>1.203066</td>
+      <td>0.005662</td>
+      <td>0.272424</td>
+    </tr>
+    <tr>
+      <th>FOODS_1_001_TX_1_evaluation</th>
+      <td>0.000523</td>
+      <td>0.805682</td>
+      <td>0.000421</td>
+      <td>0.227676</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_TX_2_evaluation</th>
+      <td>0.006322</td>
+      <td>0.921271</td>
+      <td>0.005825</td>
+      <td>0.348558</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_TX_3_evaluation</th>
+      <td>0.007903</td>
+      <td>1.450575</td>
+      <td>0.011464</td>
+      <td>0.363599</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_WI_1_evaluation</th>
+      <td>0.011064</td>
+      <td>1.792239</td>
+      <td>0.019829</td>
+      <td>0.464320</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_WI_2_evaluation</th>
+      <td>0.009483</td>
+      <td>2.225395</td>
+      <td>0.021104</td>
+      <td>0.468462</td>
+    </tr>
+    <tr>
+      <th>HOUSEHOLD_2_001_WI_3_evaluation</th>
+      <td>0.007903</td>
+      <td>2.257263</td>
+      <td>0.017839</td>
+      <td>0.437300</td>
+    </tr>
+  </tbody>
+</table>
+<p>70 rows × 4 columns</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> e.df_stv.loc[:, <span class="ss">f'd_</span><span class="sc">{</span>start_test <span class="op">-</span> <span class="dv">28</span><span class="sc">}</span><span class="ss">'</span>: <span class="ss">f'd_</span><span class="sc">{</span>start_test <span class="op">-</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>].values</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>e.score(preds, model_name<span class="op">=</span><span class="st">'same_as_last_month'</span>, fast<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Saving level scores with model name: same_as_last_month</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>0.8866951218462568</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> e.plot_scores()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="02_WRMSSE_metric_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>e.dump_scores(PATH_DATA)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>pd.read_csv(PATH_DATA <span class="op">+</span> <span class="st">'/scores.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>WRMSSE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>same_as_last_month__1__1914</td>
+      <td>0.690365</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>same_as_last_month__2__1914</td>
+      <td>0.770734</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>same_as_last_month__3__1914</td>
+      <td>0.894521</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>same_as_last_month__4__1914</td>
+      <td>0.841782</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>same_as_last_month__5__1914</td>
+      <td>0.918068</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>same_as_last_month__6__1914</td>
+      <td>0.858148</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>same_as_last_month__7__1914</td>
+      <td>0.947597</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>same_as_last_month__8__1914</td>
+      <td>0.936827</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>same_as_last_month__9__1914</td>
+      <td>0.958316</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>same_as_last_month__10__1914</td>
+      <td>0.918068</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>same_as_last_month__11__1914</td>
+      <td>0.947597</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>same_as_last_month__12__1914</td>
+      <td>0.958316</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>same_as_last_month__13__1914</td>
+      <td>0.886695</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>e.make_sub()</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>pd.read_csv(<span class="st">'sub_'</span> <span class="op">+</span> e.model_name <span class="op">+</span> <span class="st">'.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>...</th>
+      <th>18</th>
+      <th>19</th>
+      <th>20</th>
+      <th>21</th>
+      <th>22</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
+      <th>27</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>HOBBIES_1_001_CA_1_validation</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>HOBBIES_2_001_CA_1_validation</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>HOUSEHOLD_1_001_CA_1_validation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>HOUSEHOLD_2_001_CA_1_validation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>FOODS_1_001_CA_1_validation</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>135</th>
+      <td>HOUSEHOLD_1_001_WI_3_evaluation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>136</th>
+      <td>HOUSEHOLD_2_001_WI_3_evaluation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>137</th>
+      <td>FOODS_1_001_WI_3_evaluation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>138</th>
+      <td>FOODS_2_001_WI_3_evaluation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>139</th>
+      <td>FOODS_3_001_WI_3_evaluation</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>140 rows × 29 columns</p>
+</div>
+</div>
+</div>
+<p>Submit this file and see that it scores the same on the kaggle public leaderboard</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm {<span class="st">'sub_'</span> <span class="op">+</span> e.model_name <span class="op">+</span> <span class="st">'.csv'</span>} {PATH_DATA <span class="op">+</span> <span class="st">'/scores.csv'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="using-weights-for-custom-objective-functions-and-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="using-weights-for-custom-objective-functions-and-metrics">Using weights for custom objective functions and metrics</h2>
+<p>These static methods will help us create custom metrics and evaluation functions for lightgbm training</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

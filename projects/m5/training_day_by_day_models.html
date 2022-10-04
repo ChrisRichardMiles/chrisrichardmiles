@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>../../chrisrichardmiles - Train day-by-day models</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="../../chrisrichardmiles - Train day-by-day models">
+<meta property="og:description" content="source">
+<meta property="og:site-name" content="../../chrisrichardmiles">
+<meta name="twitter:title" content="../../chrisrichardmiles - Train day-by-day models">
+<meta name="twitter:description" content="source">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">chrisrichardmiles</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Train day-by-day models</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">chrisrichardmiles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../core.html" class="sidebar-item-text sidebar-link">Core</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">projects</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">m5</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/index_m5.html" class="sidebar-item-text sidebar-link">Welcome to chrisrichardmiles.m5</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/brief_eda.html" class="sidebar-item-text sidebar-link">Brief EDA</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/feature_engineering.html" class="sidebar-item-text sidebar-link">Feature engineering</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/04_out_of_stock_detection.html" class="sidebar-item-text sidebar-link">Total sales for all series of aggregation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/m5/training_day_by_day_models.html" class="sidebar-item-text sidebar-link active">Train day-by-day models</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">optiver</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/index_optiver.html" class="sidebar-item-text sidebar-link">Optiver Realized Volatility Prediction: 91st place solution</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/opt-error-analysis.html" class="sidebar-item-text sidebar-link">Error analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">notebooks</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-book-trade-eda.html" class="sidebar-item-text sidebar-link">price features</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-eda-modified-from-host-nb.html" class="sidebar-item-text sidebar-link">Optiver Realized Volatility Prediction</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-dart-op-129a-stock-31-only.html" class="sidebar-item-text sidebar-link">opt-train-dart-op-129a-stock-31-only.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-dart.html" class="sidebar-item-text sidebar-link">opt-train-dart.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-one-at-a-time.html" class="sidebar-item-text sidebar-link">opt-train-one-at-a-time.html</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/optiver/notebooks/opt-train-tabnet-142.html" class="sidebar-item-text sidebar-link">opt-train-tabnet-142.html</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#load_cfg" id="toc-load_cfg" class="nav-link active" data-scroll-target="#load_cfg">load_cfg</a></li>
+  <li><a href="#prep_data" id="toc-prep_data" class="nav-link" data-scroll-target="#prep_data">prep_data</a></li>
+  <li><a href="#neptune" id="toc-neptune" class="nav-link" data-scroll-target="#neptune">neptune</a></li>
+  <li><a href="#cli_lgb_daily" id="toc-cli_lgb_daily" class="nav-link" data-scroll-target="#cli_lgb_daily">cli_lgb_daily</a></li>
+  <li><a href="#lgb_daily" id="toc-lgb_daily" class="nav-link" data-scroll-target="#lgb_daily">lgb_daily</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Train day-by-day models</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#all_no_test</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/blob/master/chrisrichardmiles/m5/daily_models.py#L31" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="load_cfg" class="level3">
+<h3 class="anchored" data-anchor-id="load_cfg">load_cfg</h3>
+<blockquote class="blockquote">
+<pre><code> load_cfg (path_cfg)</code></pre>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cfg <span class="op">=</span> load_cfg(<span class="st">'final_cfg.json'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cfg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'start_test': 1942,
+ 'start_train': 140,
+ 'days_to_predict': 'all',
+ 'fobj': None,
+ 'fobj_weight_col': 'total_scaled_weight',
+ 'weight_hess': 1,
+ 'feval': 'mse',
+ 'feval_weight_col': 'scale',
+ 'weight_col': None,
+ 'lgb_params': {'boosting_type': 'gbdt',
+  'objective': 'regression',
+  'metric': None,
+  'subsample': 0.5,
+  'subsample_freq': 1,
+  'learning_rate': 0.03,
+  'num_leaves': 255,
+  'min_data_in_leaf': 255,
+  'feature_fraction': 0.8,
+  'n_estimators': 5000,
+  'early_stopping_rounds': 50,
+  'device_type': 'cpu',
+  'seed': 42,
+  'verbose': -1},
+ 'target': 'sales',
+ 'p_horizon': 28,
+ 'num_series': 30490,
+ 'features_json': 'final_features.json',
+ 'path_data_raw': '../../../data/raw',
+ 'path_features': '../../../data/features',
+ 'path_models': '../../../data/models',
+ 'use_neptune': 0,
+ 'neptune_project': None,
+ 'neptune_api_token': None}</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>FINAL_CFG</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'start_test': 1942,
+ 'start_train': 140,
+ 'days_to_predict': 'all',
+ 'fobj': 'mse',
+ 'fobj_weight_col': 'total_scaled_weight',
+ 'weight_hess': 1,
+ 'feval': 'mse',
+ 'feval_weight_col': 'scale',
+ 'weight_col': None,
+ 'lgb_params': {'boosting_type': 'gbdt',
+  'objective': None,
+  'metric': None,
+  'subsample': 0.5,
+  'subsample_freq': 1,
+  'learning_rate': 0.03,
+  'num_leaves': 255,
+  'min_data_in_leaf': 255,
+  'feature_fraction': 0.8,
+  'n_estimators': 1,
+  'early_stopping_rounds': 50,
+  'device_type': 'cpu',
+  'seed': 42,
+  'verbose': -1},
+ 'target': 'sales',
+ 'p_horizon': 28,
+ 'num_series': 30490,
+ 'features_json': 'pkl_final_features.json',
+ 'path_data_raw': 'data/raw',
+ 'path_features': 'data/features',
+ 'path_models': 'data/models',
+ 'use_neptune': 0,
+ 'neptune_project': 0,
+ 'neptune_api_token': None}</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>DICT_FEATURES</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'fe_base.csv': ['dept_id', 'store_id'],
+ 'fe_cal.csv': ['event_name_1', 'tm_d', 'tm_w', 'tm_m', 'tm_dw', 'tm_w_end'],
+ 'fe_price.csv': ['sell_price',
+  'price_min',
+  'price_max',
+  'price_median',
+  'price_mode',
+  'price_mean',
+  'price_std',
+  'price_norm_max',
+  'price_norm_mode',
+  'price_norm_mean',
+  'price_momentum',
+  'price_roll_momentum_4',
+  'price_roll_momentum_24',
+  'price_end_digits'],
+ 'fe_snap_event.csv': ['snap_transform_1',
+  'snap_transform_2',
+  'next_event_type_1',
+  'last_event_type_1',
+  'days_since_event',
+  'days_until_event'],
+ 'shift_fe_dow_means_and_days_since_sale.csv': ['mean_4_dow_0',
+  'mean_4_dow_1',
+  'mean_4_dow_2',
+  'mean_4_dow_3',
+  'mean_4_dow_4',
+  'mean_4_dow_5',
+  'mean_4_dow_6',
+  'mean_20_dow_0',
+  'mean_20_dow_1',
+  'mean_20_dow_2',
+  'mean_20_dow_3',
+  'mean_20_dow_4',
+  'mean_20_dow_5',
+  'mean_20_dow_6',
+  'days_since_sale'],
+ 'shift_fe_ipca_15_84.csv': ['index',
+  'ipca_15_84_comp_1',
+  'ipca_15_84_comp_2',
+  'ipca_15_84_comp_3',
+  'ipca_15_84_comp_4',
+  'ipca_15_84_comp_5',
+  'ipca_15_84_comp_6',
+  'ipca_15_84_comp_7',
+  'ipca_15_84_comp_8',
+  'ipca_15_84_comp_9',
+  'ipca_15_84_comp_10',
+  'ipca_15_84_comp_11',
+  'ipca_15_84_comp_12',
+  'ipca_15_84_comp_13',
+  'ipca_15_84_comp_14'],
+ 'shift_fe_lags_1_14.csv': ['lag_1',
+  'lag_2',
+  'lag_3',
+  'lag_4',
+  'lag_5',
+  'lag_6',
+  'lag_7',
+  'lag_8',
+  'lag_9',
+  'lag_10',
+  'lag_11',
+  'lag_12',
+  'lag_13',
+  'lag_14'],
+ 'shift_fe_rw_1.csv': ['shift_1_rolling_nanmean_3',
+  'shift_1_rolling_mean_decay_3',
+  'shift_1_rolling_nanmean_7',
+  'shift_1_rolling_mean_decay_7',
+  'shift_1_rolling_nanstd_7'],
+ 'shift_fe_rw_2.csv': ['shift_1_rolling_nanmean_14',
+  'shift_1_rolling_mean_decay_14',
+  'shift_1_rolling_diff_nanmean_14',
+  'shift_1_rolling_nanstd_14',
+  'shift_1_rolling_nanmean_30',
+  'shift_1_rolling_mean_decay_30'],
+ 'shift_fe_rw_3.csv': ['shift_1_rolling_nanmean_60',
+  'shift_1_rolling_nanmedian_60',
+  'shift_1_rolling_mean_decay_60',
+  'shift_1_rolling_nanstd_60',
+  'shift_1_rolling_nanmean_140',
+  'shift_1_rolling_mean_decay_140',
+  'shift_1_rolling_nanstd_140'],
+ 'shift_fe_shifts_mom_1.csv': ['shift_8_rolling_nanmean_7',
+  'momentum_7_rolling_nanmean_7',
+  'shift_8_rolling_mean_decay_7',
+  'momentum_7_rolling_mean_decay_7',
+  'momentum_7_rolling_diff_nanmean_7',
+  'shift_29_rolling_nanmean_7',
+  'momentum_28_rolling_nanmean_7',
+  'shift_29_rolling_mean_decay_7',
+  'momentum_28_rolling_mean_decay_7',
+  'shift_29_rolling_diff_nanmean_7',
+  'momentum_28_rolling_diff_nanmean_7'],
+ 'shift_fe_shifts_mom_2.csv': ['shift_8_rolling_nanmean_30',
+  'momentum_7_rolling_nanmean_30',
+  'shift_8_rolling_mean_decay_30',
+  'shift_29_rolling_nanmean_30',
+  'momentum_28_rolling_nanmean_30',
+  'shift_29_rolling_mean_decay_30'],
+ 'shift_fe_shifts_mom_3.csv': ['shift_29_rolling_nanmean_60',
+  'shift_91_rolling_nanmean_60',
+  'shift_91_rolling_mean_decay_60']}</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/blob/master/chrisrichardmiles/m5/daily_models.py#L211" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="prep_data" class="level3">
+<h3 class="anchored" data-anchor-id="prep_data">prep_data</h3>
+<blockquote class="blockquote">
+<pre><code> prep_data (cfg)</code></pre>
+</blockquote>
+<hr>
+<p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/blob/master/chrisrichardmiles/m5/daily_models.py#L232" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="neptune" class="level3">
+<h3 class="anchored" data-anchor-id="neptune">neptune</h3>
+<blockquote class="blockquote">
+<pre><code> neptune (cfg)</code></pre>
+</blockquote>
+<p>Not implemented</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>neptune(cfg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+<p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/blob/master/chrisrichardmiles/m5/daily_models.py#L350" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="cli_lgb_daily" class="level3">
+<h3 class="anchored" data-anchor-id="cli_lgb_daily">cli_lgb_daily</h3>
+<blockquote class="blockquote">
+<pre><code> cli_lgb_daily (path_cfg:str&lt;pathtotheconfigurationjson&gt;='cfg.json')</code></pre>
+</blockquote>
+<hr>
+<p><a href="https://github.com/chrisrichardmiles/chrisrichardmiles/blob/master/chrisrichardmiles/m5/daily_models.py#L238" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="lgb_daily" class="level3">
+<h3 class="anchored" data-anchor-id="lgb_daily">lgb_daily</h3>
+<blockquote class="blockquote">
+<pre><code> lgb_daily (path_cfg:str='cfg.json')</code></pre>
+</blockquote>
+<p>Train 1 model for each day of prediction accoring to <code>path_cfg</code>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
