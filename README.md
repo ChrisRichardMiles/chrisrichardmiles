@@ -16,8 +16,8 @@ Hello!
 # Kaggle competition winning solutions
 
 ## M5: Hierarchical Time Series of Wallmart Product Sales Prediction - 77th place solution
-<a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/blob/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp">
-  <img src="https://raw.githubusercontent.com/yourusername/yourrepository/branch/path/to/image.png" alt="Alt text for the image" width="300" height="200"/>
+<a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/m5">
+  <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="Alt text for the image" width="300" height="200"/>
 </a>
 ## Optiver Realized Volatility: Predicting Stock Volatility - 91st place solution
 ## Sleep State Detection From Wrist Worn Accelerometer Data - 175th place solution
