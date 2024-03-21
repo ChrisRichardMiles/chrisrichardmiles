@@ -19,7 +19,7 @@ Hello!
   <tr>
     <td>
       <a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/m5">
-        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="M5 Competition Graphic" width="200" height="200"/>
+        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="M5 Competition Graphic" width="00" height="200"/>
       </a>
     </td>
     <td>
@@ -32,7 +32,7 @@ Hello!
   <tr>
     <td>
       <a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/optiver">
-        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="M5 Competition Graphic" width="200" height="200"/>
+        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/images/DALL%C2%B7E%202024-03-21%2001.49.02%20-%20Create%20a%20clean%20and%20professional%20graphic%20for%20a%20project%20titled%20'Optiver%20Realized%20Volatility_%20Predicting%20Stock%20Volatility%20-%2091st%20place%20solution'.%20The%20ima.webp" alt="M5 Competition Graphic" width="200" height="200"/>
       </a>
     </td>
     <td>
@@ -45,7 +45,7 @@ Hello!
   <tr>
     <td>
       <a href="https://github.com/ChrisRichardMiles/sleep_state_detection">
-        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="M5 Competition Graphic" width="200" height="200"/>
+        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/images/DALL%C2%B7E%202024-03-21%2001.53.40%20-%20Design%20a%20graphic%20for%20a%20project%20titled%20'Sleep%20State%20Detection%20From%20Wrist%20Worn%20Accelerometer%20Data%20-%20175th%20place%20solution'.%20The%20image%20should%20focus%20on%20the.webp" alt="M5 Competition Graphic" width="200" height="200"/>
       </a>
     </td>
     <td>
@@ -57,8 +57,8 @@ Hello!
 <table>
   <tr>
     <td>
-      <a href="https://github.com/ChrisRichardMiles/sleep_state_detection">
-        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="M5 Competition Graphic" width="200" height="200"/>
+      <a href="https://github.com/ChrisRichardMiles/rsna_ab_trauma">
+        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/images/DALL%C2%B7E%202024-03-21%2001.58.55%20-%20Create%20a%20realistic%203D%20rendering%20of%20a%20CT%20scan%20showcasing%20human%20organs.%20The%20image%20should%20focus%20on%20the%20detailed%20internal%20structure%20of%20multiple%20organs%2C%20vi.webp" alt="M5 Competition Graphic" width="200" height="200"/>
       </a>
     </td>
     <td>
