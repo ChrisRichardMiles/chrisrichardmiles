@@ -19,7 +19,7 @@ Hello!
   <tr>
     <td>
       <a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/m5">
-        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/images/DALL%C2%B7E%202024-03-21%2002.10.02%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="M5 Competition Graphic" width="00" height="200"/>
+        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="M5 Competition Graphic" width="200" height="200"/>
       </a>
     </td>
     <td>
@@ -27,6 +27,7 @@ Hello!
     </td>
   </tr>
 </table>
+
 
 <table>
   <tr>
