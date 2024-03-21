@@ -19,7 +19,7 @@ Hello!
   <tr>
     <td>
       <a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/m5">
-        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="M5 Competition Graphic" width="300" height="200"/>
+        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="M5 Competition Graphic" width="200" height="200"/>
       </a>
     </td>
     <td>
@@ -28,16 +28,41 @@ Hello!
   </tr>
 </table>
 
+<table>
+  <tr>
+    <td>
+      <a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/optiver">
+        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="M5 Competition Graphic" width="200" height="200"/>
+      </a>
+    </td>
+    <td>
+      <strong>Optiver Realized Volatility: Predicting Stock Volatility</strong> - 91st place solution
+    </td>
+  </tr>
+</table>
 
-## M5: Hierarchical Time Series of Wallmart Product Sales Prediction - 77th place solution
-<a href="https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/m5">
-  <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="Alt text for the image" width="300" height="200"/>
-</a>
-## Optiver Realized Volatility: Predicting Stock Volatility - 91st place solution
-## Sleep State Detection From Wrist Worn Accelerometer Data - 175th place solution
-## Predicting Organ Injuries from Blunt Force Trauma using CT Scans and Machine Learning - 79th place solution
+<table>
+  <tr>
+    <td>
+      <a href="https://github.com/ChrisRichardMiles/sleep_state_detection">
+        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="M5 Competition Graphic" width="200" height="200"/>
+      </a>
+    </td>
+    <td>
+      <strong>Sleep State Detection From Wrist Worn Accelerometer Data</strong> - 175th place solution
+    </td>
+  </tr>
+</table>
 
-[![M5: Hierarchical Time Series of Wallmart Product Sales Prediction - 77th place solution](https://github-readme-stats.vercel.app/api/pin/?username=chrisrichardmiles&repo=chrisrichardmiles&theme=dark)](https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/m5)
-[![Optiver Realized Volatility: Predicting Stock Volatility - 91st place solution](https://github-readme-stats.vercel.app/api/pin/?username=chrisrichardmiles&repo=chrisrichardmiles&theme=dark)](https://github.com/ChrisRichardMiles/chrisrichardmiles/tree/master/projects/optiver)
-[![Sleep State Detection From Wrist Worn Accelerometer Data - 175th place solution](https://github-readme-stats.vercel.app/api/pin/?username=chrisrichardmiles&repo=sleep_state_detection&theme=dark)](https://github.com/ChrisRichardMiles/sleep_state_detection)
-[![Predicting Organ Injuries from Blunt Force Trauma using CT Scans and Machine Learning - 79th place solution](https://github-readme-stats.vercel.app/api/pin/?username=chrisrichardmiles&repo=rsna_ab_trauma&theme=dark)](https://github.com/ChrisRichardMiles/rsna_ab_trauma)
+<table>
+  <tr>
+    <td>
+      <a href="https://github.com/ChrisRichardMiles/sleep_state_detection">
+        <img src="https://raw.githubusercontent.com/ChrisRichardMiles/chrisrichardmiles/master/DALL%C2%B7E%202024-03-21%2001.29.12%20-%20Design%20a%20vibrant%20and%20engaging%20graphic%20for%20a%20sales%20forecasting%20project%20focused%20on%20predicting%20Walmart%20product%20sales.%20The%20image%20should%20feature%20elements%20a.webp" alt="M5 Competition Graphic" width="200" height="200"/>
+      </a>
+    </td>
+    <td>
+      <strong>Predicting Organ Injuries from Blunt Force Trauma using CT Scans</strong> - 79th place solution
+    </td>
+  </tr>
+</table>
